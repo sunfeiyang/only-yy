@@ -8,9 +8,8 @@ public class HttpTest {
         HttpRequest httpRequest = new HttpRequest();
         //请求地址
         String url = "https://douban.uieee.com/v2/movie/subject/26636712";
-        String param = "";
-        System.out.println(httpRequest.sendGet(url,param));
-
+        System.out.println("数据请求结果为：");
+        System.out.println(httpRequest.get(url));
 
     }
 }
