@@ -3,10 +3,14 @@ package com.sunfy.yy.controller;
 import com.sunfy.yy.domain.Culture_Famous;
 import com.sunfy.yy.domain.Result;
 import com.sunfy.yy.repository.Culture_Famous_Repository;
+import com.sunfy.yy.service.Culture_Famous_Service;
 import com.sunfy.yy.utils.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,16 +22,31 @@ import javax.validation.Valid;
 @RestController
 public class Culture_Famous_Controller {
 
+    private final static Logger logger = LoggerFactory.getLogger(Culture_Famous_Controller.class);
+
     @Autowired
     private Culture_Famous_Repository culture_famous_repository;
+
+    @Autowired
+    private Culture_Famous_Service culture_famous_service;
 
     /**
      * 查询所有的名人名言
      * @return
      */
-    @GetMapping(value = "famous")
-    public Result<Culture_Famous> famousList(){
-        return ResultUtil.success(culture_famous_repository.findAll());
+    @GetMapping(value = "famous/{keyword}")
+    public Result<Culture_Famous> famousList(@PathVariable("keyword") String keyword){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Famous_Controller—famousList】请求成功！");
+        }
+        //culture_famous_service.addFamous("");
+//        return ResultUtil.success(culture_famous_repository.findAll());
+        String url ="https://api.avatardata.cn/MingRenMingYan/LookUp?key=71f8e8cf64f3428b8fd8d238598aa3d3&page=1&rows=5";
+        url += "&keyword="+keyword;
+        logger.info("【Culture_Famous_Controller—famousList】请求成功！url="+url);
+        Result<Culture_Famous> result = culture_famous_service.addFamous(url);
+        return result;
+        //return ResultUtil.success(culture_famous_repository.findAll());
     }
 
     /**
