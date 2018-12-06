@@ -26,7 +26,7 @@ public class HttpTest {
         Map map = jsonUtils.toMap(jsonResult);
         System.out.println(map.get("total"));
         Integer total = (Integer) map.get("total");
-        System.out.println("total-----------"+total);
+//        System.out.println("total-----------"+total);
         ArrayList list = (ArrayList) map.get("result");
         for (int i = 0; i < list.size(); i++) {
             Map mapList = (Map) list.get(i);
