@@ -1,9 +1,9 @@
 package com.sunfy.yy;
 
-import com.sunfy.yy.domain.Culture_Famous;
-import com.sunfy.yy.repository.Culture_Famous_Repository;
-import com.sunfy.yy.utils.HttpRequest;
-import com.sunfy.yy.utils.JsonUtils;
+import com.sunfy.yy.culture.domain.Culture_Famous;
+import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
+import com.sunfy.yy.common.utils.HttpRequest;
+import com.sunfy.yy.common.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
