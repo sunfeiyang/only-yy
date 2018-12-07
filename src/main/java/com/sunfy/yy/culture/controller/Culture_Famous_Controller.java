@@ -9,10 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -35,13 +32,20 @@ public class Culture_Famous_Controller {
      * @return
      */
     @GetMapping(value = "famous/{keyword}")
-    public Result<Culture_Famous> famousList(@PathVariable("keyword") String keyword){
+    public Result<Culture_Famous> famousList(@PathVariable("keyword") String keyword,
+                                             @RequestParam("rows") Integer rows,
+                                             @RequestParam("page") Integer page){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousList】请求成功！");
         }
-        String url ="https://api.avatardata.cn/MingRenMingYan/LookUp?key=71f8e8cf64f3428b8fd8d238598aa3d3&page=1&rows=5";
+        String url ="https://api.avatardata.cn/MingRenMingYan/LookUp?key=71f8e8cf64f3428b8fd8d238598aa3d3";
         url += "&keyword="+keyword;
-        logger.info("【Culture_Famous_Controller—famousList】请求成功！url="+url);
+        if(!rows.equals("") && rows != null){
+            url += "&rows="+rows;
+        }
+        if(!page.equals("") && page != null){
+            url += "&page="+page;
+        }
         return ResultUtil.success(culture_famous_service.addFamous(url));
     }
 

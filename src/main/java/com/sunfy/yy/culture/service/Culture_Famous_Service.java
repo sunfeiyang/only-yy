@@ -47,13 +47,12 @@ public class Culture_Famous_Service {
             if(list != null && list.size() > 0){
                 for (int i = 0; i < list.size(); i++) {
                     Map mapList = (Map) list.get(i);
-                    String famous_name = (String) mapList.get("famous_name");
-                    String famous_saying = (String) mapList.get("famous_saying");
-                    Culture_Famous culture_famous = new Culture_Famous();
-                    culture_famous.setFamous_name(famous_name);
-                    culture_famous.setFamous_saying(famous_saying);
-                    System.out.println(culture_famous.toString());
-                    culture_famous_repository.save(culture_famous);
+                    //将数据存入数据库
+                    if(!this.listFiltrate(mapList)){
+                        culture_famous_repository.save(this.mapToBean(mapList));
+                    }else{
+                        System.out.println("数据已存在——》"+mapList.toString());
+                    }
                 }
                 return list;
             }
@@ -61,5 +60,35 @@ public class Culture_Famous_Service {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 将map中数据存入指定bean对象中并将bean对象返回
+     * @param map 带有数据的map
+     * @return 返回存入数据的bean对象
+     */
+    public Culture_Famous mapToBean(Map map){
+        //创建要转换的bean对象
+        Culture_Famous culture_famous = new Culture_Famous();
+        /*
+         * 从传入的map中获取对应的数据并将获取的内容写入对应的bean对象中
+         * 【注：此处不同的bean对象都需做对应修改】
+         */
+        culture_famous.setFamous_name((String) map.get("famous_name"));
+        culture_famous.setFamous_saying((String) map.get("famous_saying"));
+        return culture_famous;
+    }
+
+    /**
+     * 对数据进行过滤，移除重复数据
+     * @param map 待检查数据
+     * @return 返回过滤结果 true：已存在 false：不存在
+     */
+    public boolean listFiltrate(Map map){
+//        ArrayList list = culture_famous_repository.findByFamous_name((String) map.get("famous_name"));
+//        if(list == null || list.size() <= 0){
+//            return true;
+//        }
+        return false;
     }
 }
