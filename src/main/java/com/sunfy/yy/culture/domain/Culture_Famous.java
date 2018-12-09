@@ -1,14 +1,15 @@
 package com.sunfy.yy.culture.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 名人名言实体类
  */
 @Entity
+/*
+增加table注解后，Jpa会自动根据字段内容新增没有的字段，如果不写注解会做相应映射而不会新增字段
+ */
+//@Table(name = "culture_famous")
 public class Culture_Famous {
 
     @Id
@@ -16,13 +17,12 @@ public class Culture_Famous {
     private Integer tid;
 
     //姓名
-    private String famous_name;
+    @Column(name="famous_name")
+    private String famousname;
 
     //内容
-    private String famous_saying;
-
-    public Culture_Famous() {
-    }
+    @Column(name="famous_saying")
+    private String famoussaying;
 
     public Integer getTid() {
         return tid;
@@ -32,28 +32,19 @@ public class Culture_Famous {
         this.tid = tid;
     }
 
-    public String getFamous_name() {
-        return famous_name;
+    public String getFamousname() {
+        return famousname;
     }
 
-    public void setFamous_name(String famous_name) {
-        this.famous_name = famous_name;
+    public void setFamousname(String famousname) {
+        this.famousname = famousname;
     }
 
-    public String getFamous_saying() {
-        return famous_saying;
+    public String getFamoussaying() {
+        return famoussaying;
     }
 
-    public void setFamous_saying(String famous_saying) {
-        this.famous_saying = famous_saying;
-    }
-
-    @Override
-    public String toString() {
-        return "Culture_Famous{" +
-                "tid=" + tid +
-                ", famous_name='" + famous_name + '\'' +
-                ", famous_saying=" + famous_saying +
-                '}';
+    public void setFamoussaying(String famoussaying) {
+        this.famoussaying = famoussaying;
     }
 }

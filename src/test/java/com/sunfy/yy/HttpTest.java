@@ -34,8 +34,8 @@ public class HttpTest {
             String famous_saying = (String) mapList.get("famous_saying");
             System.out.println("famous_name===:"+famous_name);
             System.out.println("famous_saying===:"+famous_saying);
-            culture_famous.setFamous_name(famous_name);
-            culture_famous.setFamous_saying(famous_saying);
+            culture_famous.setFamousname(famous_name);
+            culture_famous.setFamoussaying(famous_saying);
             //culture_famous_repository.save(culture_famous);
         }
         System.out.println("数据请求结束！");

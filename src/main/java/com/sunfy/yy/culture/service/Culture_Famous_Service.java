@@ -31,11 +31,6 @@ public class Culture_Famous_Service {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_ServiceImpl—addFamous】请求成功！参数：url="+url);
         }
-        //请求地址
-        //String url ="https://api.avatardata.cn/MingRenMingYan/LookUp?key=71f8e8cf64f3428b8fd8d238598aa3d3&keyword=天才&page=1&rows=5";
-        //url += "&keyword="+keyword;
-        System.out.println("数据请求结果为：");
-        System.out.println(httpRequest.get(url));
         String jsonResult = httpRequest.get(url);
         JsonUtils jsonUtils = new JsonUtils();
         Map map = null;
@@ -49,9 +44,14 @@ public class Culture_Famous_Service {
                     Map mapList = (Map) list.get(i);
                     //将数据存入数据库
                     if(!this.listFiltrate(mapList)){
+                        if(logger.isErrorEnabled()){
+                            logger.info("【Culture_Famous_ServiceImpl—addFamous】插入数据！");
+                        }
                         culture_famous_repository.save(this.mapToBean(mapList));
                     }else{
-                        System.out.println("数据已存在——》"+mapList.toString());
+                        if(logger.isErrorEnabled()){
+                            logger.info("【Culture_Famous_ServiceImpl—addFamous】数据已存在！");
+                        }
                     }
                 }
                 return list;
@@ -74,8 +74,8 @@ public class Culture_Famous_Service {
          * 从传入的map中获取对应的数据并将获取的内容写入对应的bean对象中
          * 【注：此处不同的bean对象都需做对应修改】
          */
-        culture_famous.setFamous_name((String) map.get("famous_name"));
-        culture_famous.setFamous_saying((String) map.get("famous_saying"));
+        culture_famous.setFamousname((String) map.get("famous_name"));
+        culture_famous.setFamoussaying((String) map.get("famous_saying"));
         return culture_famous;
     }
 
@@ -85,10 +85,13 @@ public class Culture_Famous_Service {
      * @return 返回过滤结果 true：已存在 false：不存在
      */
     public boolean listFiltrate(Map map){
-//        ArrayList list = culture_famous_repository.findByFamous_name((String) map.get("famous_name"));
-//        if(list == null || list.size() <= 0){
-//            return true;
-//        }
+        String famous_name = (String)map.get("famous_name");
+        String famous_saying = (String)map.get("famous_saying");
+        //根据获得到的人名和对应的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
+        ArrayList list = (ArrayList) culture_famous_repository.findByFamousnameAndFamoussaying(famous_name,famous_saying);
+        if(list != null && list.size() > 0){
+            return true;
+        }
         return false;
     }
 }
