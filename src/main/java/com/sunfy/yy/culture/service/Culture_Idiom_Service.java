@@ -1,9 +1,9 @@
 package com.sunfy.yy.culture.service;
 
-import com.sunfy.yy.culture.domain.Culture_Famous;
-import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
 import com.sunfy.yy.common.utils.HttpRequest;
 import com.sunfy.yy.common.utils.JsonUtils;
+import com.sunfy.yy.culture.domain.Culture_Idiom;
+import com.sunfy.yy.culture.repository.Culture_Idiom_Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +14,22 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Service
-public class Culture_Famous_Service {
+public class Culture_Idiom_Service {
 
-    //名人名言数据库操作对象
+    //成语数据库操作对象
     @Autowired
-    private Culture_Famous_Repository culture_famous_repository;
+    private Culture_Idiom_Repository culture_idiom_repository;
 
     //发送http请求的对象
     HttpRequest httpRequest = new HttpRequest();
 
-    private final static Logger logger = LoggerFactory.getLogger(Culture_Famous_Service.class);
+    private final static Logger logger = LoggerFactory.getLogger(Culture_Idiom_Service.class);
 
     @Transactional
     //事务操作 防止多条数据插入时 有失败情况
-    public ArrayList addFamous(String url) {
+    public ArrayList addIdiom(String url) {
         if(logger.isInfoEnabled()){
-            logger.info("【Culture_Famous_Service—addFamous】请求成功！参数：url="+url);
+            logger.info("【Culture_Idiom_Service—addIdiom】请求成功！参数：url="+url);
         }
         String jsonResult = httpRequest.get(url);
         JsonUtils jsonUtils = new JsonUtils();
@@ -41,15 +41,16 @@ public class Culture_Famous_Service {
             if(list != null && list.size() > 0){
                 for (int i = 0; i < list.size(); i++) {
                     Map mapList = (Map) list.get(i);
+                    String id = (String)mapList.get("id");
                     //将数据存入数据库
                     if(!this.listFiltrate(mapList)){
                         if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Famous_Service—addFamous】插入数据！");
+                            logger.info("【Culture_Idiom_Service—addIdiom】插入数据！");
                         }
-                        culture_famous_repository.save(this.mapToBean(mapList));
+                        culture_idiom_repository.save(this.mapToBean(mapList));
                     }else{
                         if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Famous_Service—addFamous】数据已存在！");
+                            logger.info("【Culture_Idiom_Service—addIdiom】数据已存在！");
                         }
                     }
                 }
@@ -66,16 +67,20 @@ public class Culture_Famous_Service {
      * @param map 带有数据的map
      * @return 返回存入数据的bean对象
      */
-    public Culture_Famous mapToBean(Map map){
+    public Culture_Idiom mapToBean(Map map){
         //创建要转换的bean对象
-        Culture_Famous culture_famous = new Culture_Famous();
+        Culture_Idiom culture_idiom = new Culture_Idiom();
         /*
          * 从传入的map中获取对应的数据并将获取的内容写入对应的bean对象中
          * 【注：此处不同的bean对象都需做对应修改】
          */
-        culture_famous.setFamousname((String) map.get("famous_name"));
-        culture_famous.setFamoussaying((String) map.get("famous_saying"));
-        return culture_famous;
+        culture_idiom.setIdiomid((String) map.get("id"));
+        culture_idiom.setIdiomname((String) map.get("name"));
+        culture_idiom.setIdiom_spell((String) map.get("spell"));
+        culture_idiom.setIdiom_content((String) map.get("content"));
+        culture_idiom.setIdiom_derivation((String) map.get("derivation"));
+        culture_idiom.setIdiom_samples((String) map.get("samples"));
+        return culture_idiom;
     }
 
     /**
@@ -84,13 +89,13 @@ public class Culture_Famous_Service {
      * @return 返回过滤结果 true：已存在 false：不存在
      */
     public boolean listFiltrate(Map map){
-        String famous_name = (String)map.get("famous_name");
-        String famous_saying = (String)map.get("famous_saying");
-        //根据获得到的人名和对应的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
-        ArrayList list = (ArrayList) culture_famous_repository.findByFamousnameAndFamoussaying(famous_name,famous_saying);
+        String id = (String)map.get("id");
+        //根据获得到的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
+        ArrayList list = (ArrayList) culture_idiom_repository.findByIdiomid(id);
         if(list != null && list.size() > 0){
             return true;
         }
         return false;
     }
+
 }

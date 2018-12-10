@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 /**
  * 名人名言实体类
+ * Entity注解会检查数据库中是否存在该数据表，没有则会创建
  */
 @Entity
 /*

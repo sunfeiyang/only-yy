@@ -62,9 +62,6 @@ public class Culture_Famous_Controller {
             //将错误信息打印出来
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
-        //数据正常时写入数据
-        //culture_famous.setFamous_name(culture_famous.getFamous_name());
-        //culture_famous.setFamous_saying(culture_famous.getFamous_saying());
         //将数据写入数据库，并返回当前对象
         return ResultUtil.success(culture_famous_repository.save(culture_famous));
     }

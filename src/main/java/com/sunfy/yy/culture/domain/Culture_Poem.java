@@ -1,11 +1,14 @@
 package com.sunfy.yy.culture.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
  * 唐诗宋词
  */
+@Entity
 public class Culture_Poem {
 
     @Id
@@ -16,16 +19,19 @@ public class Culture_Poem {
     private String poem_id;
 
     //标题
-    private String poem_biaoti;
+    @Column(name = "poem_biaoti")
+    private String poembiaoti;
 
     //介绍
     private String poem_jieshao;
 
     //作者
-    private String poem_zuozhe;
+    @Column(name = "poem_zuozhe")
+    private String poemzuozhe;
 
     //内容
-    private String poem_neirong;
+    @Column(name = "poem_neirong")
+    private String poemneirong;
 
     public Integer getTid() {
         return tid;
@@ -43,12 +49,12 @@ public class Culture_Poem {
         this.poem_id = poem_id;
     }
 
-    public String getPoem_biaoti() {
-        return poem_biaoti;
+    public String getPoembiaoti() {
+        return poembiaoti;
     }
 
-    public void setPoem_biaoti(String poem_biaoti) {
-        this.poem_biaoti = poem_biaoti;
+    public void setPoembiaoti(String poembiaoti) {
+        this.poembiaoti = poembiaoti;
     }
 
     public String getPoem_jieshao() {
@@ -59,19 +65,19 @@ public class Culture_Poem {
         this.poem_jieshao = poem_jieshao;
     }
 
-    public String getPoem_zuozhe() {
-        return poem_zuozhe;
+    public String getPoemzuozhe() {
+        return poemzuozhe;
     }
 
-    public void setPoem_zuozhe(String poem_zuozhe) {
-        this.poem_zuozhe = poem_zuozhe;
+    public void setPoemzuozhe(String poemzuozhe) {
+        this.poemzuozhe = poemzuozhe;
     }
 
-    public String getPoem_neirong() {
-        return poem_neirong;
+    public String getPoemneirong() {
+        return poemneirong;
     }
 
-    public void setPoem_neirong(String poem_neirong) {
-        this.poem_neirong = poem_neirong;
+    public void setPoemneirong(String poemneirong) {
+        this.poemneirong = poemneirong;
     }
 }

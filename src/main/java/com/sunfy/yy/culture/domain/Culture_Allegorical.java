@@ -1,11 +1,14 @@
 package com.sunfy.yy.culture.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
  * 歇后语
  */
+@Entity
 public class Culture_Allegorical {
 
     @Id
@@ -13,10 +16,12 @@ public class Culture_Allegorical {
     private Integer tid;
 
     //前者
-    private String allegorical_question;
+    @Column(name = "allegorical_question")
+    private String allegoricalquestion;
 
     //后者
-    private String allegorical_answer;
+    @Column(name = "allegorical_answer")
+    private String allegoricalanswer;
 
     //字母
     private String allegorical_zimu;
@@ -29,20 +34,20 @@ public class Culture_Allegorical {
         this.tid = tid;
     }
 
-    public String getAllegorical_question() {
-        return allegorical_question;
+    public String getAllegoricalquestion() {
+        return allegoricalquestion;
     }
 
-    public void setAllegorical_question(String allegorical_question) {
-        this.allegorical_question = allegorical_question;
+    public void setAllegoricalquestion(String allegoricalquestion) {
+        this.allegoricalquestion = allegoricalquestion;
     }
 
-    public String getAllegorical_answer() {
-        return allegorical_answer;
+    public String getAllegoricalanswer() {
+        return allegoricalanswer;
     }
 
-    public void setAllegorical_answer(String allegorical_answer) {
-        this.allegorical_answer = allegorical_answer;
+    public void setAllegoricalanswer(String allegoricalanswer) {
+        this.allegoricalanswer = allegoricalanswer;
     }
 
     public String getAllegorical_zimu() {

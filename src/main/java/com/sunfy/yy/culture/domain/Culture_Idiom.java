@@ -1,11 +1,14 @@
 package com.sunfy.yy.culture.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
  * 成语
  */
+@Entity
 public class Culture_Idiom {
 
     @Id
@@ -13,10 +16,12 @@ public class Culture_Idiom {
     private Integer tid;
 
     //内容
-    private String idiom_name;
+    @Column(name = "idiom_name")
+    private String idiomname;
 
     //id
-    private String idiom_id;
+    @Column(name = "idiom_id")
+    private String idiomid;
 
     //例子
     private String idiom_samples;
@@ -38,20 +43,20 @@ public class Culture_Idiom {
         this.tid = tid;
     }
 
-    public String getIdiom_name() {
-        return idiom_name;
+    public String getIdiomname() {
+        return idiomname;
     }
 
-    public void setIdiom_name(String idiom_name) {
-        this.idiom_name = idiom_name;
+    public void setIdiomname(String idiomname) {
+        this.idiomname = idiomname;
     }
 
-    public String getIdiom_id() {
-        return idiom_id;
+    public String getIdiomid() {
+        return idiomid;
     }
 
-    public void setIdiom_id(String idiom_id) {
-        this.idiom_id = idiom_id;
+    public void setIdiomid(String idiomid) {
+        this.idiomid = idiomid;
     }
 
     public String getIdiom_samples() {

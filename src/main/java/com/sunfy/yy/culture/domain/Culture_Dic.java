@@ -1,11 +1,14 @@
 package com.sunfy.yy.culture.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
  * 新华字典
  */
+@Entity
 public class Culture_Dic {
 
     @Id
@@ -13,7 +16,8 @@ public class Culture_Dic {
     private Integer tid;
 
     //汉字
-    private String dic_hanzi;
+    @Column(name = "dic_hanzi")
+    private String dichanzi;
 
     //拼音
     private String dic_pinyin;
@@ -25,7 +29,7 @@ public class Culture_Dic {
     private String dic_bushou;
 
     //笔画
-    private String dic_bihua;
+    private Integer dic_bihua;
 
     //简介
     private String dic_jianjie;
@@ -41,12 +45,12 @@ public class Culture_Dic {
         this.tid = tid;
     }
 
-    public String getDic_hanzi() {
-        return dic_hanzi;
+    public String getDichanzi() {
+        return dichanzi;
     }
 
-    public void setDic_hanzi(String dic_hanzi) {
-        this.dic_hanzi = dic_hanzi;
+    public void setDichanzi(String dichanzi) {
+        this.dichanzi = dichanzi;
     }
 
     public String getDic_pinyin() {
@@ -73,11 +77,11 @@ public class Culture_Dic {
         this.dic_bushou = dic_bushou;
     }
 
-    public String getDic_bihua() {
+    public Integer getDic_bihua() {
         return dic_bihua;
     }
 
-    public void setDic_bihua(String dic_bihua) {
+    public void setDic_bihua(Integer dic_bihua) {
         this.dic_bihua = dic_bihua;
     }
 

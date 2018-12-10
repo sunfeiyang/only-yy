@@ -2,15 +2,12 @@ package com.sunfy.yy.culture.repository;
 
 import com.sunfy.yy.culture.domain.Culture_Famous;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 名人名言对应操作数据库的对象
  */
-@Transactional
 public interface Culture_Famous_Repository extends JpaRepository<Culture_Famous,Integer> {
     /*
     自定义查询方法
@@ -20,7 +17,7 @@ public interface Culture_Famous_Repository extends JpaRepository<Culture_Famous,
     //根据Tid过滤
     public List<Culture_Famous> findByTid(Integer tid);
     //根据famousname(人名)过滤——》数据库中映射的字段数据FAMOUS_NAME
-    public List findByFamousname(String famousname);
+    public List<Culture_Famous> findByFamousname(String famousname);
     //根据famoussaying(内容)过滤
     public List<Culture_Famous> findByFamoussaying(String famoussaying);
     //根据famousname(人名)和famoussaying(内容)同时进行过滤，保证数据唯一性

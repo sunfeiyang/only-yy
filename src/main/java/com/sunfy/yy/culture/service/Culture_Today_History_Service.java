@@ -1,9 +1,9 @@
 package com.sunfy.yy.culture.service;
 
-import com.sunfy.yy.culture.domain.Culture_Famous;
-import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
 import com.sunfy.yy.common.utils.HttpRequest;
 import com.sunfy.yy.common.utils.JsonUtils;
+import com.sunfy.yy.culture.domain.Culture_Today_History;
+import com.sunfy.yy.culture.repository.Culture_Today_History_Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +14,22 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Service
-public class Culture_Famous_Service {
+public class Culture_Today_History_Service {
 
-    //名人名言数据库操作对象
+    //历史上的今天数据库操作对象
     @Autowired
-    private Culture_Famous_Repository culture_famous_repository;
+    private Culture_Today_History_Repository culture_today_history_repository;
 
     //发送http请求的对象
     HttpRequest httpRequest = new HttpRequest();
 
-    private final static Logger logger = LoggerFactory.getLogger(Culture_Famous_Service.class);
+    private final static Logger logger = LoggerFactory.getLogger(Culture_Today_History_Service.class);
 
     @Transactional
     //事务操作 防止多条数据插入时 有失败情况
-    public ArrayList addFamous(String url) {
+    public ArrayList addToday_History(String url) {
         if(logger.isInfoEnabled()){
-            logger.info("【Culture_Famous_Service—addFamous】请求成功！参数：url="+url);
+            logger.info("【Culture_Today_History_Service—addToday_History】请求成功！参数：url="+url);
         }
         String jsonResult = httpRequest.get(url);
         JsonUtils jsonUtils = new JsonUtils();
@@ -44,12 +44,12 @@ public class Culture_Famous_Service {
                     //将数据存入数据库
                     if(!this.listFiltrate(mapList)){
                         if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Famous_Service—addFamous】插入数据！");
+                            logger.info("【Culture_Today_History_Service—addToday_History】插入数据！");
                         }
-                        culture_famous_repository.save(this.mapToBean(mapList));
+                        culture_today_history_repository.save(this.mapToBean(mapList));
                     }else{
                         if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Famous_Service—addFamous】数据已存在！");
+                            logger.info("【Culture_Today_History_Service—addToday_History】数据已存在！");
                         }
                     }
                 }
@@ -66,16 +66,19 @@ public class Culture_Famous_Service {
      * @param map 带有数据的map
      * @return 返回存入数据的bean对象
      */
-    public Culture_Famous mapToBean(Map map){
+    public Culture_Today_History mapToBean(Map map){
         //创建要转换的bean对象
-        Culture_Famous culture_famous = new Culture_Famous();
+        Culture_Today_History culture_today_history = new Culture_Today_History();
         /*
          * 从传入的map中获取对应的数据并将获取的内容写入对应的bean对象中
          * 【注：此处不同的bean对象都需做对应修改】
          */
-        culture_famous.setFamousname((String) map.get("famous_name"));
-        culture_famous.setFamoussaying((String) map.get("famous_saying"));
-        return culture_famous;
+        culture_today_history.setToday_history_day((Integer) map.get("day"));
+        culture_today_history.setToday_history_year((Integer) map.get("year"));
+        culture_today_history.setToday_history_month((Integer) map.get("month"));
+        culture_today_history.setTodayhistorytitle((String) map.get("title"));
+        culture_today_history.setToday_history_type((Integer) map.get("type"));
+        return culture_today_history;
     }
 
     /**
@@ -84,13 +87,13 @@ public class Culture_Famous_Service {
      * @return 返回过滤结果 true：已存在 false：不存在
      */
     public boolean listFiltrate(Map map){
-        String famous_name = (String)map.get("famous_name");
-        String famous_saying = (String)map.get("famous_saying");
+        String title = (String)map.get("title");
         //根据获得到的人名和对应的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
-        ArrayList list = (ArrayList) culture_famous_repository.findByFamousnameAndFamoussaying(famous_name,famous_saying);
+        ArrayList list = (ArrayList) culture_today_history_repository.findByTodayhistorytitle(title);
         if(list != null && list.size() > 0){
             return true;
         }
         return false;
     }
+
 }
