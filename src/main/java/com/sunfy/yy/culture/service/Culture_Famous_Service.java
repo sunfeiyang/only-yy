@@ -61,6 +61,37 @@ public class Culture_Famous_Service {
         return null;
     }
 
+
+    @Transactional
+    //事务操作 防止多条数据插入时 有失败情况
+    public Map addFamousRandom(String url) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Famous_Service—addFamousRandom】请求成功！参数：url="+url);
+        }
+        String jsonResult = httpRequest.get(url);
+        JsonUtils jsonUtils = new JsonUtils();
+        Map map = null;
+        try {
+            map = jsonUtils.toMap(jsonResult);
+            Map mapList = (Map) map.get("result");
+            //将数据存入数据库
+            if(!this.listFiltrate(mapList)){
+                if(logger.isErrorEnabled()){
+                    logger.info("【Culture_Famous_Service—addFamousRandom】插入数据！");
+                }
+                culture_famous_repository.save(this.mapToBean(mapList));
+            }else{
+                if(logger.isErrorEnabled()){
+                    logger.info("【Culture_Famous_Service—addFamousRandom】数据已存在！");
+                }
+            }
+            return mapList;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 将map中数据存入指定bean对象中并将bean对象返回
      * @param map 带有数据的map

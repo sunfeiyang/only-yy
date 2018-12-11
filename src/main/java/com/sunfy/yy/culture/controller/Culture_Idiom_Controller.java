@@ -28,7 +28,7 @@ public class Culture_Idiom_Controller {
     private Culture_Idiom_Service culture_idiom_service;
 
     /**
-     * 查询成语
+     * 查询成语(get请求列表)
      * @return
      */
     @GetMapping(value = "idiom/{keyword}")
@@ -46,14 +46,14 @@ public class Culture_Idiom_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        return ResultUtil.success(culture_idiom_service.addIdiom(url));
+        return ResultUtil.success(culture_idiom_service.addIdiomList(url));
     }
 
     /**
      * 查询成语详情
      * @return
      */
-    @GetMapping(value = "idiomdetails/{id}")
+    @GetMapping(value = "idiomDetails/{id}")
     public Result<Culture_Idiom> idiomDetails(@PathVariable("id") String id){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Idiom_Controller—idiomDetails】请求成功！");
@@ -63,6 +63,19 @@ public class Culture_Idiom_Controller {
             url += "&id="+id;
         }
         return ResultUtil.success(culture_idiom_service.addIdiom(url));
+    }
+
+    /**
+     * 随机返回一条成语
+     * @return
+     */
+    @GetMapping(value = "idiomRandom")
+    public Result<Culture_Idiom> idiomRandom(){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Idiom_Controller—idiomRandom】请求成功！");
+        }
+        String url ="https://api.avatardata.cn/ChengYu/Random?key=2431b0ba7ab24c8191df893243382dc4";
+        return ResultUtil.success(culture_idiom_service.addIdiomRandom(url));
     }
 
     /**

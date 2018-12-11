@@ -28,7 +28,7 @@ public class Culture_Famous_Controller {
     private Culture_Famous_Service culture_famous_service;
 
     /**
-     * 查询所有的名人名言
+     * 查询所有的名人名言（列表get请求）
      * @return
      */
     @GetMapping(value = "famous/{keyword}")
@@ -50,7 +50,20 @@ public class Culture_Famous_Controller {
     }
 
     /**
-     * 插入名人名言
+     * 查询名人名言（随机返回一条get请求）
+     * @return
+     */
+    @GetMapping(value = "famousRandom")
+    public Result<Culture_Famous> famousRandom(){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Famous_Controller—famousRandom】请求成功！");
+        }
+        String url ="https://api.avatardata.cn/MingRenMingYan/Random?key=71f8e8cf64f3428b8fd8d238598aa3d3";
+        return ResultUtil.success(culture_famous_service.addFamousRandom(url));
+    }
+
+    /**
+     * 插入名人名言（单条Post请求）
      * @param culture_famous 待插入对象
      * @param bindingResult 返回结果
      * @return Result<Culture_Famous

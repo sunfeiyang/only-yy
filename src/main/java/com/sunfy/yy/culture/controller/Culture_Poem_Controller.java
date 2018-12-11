@@ -46,14 +46,14 @@ public class Culture_Poem_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        return ResultUtil.success(culture_poem_service.addPoem(url));
+        return ResultUtil.success(culture_poem_service.addPoemList(url));
     }
 
     /**
-     * 查询唐诗宋词
+     * 查询唐诗宋词单个
      * @return
      */
-    @GetMapping(value = "poem/{id}")
+    @GetMapping(value = "poemDetails/{id}")
     public Result<Culture_Poem> poemDetails(@PathVariable("id") String id){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemDetails】请求成功！");
@@ -61,6 +61,20 @@ public class Culture_Poem_Controller {
         String url ="https://api.avatardata.cn/TangShiSongCi/LookUp?key=8cf90379938940f19cb49b18522db439";
         url += "&id="+id;
         return ResultUtil.success(culture_poem_service.addPoem(url));
+    }
+
+
+    /**
+     * 随机返回唐诗宋词
+     * @return
+     */
+    @GetMapping(value = "poemRandom")
+    public Result<Culture_Poem> poemRandom(){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Poem_Controller—poemRandom】请求成功！");
+        }
+        String url ="https://api.avatardata.cn/TangShiSongCi/Random?key=8cf90379938940f19cb49b18522db439";
+        return ResultUtil.success(culture_poem_service.addPoemRandom(url));
     }
 
     /**

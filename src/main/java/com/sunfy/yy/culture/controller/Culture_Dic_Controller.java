@@ -28,7 +28,7 @@ public class Culture_Dic_Controller {
     private Culture_Dic_Service culture_dic_service;
 
     /**
-     * 查询字典
+     * 查询字典列表（get请求）
      * @return
      */
     @GetMapping(value = "dic/{keyword}")
@@ -42,7 +42,7 @@ public class Culture_Dic_Controller {
     }
 
     /**
-     * 插入字典
+     * 插入字典(单条Post请求)
      * @param culture_dic 待插入对象
      * @param bindingResult 返回结果
      * @return Result<Culture_Famous

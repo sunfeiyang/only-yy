@@ -29,7 +29,7 @@ public class Culture_Allegorical_Controller {
     private Culture_Allegorical_Service culture_allegorical_service;
 
     /**
-     * 查询歇后语
+     * 查询歇后语列表（get请求）
      * @return
      */
     @GetMapping(value = "allegorical/{keyword}")
@@ -51,10 +51,23 @@ public class Culture_Allegorical_Controller {
     }
 
     /**
-     * 插入歇后语
+     * 随机返回一条
+     * @return
+     */
+    @GetMapping(value = "allegoricalRandom")
+    public Result<Culture_Famous> allegoricalRandom(){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Allegorical_Controller—allegoricalList】请求成功！");
+        }
+        String url ="https://api.avatardata.cn/XieHouYu/Random?key=387bcf2fd17944af8695d21b1e41a91d";
+        return ResultUtil.success(culture_allegorical_service.addAllegoricalRandom(url));
+    }
+
+    /**
+     * 插入歇后语（单条数据插入Post请求）
      * @param culture_allegorical 待插入对象
      * @param bindingResult 返回结果
-     * @return Result<Culture_Famous
+     * @return Result<Culture_Famous>
      */
     @PostMapping(value = "allegorical")
     public Result<Culture_Allegorical> allegorical(@Valid Culture_Allegorical culture_allegorical, BindingResult bindingResult){

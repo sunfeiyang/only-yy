@@ -27,6 +27,49 @@ public class Culture_Poem_Service {
 
     @Transactional
     //事务操作 防止多条数据插入时 有失败情况
+    public ArrayList addPoemList(String url) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Poem_Service—addPoemList】请求成功！参数：url="+url);
+        }
+        String jsonResult = httpRequest.get(url);
+        JsonUtils jsonUtils = new JsonUtils();
+        Map map = null;
+        try {
+            map = jsonUtils.toMap(jsonResult);
+            Integer total = (Integer) map.get("total");
+            ArrayList list = (ArrayList) map.get("result");
+            if(list != null && list.size() > 0){
+                for (int i = 0; i < list.size(); i++) {
+                    Map mapList = (Map) list.get(i);
+                    String id = (String)mapList.get("id");
+                    String urlDetails ="https://api.avatardata.cn/TangShiSongCi/LookUp?key=8cf90379938940f19cb49b18522db439";
+                    if(!id.equals("") && id != null){
+                        urlDetails += "&id="+id;
+                    }
+                    String jsonResultDetails = httpRequest.get(urlDetails);
+                    Map mapDetails = jsonUtils.toMap(jsonResultDetails);
+                    //将数据存入数据库
+                    if(!this.listFiltrate((Map) mapDetails.get("result"))){
+                        if(logger.isErrorEnabled()){
+                            logger.info("【Culture_Poem_Service—addPoemList】插入数据！");
+                        }
+                        culture_poem_repository.save(this.mapToBean((Map) mapDetails.get("result")));
+                    }else{
+                        if(logger.isErrorEnabled()){
+                            logger.info("【Culture_Poem_Service—addPoemList】数据已存在！");
+                        }
+                    }
+                }
+                return list;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Transactional
+    //事务操作 防止多条数据插入时 有失败情况
     public ArrayList addPoem(String url) {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Service—addPoem】请求成功！参数：url="+url);
@@ -55,6 +98,37 @@ public class Culture_Poem_Service {
                 }
                 return list;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    @Transactional
+    //事务操作 防止多条数据插入时 有失败情况
+    public Map addPoemRandom(String url) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Poem_Service—addPoemRandom】请求成功！参数：url="+url);
+        }
+        String jsonResult = httpRequest.get(url);
+        JsonUtils jsonUtils = new JsonUtils();
+        Map map = null;
+        try {
+            map = jsonUtils.toMap(jsonResult);
+            Map mapList = (Map) map.get("result");
+            //将数据存入数据库
+            if(!this.listFiltrate(mapList)){
+                if(logger.isErrorEnabled()){
+                    logger.info("【Culture_Poem_Service—addPoemRandom】插入数据！");
+                }
+                culture_poem_repository.save(this.mapToBean(mapList));
+            }else{
+                if(logger.isErrorEnabled()){
+                    logger.info("【Culture_Poem_Service—addPoemRandom】数据已存在！");
+                }
+            }
+            return mapList;
         } catch (Exception e) {
             e.printStackTrace();
         }
