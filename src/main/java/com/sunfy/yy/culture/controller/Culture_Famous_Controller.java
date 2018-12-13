@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * 名人名言控制器
@@ -50,8 +52,9 @@ public class Culture_Famous_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        if(culture_famous_service.addFamous(url) != null){
-            return ResultUtil.success(culture_famous_service.addFamous(url));
+        ArrayList list = culture_famous_service.addFamous(url);
+        if(list != null && list.size() > 0){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -71,6 +74,10 @@ public class Culture_Famous_Controller {
         if(culture_famous_service.addFamousRandom(url) != null){
             return ResultUtil.success(culture_famous_service.addFamousRandom(url));
         }
+        Map map = culture_famous_service.addFamousRandom(url);
+        if(map != null && !map.isEmpty()){
+            return ResultUtil.success(map);
+        }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
@@ -88,8 +95,9 @@ public class Culture_Famous_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        if(culture_famous_repository.save(culture_famous) != null){
-            return ResultUtil.success(culture_famous_repository.save(culture_famous));
+        @Valid Culture_Famous list = culture_famous_repository.save(culture_famous);
+        if(list != null){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

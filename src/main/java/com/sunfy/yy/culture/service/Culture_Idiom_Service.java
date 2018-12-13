@@ -103,7 +103,6 @@ public class Culture_Idiom_Service {
         return null;
     }
 
-    @Transactional
     //事务操作 防止多条数据插入时 有失败情况
     public Map addIdiomRandom(String url) {
         if(logger.isInfoEnabled()){

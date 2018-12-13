@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 /**
  * 历史上的今天控制器
@@ -50,8 +51,9 @@ public class Culture_Today_History_Controller {
         if(!type.equals("") && type != null){
             url += "&type=1";
         }
-        if(culture_today_history_service.addToday_History(url) != null){
-            return ResultUtil.success(culture_today_history_service.addToday_History(url));
+        ArrayList list = culture_today_history_service.addToday_History(url);
+        if(list != null && list.size() > 0){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -72,6 +74,10 @@ public class Culture_Today_History_Controller {
         //将数据写入数据库，并返回当前对象
         if(culture_today_history_repository.save(culture_today_history) != null){
             return ResultUtil.success(culture_today_history_repository.save(culture_today_history));
+        }
+        @Valid Culture_Today_History list = culture_today_history_repository.save(culture_today_history);
+        if(list != null){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

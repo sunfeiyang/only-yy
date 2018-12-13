@@ -17,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * 歇后语控制器
@@ -51,8 +53,9 @@ public class Culture_Allegorical_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        if(culture_allegorical_service.addAllegorical(url) != null){
-            return ResultUtil.success(culture_allegorical_service.addAllegorical(url));
+        ArrayList list = culture_allegorical_service.addAllegorical(url);
+        if(list != null && list.size() > 0){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -78,8 +81,9 @@ public class Culture_Allegorical_Controller {
             logger.info("【Culture_Allegorical_Controller—allegoricalList】请求成功！");
         }
         String url = EnumCultureApi.ALLEGORICAL_RANDOM.getURL();
-        if(culture_allegorical_service.addAllegoricalRandom(url) != null){
-            return ResultUtil.success(culture_allegorical_service.addAllegoricalRandom(url));
+        Map map = culture_allegorical_service.addAllegoricalRandom(url);
+        if(map != null && !map.isEmpty()){
+            return ResultUtil.success(map);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -98,8 +102,9 @@ public class Culture_Allegorical_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        if(culture_allegorical_repository.save(culture_allegorical) != null){
-            return ResultUtil.success(culture_allegorical_repository.save(culture_allegorical));
+        @Valid Culture_Allegorical list = culture_allegorical_repository.save(culture_allegorical);
+        if(list != null){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

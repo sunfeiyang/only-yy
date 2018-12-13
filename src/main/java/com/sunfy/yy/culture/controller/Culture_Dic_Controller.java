@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 /**
  * 字典控制器
@@ -40,8 +41,9 @@ public class Culture_Dic_Controller {
         }
         String url = EnumCultureApi.DIC.getURL();
         url += "&content="+keyword;
-        if(culture_dic_service.addDic(url) !=  null){
-            return ResultUtil.success(culture_dic_service.addDic(url));
+        ArrayList list = culture_dic_service.addDic(url);
+        if(list != null && list.size() > 0){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -60,8 +62,9 @@ public class Culture_Dic_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        if(culture_dic_repository.save(culture_dic) != null){
-            return ResultUtil.success(culture_dic_repository.save(culture_dic));
+        @Valid Culture_Dic list = culture_dic_repository.save(culture_dic);
+        if(list != null){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

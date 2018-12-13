@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * 唐诗宋词控制器
@@ -50,8 +52,9 @@ public class Culture_Poem_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        if(culture_poem_service.addPoemList(url) != null){
-            return ResultUtil.success(culture_poem_service.addPoemList(url));
+        ArrayList list = culture_poem_service.addPoemList(url);
+        if(list != null && list.size() > 0){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -67,8 +70,9 @@ public class Culture_Poem_Controller {
         }
         String url = EnumCultureApi.POEM_DETAILS.getURL();
         url += "&id="+id;
-        if(culture_poem_service.addPoem(url) != null){
-            return ResultUtil.success(culture_poem_service.addPoem(url));
+        ArrayList list = culture_poem_service.addPoem(url);
+        if(list != null && list.size() > 0){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -86,8 +90,9 @@ public class Culture_Poem_Controller {
             logger.info("【Culture_Poem_Controller—poemRandom】请求成功！");
         }
         String url = EnumCultureApi.POEM_RANDOM.getURL();
-        if(culture_poem_service.addPoemRandom(url) != null){
-            return ResultUtil.success(culture_poem_service.addPoemRandom(url));
+        Map map = culture_poem_service.addPoemRandom(url);
+        if(map != null && !map.isEmpty()){
+            return ResultUtil.success(map);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -108,6 +113,10 @@ public class Culture_Poem_Controller {
         //将数据写入数据库，并返回当前对象
         if(culture_poem_repository.save(culture_poem) != null){
             return ResultUtil.success(culture_poem_repository.save(culture_poem));
+        }
+        @Valid Culture_Poem list = culture_poem_repository.save(culture_poem);
+        if(list != null){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

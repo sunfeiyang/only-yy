@@ -16,6 +16,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * 成语控制器
@@ -50,7 +52,11 @@ public class Culture_Idiom_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        return ResultUtil.success(culture_idiom_service.addIdiomList(url));
+        ArrayList list = culture_idiom_service.addIdiomList(url);
+        if(list != null && list.size() > 0){
+            return ResultUtil.success(list);
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -66,8 +72,9 @@ public class Culture_Idiom_Controller {
         if(!id.equals("") && id != null){
             url += "&id="+id;
         }
-        if(culture_idiom_service.addIdiom(url) != null){
-            return ResultUtil.success(culture_idiom_service.addIdiom(url));
+        ArrayList list = culture_idiom_service.addIdiom(url);
+        if(list != null && list.size() > 0){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -84,8 +91,9 @@ public class Culture_Idiom_Controller {
             logger.info("【Culture_Idiom_Controller—idiomRandom】请求成功！");
         }
         String url = EnumCultureApi.IDIOM_RANDOM.getURL();
-        if(culture_idiom_service.addIdiomRandom(url) != null){
-            return ResultUtil.success(culture_idiom_service.addIdiomRandom(url));
+        Map map = culture_idiom_service.addIdiomRandom(url);
+        if(map != null && !map.isEmpty()){
+            return ResultUtil.success(map);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -104,8 +112,9 @@ public class Culture_Idiom_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        if(culture_idiom_repository.save(culture_idiom) != null){
-            return ResultUtil.success(culture_idiom_repository.save(culture_idiom));
+        @Valid Culture_Idiom list = culture_idiom_repository.save(culture_idiom);
+        if(list != null){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
