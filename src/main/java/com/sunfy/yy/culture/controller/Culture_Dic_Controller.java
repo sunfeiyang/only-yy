@@ -3,6 +3,7 @@ package com.sunfy.yy.culture.controller;
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Dic;
+import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Dic_Repository;
 import com.sunfy.yy.culture.service.Culture_Dic_Service;
 import org.slf4j.Logger;
@@ -36,7 +37,7 @@ public class Culture_Dic_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Dic_Controller—dicList】请求成功！");
         }
-        String url ="https://api.avatardata.cn/XinHuaZiDian/LookUp?key=6d04dab2649449bd85e272e71e74258f";
+        String url = CultureApiEnum.DIC.getURL();
         url += "&content="+keyword;
         return ResultUtil.success(culture_dic_service.addDic(url));
     }

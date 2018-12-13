@@ -9,4 +9,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
+
+AsyncConfig:
+  corePoolSize: 10
+  maxPoolSize: 200
+  queueCapacity: 10

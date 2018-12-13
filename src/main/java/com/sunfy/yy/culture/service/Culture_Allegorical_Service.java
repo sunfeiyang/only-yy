@@ -32,6 +32,8 @@ public class Culture_Allegorical_Service {
             logger.info("【Culture_Allegorical_Service—addAllegorical】请求成功！参数：url="+url);
         }
         String jsonResult = httpRequest.get(url);
+        System.out.println(jsonResult);
+//        Integer code = jsonResult
         JsonUtils jsonUtils = new JsonUtils();
         Map map = null;
         try {

@@ -2,12 +2,15 @@ package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.culture.domain.Culture_Famous;
 import com.sunfy.yy.common.domain.Result;
+import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
 import com.sunfy.yy.culture.service.Culture_Famous_Service;
 import com.sunfy.yy.common.utils.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +41,7 @@ public class Culture_Famous_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousList】请求成功！");
         }
-        String url ="https://api.avatardata.cn/MingRenMingYan/LookUp?key=71f8e8cf64f3428b8fd8d238598aa3d3";
+        String url = CultureApiEnum.FAMOUS.getURL();
         url += "&keyword="+keyword;
         if(!rows.equals("") && rows != null){
             url += "&rows="+rows;
@@ -54,11 +57,13 @@ public class Culture_Famous_Controller {
      * @return
      */
     @GetMapping(value = "famousRandom")
+    @Scheduled(fixedRate = 10*1000)
+    @Async
     public Result<Culture_Famous> famousRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousRandom】请求成功！");
         }
-        String url ="https://api.avatardata.cn/MingRenMingYan/Random?key=71f8e8cf64f3428b8fd8d238598aa3d3";
+        String url = CultureApiEnum.FAMOUS_RANDOM.getURL();
         return ResultUtil.success(culture_famous_service.addFamousRandom(url));
     }
 

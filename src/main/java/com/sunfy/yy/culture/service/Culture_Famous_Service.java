@@ -61,9 +61,6 @@ public class Culture_Famous_Service {
         return null;
     }
 
-
-    @Transactional
-    //事务操作 防止多条数据插入时 有失败情况
     public Map addFamousRandom(String url) {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Service—addFamousRandom】请求成功！参数：url="+url);
@@ -115,10 +112,19 @@ public class Culture_Famous_Service {
      * @return 返回过滤结果 true：已存在 false：不存在
      */
     public boolean listFiltrate(Map map){
-        String famous_name = (String)map.get("famous_name");
-        String famous_saying = (String)map.get("famous_saying");
-        //根据获得到的人名和对应的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
-        ArrayList list = (ArrayList) culture_famous_repository.findByFamousnameAndFamoussaying(famous_name,famous_saying);
+        String famous_name = "";
+        String famous_saying = "";
+        if(map != null){
+            famous_name = (String)map.get("famous_name");
+            famous_saying = (String)map.get("famous_saying");
+        }
+        ArrayList list = null;
+        if(famous_name != "" && famous_name != null && famous_saying != "" && famous_saying != null){
+            //根据获得到的人名和对应的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
+            list = (ArrayList) culture_famous_repository.findByFamousnameAndFamoussaying(famous_name,famous_saying);
+        }else{
+            return true;
+        }
         if(list != null && list.size() > 0){
             return true;
         }

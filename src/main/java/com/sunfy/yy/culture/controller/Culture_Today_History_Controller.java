@@ -3,6 +3,7 @@ package com.sunfy.yy.culture.controller;
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Today_History;
+import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Today_History_Repository;
 import com.sunfy.yy.culture.service.Culture_Today_History_Service;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class Culture_Today_History_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Today_History_Controller—today_HistoryList】请求成功！");
         }
-        String url ="https://api.avatardata.cn/HistoryToday/LookUp?key=a8f8ad8a787c4abca058a1a306423158";
+        String url = CultureApiEnum.TODAY_HISTORY.getURL();
         if(!yue.equals("") && yue != null){
             url += "&yue=1";
         }

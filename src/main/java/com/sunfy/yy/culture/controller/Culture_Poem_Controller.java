@@ -3,11 +3,14 @@ package com.sunfy.yy.culture.controller;
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Poem;
+import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Poem_Repository;
 import com.sunfy.yy.culture.service.Culture_Poem_Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +41,7 @@ public class Culture_Poem_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemList】请求成功！");
         }
-        String url ="https://api.avatardata.cn/TangShiSongCi/Search?key=8cf90379938940f19cb49b18522db439";
+        String url = CultureApiEnum.POEM.getURL();
         url += "&keyWord="+keyword;
         if(!rows.equals("") && rows != null){
             url += "&rows="+rows;
@@ -58,7 +61,7 @@ public class Culture_Poem_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemDetails】请求成功！");
         }
-        String url ="https://api.avatardata.cn/TangShiSongCi/LookUp?key=8cf90379938940f19cb49b18522db439";
+        String url = CultureApiEnum.POEM_DETAILS.getURL();
         url += "&id="+id;
         return ResultUtil.success(culture_poem_service.addPoem(url));
     }
@@ -69,11 +72,13 @@ public class Culture_Poem_Controller {
      * @return
      */
     @GetMapping(value = "poemRandom")
+    @Scheduled(fixedRate = 10*1000)
+    @Async
     public Result<Culture_Poem> poemRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemRandom】请求成功！");
         }
-        String url ="https://api.avatardata.cn/TangShiSongCi/Random?key=8cf90379938940f19cb49b18522db439";
+        String url = CultureApiEnum.POEM_RANDOM.getURL();
         return ResultUtil.success(culture_poem_service.addPoemRandom(url));
     }
 
