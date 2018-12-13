@@ -1,8 +1,9 @@
 package com.sunfy.yy.culture.controller;
 
+import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumCultureException;
 import com.sunfy.yy.culture.domain.Culture_Famous;
 import com.sunfy.yy.common.domain.Result;
-import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
 import com.sunfy.yy.culture.service.Culture_Famous_Service;
 import com.sunfy.yy.common.utils.ResultUtil;
@@ -41,7 +42,7 @@ public class Culture_Famous_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousList】请求成功！");
         }
-        String url = CultureApiEnum.FAMOUS.getURL();
+        String url = EnumCultureApi.FAMOUS.getURL();
         url += "&keyword="+keyword;
         if(!rows.equals("") && rows != null){
             url += "&rows="+rows;
@@ -49,7 +50,10 @@ public class Culture_Famous_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        return ResultUtil.success(culture_famous_service.addFamous(url));
+        if(culture_famous_service.addFamous(url) != null){
+            return ResultUtil.success(culture_famous_service.addFamous(url));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -63,8 +67,11 @@ public class Culture_Famous_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousRandom】请求成功！");
         }
-        String url = CultureApiEnum.FAMOUS_RANDOM.getURL();
-        return ResultUtil.success(culture_famous_service.addFamousRandom(url));
+        String url = EnumCultureApi.FAMOUS_RANDOM.getURL();
+        if(culture_famous_service.addFamousRandom(url) != null){
+            return ResultUtil.success(culture_famous_service.addFamousRandom(url));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -81,6 +88,9 @@ public class Culture_Famous_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        return ResultUtil.success(culture_famous_repository.save(culture_famous));
+        if(culture_famous_repository.save(culture_famous) != null){
+            return ResultUtil.success(culture_famous_repository.save(culture_famous));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 }

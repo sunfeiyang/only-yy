@@ -1,9 +1,10 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.domain.Result;
+import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumCultureException;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Today_History;
-import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Today_History_Repository;
 import com.sunfy.yy.culture.service.Culture_Today_History_Service;
 import org.slf4j.Logger;
@@ -39,7 +40,7 @@ public class Culture_Today_History_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Today_History_Controller—today_HistoryList】请求成功！");
         }
-        String url = CultureApiEnum.TODAY_HISTORY.getURL();
+        String url = EnumCultureApi.TODAY_HISTORY.getURL();
         if(!yue.equals("") && yue != null){
             url += "&yue=1";
         }
@@ -49,7 +50,10 @@ public class Culture_Today_History_Controller {
         if(!type.equals("") && type != null){
             url += "&type=1";
         }
-        return ResultUtil.success(culture_today_history_service.addToday_History(url));
+        if(culture_today_history_service.addToday_History(url) != null){
+            return ResultUtil.success(culture_today_history_service.addToday_History(url));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -66,6 +70,9 @@ public class Culture_Today_History_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        return ResultUtil.success(culture_today_history_repository.save(culture_today_history));
+        if(culture_today_history_repository.save(culture_today_history) != null){
+            return ResultUtil.success(culture_today_history_repository.save(culture_today_history));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 }

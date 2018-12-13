@@ -20,14 +20,14 @@ public class SystemTimedTaskController {
     //定时任务执行对象
     ScheduledExecutorTest scheduledExecutorTest = new ScheduledExecutorTest();
 
-    @GetMapping(value = "timedTask/cultural/AllegoricalRandom/{disabled}")
-    public Result TimedTask_Allegorical(@PathVariable("disabled") String disabled){
-        if ("true".equals(disabled)){
-            scheduledExecutorTest.timerAllegorical();
-            return ResultUtil.success("定时任务启动成功！");
-        }else{
-            return ResultUtil.error(500,"定时任务已关闭！");
-        }
-
-    }
+//    @GetMapping(value = "timedTask/cultural/AllegoricalRandom/{disabled}")
+//    public Result TimedTask_Allegorical(@PathVariable("disabled") String disabled){
+//        if ("true".equals(disabled)){
+//            scheduledExecutorTest.timerAllegorical();
+//            return ResultUtil.success("定时任务启动成功！");
+//        }else{
+//            return ResultUtil.error(500,"定时任务已关闭！");
+//        }
+//
+//    }
 }

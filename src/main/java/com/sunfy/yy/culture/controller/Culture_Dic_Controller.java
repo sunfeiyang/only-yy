@@ -1,9 +1,10 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.domain.Result;
+import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumCultureException;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Dic;
-import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Dic_Repository;
 import com.sunfy.yy.culture.service.Culture_Dic_Service;
 import org.slf4j.Logger;
@@ -37,9 +38,12 @@ public class Culture_Dic_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Dic_Controller—dicList】请求成功！");
         }
-        String url = CultureApiEnum.DIC.getURL();
+        String url = EnumCultureApi.DIC.getURL();
         url += "&content="+keyword;
-        return ResultUtil.success(culture_dic_service.addDic(url));
+        if(culture_dic_service.addDic(url) !=  null){
+            return ResultUtil.success(culture_dic_service.addDic(url));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -56,6 +60,9 @@ public class Culture_Dic_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        return ResultUtil.success(culture_dic_repository.save(culture_dic));
+        if(culture_dic_repository.save(culture_dic) != null){
+            return ResultUtil.success(culture_dic_repository.save(culture_dic));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 }

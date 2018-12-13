@@ -3,7 +3,7 @@ package com.sunfy.yy.common.enums;
 /**
  * 枚举（异常处理）
  */
-public enum CultureApiEnum {
+public enum EnumCultureApi {
 
     ALLEGORICAL("https://api.avatardata.cn/XieHouYu/Search?key=387bcf2fd17944af8695d21b1e41a91d"),
     ALLEGORICAL_RANDOM("https://api.avatardata.cn/XieHouYu/Random?key=387bcf2fd17944af8695d21b1e41a91d"),
@@ -20,7 +20,7 @@ public enum CultureApiEnum {
 
     private String URL;
 
-    CultureApiEnum(String URL) {
+    EnumCultureApi(String URL) {
         this.URL = URL;
     }
 

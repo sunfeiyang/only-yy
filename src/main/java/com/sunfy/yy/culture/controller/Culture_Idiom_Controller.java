@@ -1,9 +1,10 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.domain.Result;
+import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumCultureException;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Idiom;
-import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Idiom_Repository;
 import com.sunfy.yy.culture.service.Culture_Idiom_Service;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class Culture_Idiom_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Idiom_Controller—idiomList】请求成功！");
         }
-        String url = CultureApiEnum.IDIOM.getURL();
+        String url = EnumCultureApi.IDIOM.getURL();
         url += "&keyword="+keyword;
         if(!rows.equals("") && rows != null){
             url += "&rows="+rows;
@@ -61,11 +62,14 @@ public class Culture_Idiom_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Idiom_Controller—idiomDetails】请求成功！");
         }
-        String url = CultureApiEnum.IDIOM_DETAILS.getURL();
+        String url = EnumCultureApi.IDIOM_DETAILS.getURL();
         if(!id.equals("") && id != null){
             url += "&id="+id;
         }
-        return ResultUtil.success(culture_idiom_service.addIdiom(url));
+        if(culture_idiom_service.addIdiom(url) != null){
+            return ResultUtil.success(culture_idiom_service.addIdiom(url));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -79,8 +83,11 @@ public class Culture_Idiom_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Idiom_Controller—idiomRandom】请求成功！");
         }
-        String url = CultureApiEnum.IDIOM_RANDOM.getURL();
-        return ResultUtil.success(culture_idiom_service.addIdiomRandom(url));
+        String url = EnumCultureApi.IDIOM_RANDOM.getURL();
+        if(culture_idiom_service.addIdiomRandom(url) != null){
+            return ResultUtil.success(culture_idiom_service.addIdiomRandom(url));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -97,6 +104,9 @@ public class Culture_Idiom_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        return ResultUtil.success(culture_idiom_repository.save(culture_idiom));
+        if(culture_idiom_repository.save(culture_idiom) != null){
+            return ResultUtil.success(culture_idiom_repository.save(culture_idiom));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 }

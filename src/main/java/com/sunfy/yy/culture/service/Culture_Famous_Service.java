@@ -1,5 +1,7 @@
 package com.sunfy.yy.culture.service;
 
+import com.sunfy.yy.common.enums.EnumCultureException;
+import com.sunfy.yy.common.exception.ExceptionCulture;
 import com.sunfy.yy.culture.domain.Culture_Famous;
 import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
 import com.sunfy.yy.common.utils.HttpRequest;
@@ -117,6 +119,8 @@ public class Culture_Famous_Service {
         if(map != null){
             famous_name = (String)map.get("famous_name");
             famous_saying = (String)map.get("famous_saying");
+        }else{
+            throw new ExceptionCulture(EnumCultureException.ERROR);
         }
         ArrayList list = null;
         if(famous_name != "" && famous_name != null && famous_saying != "" && famous_saying != null){

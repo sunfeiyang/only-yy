@@ -1,10 +1,11 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.domain.Result;
+import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumCultureException;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Allegorical;
 import com.sunfy.yy.culture.domain.Culture_Famous;
-import com.sunfy.yy.common.enums.CultureApiEnum;
 import com.sunfy.yy.culture.repository.Culture_Allegorical_Repository;
 import com.sunfy.yy.culture.service.Culture_Allegorical_Service;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class Culture_Allegorical_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Allegorical_Controller—allegoricalList】请求成功！");
         }
-        String url = CultureApiEnum.ALLEGORICAL.getURL();
+        String url = EnumCultureApi.ALLEGORICAL.getURL();
         url += "&keyword="+keyword;
         if(!rows.equals("") && rows != null){
             url += "&rows="+rows;
@@ -50,7 +51,10 @@ public class Culture_Allegorical_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        return ResultUtil.success(culture_allegorical_service.addAllegorical(url));
+        if(culture_allegorical_service.addAllegorical(url) != null){
+            return ResultUtil.success(culture_allegorical_service.addAllegorical(url));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -73,8 +77,11 @@ public class Culture_Allegorical_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Allegorical_Controller—allegoricalList】请求成功！");
         }
-        String url = CultureApiEnum.ALLEGORICAL_RANDOM.getURL();
-        return ResultUtil.success(culture_allegorical_service.addAllegoricalRandom(url));
+        String url = EnumCultureApi.ALLEGORICAL_RANDOM.getURL();
+        if(culture_allegorical_service.addAllegoricalRandom(url) != null){
+            return ResultUtil.success(culture_allegorical_service.addAllegoricalRandom(url));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 
     /**
@@ -91,6 +98,9 @@ public class Culture_Allegorical_Controller {
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        return ResultUtil.success(culture_allegorical_repository.save(culture_allegorical));
+        if(culture_allegorical_repository.save(culture_allegorical) != null){
+            return ResultUtil.success(culture_allegorical_repository.save(culture_allegorical));
+        }
+        return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
 }

@@ -14,7 +14,7 @@ import java.util.concurrent.Executor;
  * @Configuration：表明该类是一个配置类
  * @EnableAsync：开启异步事件的支持
  */
-public class AsyncConfig {
+public class ConfigAsync {
      /*
     此处成员变量应该使用@Value从配置中读取
      */
