@@ -1,11 +1,16 @@
 package com.sunfy.yy.culture.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 
 /**
  * 成语
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Culture_Idiom {
 
     @Id
@@ -31,6 +36,14 @@ public class Culture_Idiom {
 
     //拼音
     private String idiom_spell;
+
+    //创建时间
+    @CreatedDate
+    private String createtime;
+
+    //更新时间
+    @LastModifiedDate
+    private String updatetime;
 
     public Integer getTid() {
         return tid;
@@ -86,5 +99,21 @@ public class Culture_Idiom {
 
     public void setIdiom_spell(String idiom_spell) {
         this.idiom_spell = idiom_spell;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime;
     }
 }

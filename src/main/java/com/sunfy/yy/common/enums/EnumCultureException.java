@@ -2,7 +2,7 @@ package com.sunfy.yy.common.enums;
 
 public enum EnumCultureException {
 
-    SUCCESS(0000,"数据请求成功！"),
+    SUCCESS(1000,"数据请求成功！"),
     ERROR(4001,"数据请求失败！"),
     ERROR_UNKNOW(4444,"未知错误！"),
     ERROR_NULL(4000,"请求数据为空！");

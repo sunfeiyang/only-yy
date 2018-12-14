@@ -11,8 +11,6 @@ import com.sunfy.yy.culture.service.Culture_Allegorical_Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,17 +63,6 @@ public class Culture_Allegorical_Controller {
      * @return
      */
     @GetMapping(value = "allegoricalRandom")
-    @Scheduled(cron = "1 * * * * *")
-    @Async
-    /*
-    在上面的定时任务中，我们在方法上使用@Scheduled注解来设置任务的执行时间，并且使用三种属性配置方式：
-
-        fixedRate：定义一个按一定频率执行的定时任务  @Scheduled(fixedRate = 5000)
-        fixedDelay：定义一个按一定频率执行的定时任务，与上面不同的是，改属性可以配合initialDelay， 定义该任务延迟执行时间。 @Scheduled(fixedDelay = 5000)
-        cron：通过表达式来配置任务执行时间 @Scheduled(cron = "0/5 * * * * *")
-
-     @Async 每一个任务都是在不同的线程中
-     */
     public Result<Culture_Famous> allegoricalRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Allegorical_Controller—allegoricalRandom】请求成功！");

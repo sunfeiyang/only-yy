@@ -1,11 +1,16 @@
 package com.sunfy.yy.culture.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 
 /**
  * 历史上的今天
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Culture_Today_History {
 
     @Id
@@ -30,6 +35,14 @@ public class Culture_Today_History {
 
     //年
     private Integer today_history_year;
+
+    //创建时间
+    @CreatedDate
+    private String createtime;
+
+    //更新时间
+    @LastModifiedDate
+    private String updatetime;
 
     public Integer getTid() {
         return tid;
@@ -85,5 +98,21 @@ public class Culture_Today_History {
 
     public void setToday_history_year(Integer today_history_year) {
         this.today_history_year = today_history_year;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime;
     }
 }

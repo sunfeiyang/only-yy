@@ -1,11 +1,19 @@
 package com.sunfy.yy.movie.domain;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
  * 影视短评
  */
+@Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Movie_Comments {
 
     @Id
@@ -41,6 +49,30 @@ public class Movie_Comments {
 
     //短评总条数
     private String comments_total;
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    //创建时间
+    @CreatedDate
+    private String createtime;
+
+    //更新时间
+    @LastModifiedDate
+    private String updatetime;
 
     public Integer getTid() {
         return tid;

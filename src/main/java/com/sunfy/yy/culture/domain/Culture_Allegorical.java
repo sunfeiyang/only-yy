@@ -1,11 +1,18 @@
 package com.sunfy.yy.culture.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * 歇后语
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Culture_Allegorical {
 
     @Id
@@ -37,6 +44,23 @@ public class Culture_Allegorical {
     //字母
     private String allegorical_zimu;
 
+    //创建时间
+    @CreatedDate
+    /*
+        在spring jpa中，支持在字段或者方法上进行注解@CreatedDate、@CreatedBy、@LastModifiedDate、@LastModifiedBy，从字面意思可以很清楚的了解，这几个注解的用处。
+        @CreatedDate 表示该字段为创建时间时间字段，在这个实体被insert的时候，会设置值
+        @CreatedBy 表示该字段为创建人，在这个实体被insert的时候，会设置值
+        @LastModifiedDate、@LastModifiedBy同理。
+
+        如何使用？
+        首先申明实体类，需要在类上加上注解@EntityListeners(AuditingEntityListener.class)，其次在application启动类中加上注解EnableJpaAuditing，同时在需要的字段上加上@CreatedDate、@CreatedBy、@LastModifiedDate、@LastModifiedBy等注解。
+        这个时候，在jpa.save方法被调用的时候，时间字段会自动设置并插入数据库，但是CreatedBy和LastModifiedBy并没有赋值，因为需要实现AuditorAware接口来返回你需要插入的值。
+     */
+    private String createtime;
+    //更新时间
+    @LastModifiedDate
+    private String updatetime;
+
     public Integer getTid() {
         return tid;
     }
@@ -67,5 +91,21 @@ public class Culture_Allegorical {
 
     public void setAllegorical_zimu(String allegorical_zimu) {
         this.allegorical_zimu = allegorical_zimu;
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime;
     }
 }

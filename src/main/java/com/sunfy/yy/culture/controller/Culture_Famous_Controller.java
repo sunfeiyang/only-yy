@@ -10,8 +10,6 @@ import com.sunfy.yy.common.utils.ResultUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,8 +62,6 @@ public class Culture_Famous_Controller {
      * @return
      */
     @GetMapping(value = "famousRandom")
-    //@Scheduled(cron = "10 0/5 * * * *")
-    //@Async
     public Result<Culture_Famous> famousRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousRandom】请求成功！");

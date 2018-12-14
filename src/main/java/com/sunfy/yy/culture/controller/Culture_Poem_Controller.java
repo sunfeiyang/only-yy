@@ -10,8 +10,6 @@ import com.sunfy.yy.culture.service.Culture_Poem_Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,8 +81,6 @@ public class Culture_Poem_Controller {
      * @return
      */
     @GetMapping(value = "poemRandom")
-    @Scheduled(cron = "30 * * * * *")
-    @Async
     public Result<Culture_Poem> poemRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemRandom】请求成功！");

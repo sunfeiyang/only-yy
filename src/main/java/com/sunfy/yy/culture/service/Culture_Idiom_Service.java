@@ -1,5 +1,6 @@
 package com.sunfy.yy.culture.service;
 
+import com.sunfy.yy.common.enums.EnumCultureApi;
 import com.sunfy.yy.common.utils.HttpRequest;
 import com.sunfy.yy.common.utils.JsonUtils;
 import com.sunfy.yy.culture.domain.Culture_Idiom;
@@ -42,7 +43,7 @@ public class Culture_Idiom_Service {
                 for (int i = 0; i < list.size(); i++) {
                     Map mapList = (Map) list.get(i);
                     String id = (String)mapList.get("id");
-                    String urlDetails ="https://api.avatardata.cn/ChengYu/LookUp?key=2431b0ba7ab24c8191df893243382dc4";
+                    String urlDetails = EnumCultureApi.IDIOM_DETAILS.getURL();
                     if(!id.equals("") && id != null){
                         urlDetails += "&id="+id;
                     }

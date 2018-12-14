@@ -32,6 +32,7 @@ public class HttpRequest {
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.setRequestProperty("Content-Type", "utf-8");
             // 建立实际的连接
             connection.connect();
             // 获取所有响应头字段
@@ -42,7 +43,7 @@ public class HttpRequest {
             }
             // 定义 BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(
-                    connection.getInputStream()));
+                    connection.getInputStream(),"utf-8"));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;
@@ -86,6 +87,7 @@ public class HttpRequest {
             conn.setRequestProperty("connection", "Keep-Alive");
             conn.setRequestProperty("user-agent",
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            conn.setRequestProperty("Content-Type", "utf-8");
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -97,7 +99,7 @@ public class HttpRequest {
             out.flush();
             // 定义BufferedReader输入流来读取URL的响应
             in = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()));
+                    new InputStreamReader(conn.getInputStream(), "utf-8"));
             String line;
             while ((line = in.readLine()) != null) {
                 result += line;
@@ -137,12 +139,13 @@ public class HttpRequest {
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+            connection.setRequestProperty("Content-Type", "utf-8");
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
             // 建立实际的连接
             connection.connect();
-            // 定义 BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            // 定义 BufferedReader输入流来读取URL的响应，并设置返回是数据编码格式
+            in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
             StringBuffer sb = new StringBuffer();
             //System.out.println(sb);
             String line;
