@@ -83,7 +83,7 @@ public class Culture_Poem_Controller {
      * @return
      */
     @GetMapping(value = "poemRandom")
-    @Scheduled(fixedRate = 10*1000)
+    @Scheduled(cron = "30 * * * * *")
     @Async
     public Result<Culture_Poem> poemRandom(){
         if(logger.isInfoEnabled()){

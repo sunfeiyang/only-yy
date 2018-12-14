@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Culture_Famous {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //姓名

@@ -65,7 +65,7 @@ public class Culture_Allegorical_Controller {
      * @return
      */
     @GetMapping(value = "allegoricalRandom")
-    @Scheduled(fixedRate = 10*1000)
+    @Scheduled(cron = "1 * * * * *")
     @Async
     /*
     在上面的定时任务中，我们在方法上使用@Scheduled注解来设置任务的执行时间，并且使用三种属性配置方式：
@@ -78,7 +78,7 @@ public class Culture_Allegorical_Controller {
      */
     public Result<Culture_Famous> allegoricalRandom(){
         if(logger.isInfoEnabled()){
-            logger.info("【Culture_Allegorical_Controller—allegoricalList】请求成功！");
+            logger.info("【Culture_Allegorical_Controller—allegoricalRandom】请求成功！");
         }
         String url = EnumCultureApi.ALLEGORICAL_RANDOM.getURL();
         Map map = culture_allegorical_service.addAllegoricalRandom(url);

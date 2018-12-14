@@ -84,7 +84,7 @@ public class Culture_Idiom_Controller {
      * @return
      */
     @GetMapping(value = "idiomRandom")
-    @Scheduled(fixedRate = 10*1000)
+    @Scheduled(cron = "20 * * * * *")
     @Async
     public Result<Culture_Idiom> idiomRandom(){
         if(logger.isInfoEnabled()){

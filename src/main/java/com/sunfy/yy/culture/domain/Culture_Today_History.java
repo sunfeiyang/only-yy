@@ -1,9 +1,6 @@
 package com.sunfy.yy.culture.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 历史上的今天
@@ -12,7 +9,7 @@ import javax.persistence.Id;
 public class Culture_Today_History {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //总条数

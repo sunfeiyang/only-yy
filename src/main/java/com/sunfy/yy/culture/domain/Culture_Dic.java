@@ -1,9 +1,6 @@
 package com.sunfy.yy.culture.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 新华字典
@@ -12,7 +9,7 @@ import javax.persistence.Id;
 public class Culture_Dic {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //汉字
