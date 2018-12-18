@@ -2,7 +2,7 @@ package com.sunfy.yy.common.TimedTask;
 
 import com.sunfy.yy.common.enums.EnumCultureApi;
 import com.sunfy.yy.culture.controller.Culture_Allegorical_Controller;
-import com.sunfy.yy.culture.service.Culture_Allegorical_Service;
+import com.sunfy.yy.culture.service.Impl.Culture_Allegorical_ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.Executors;
@@ -23,7 +23,7 @@ public class ScheduledExecutorTest {
     @Autowired
     private Culture_Allegorical_Controller culture_allegorical_controller;
     @Autowired
-    private Culture_Allegorical_Service culture_allegorical_service;
+    private Culture_Allegorical_ServiceImpl culture_allegorical_serviceImpl;
     
     public ScheduledExecutorTest(){
         this.scheduExec =  Executors.newScheduledThreadPool(2);
@@ -63,7 +63,7 @@ public class ScheduledExecutorTest {
                 //culture_allegorical_controller.allegoricalRandom();
 
                 String url = EnumCultureApi.ALLEGORICAL_RANDOM.getURL();
-                culture_allegorical_service.addAllegoricalRandom(url);
+                culture_allegorical_serviceImpl.addAllegoricalRandom(url);
                 System.out.println("timerAllegorical执行结束");
             }
         },2000,5000,TimeUnit.MILLISECONDS);

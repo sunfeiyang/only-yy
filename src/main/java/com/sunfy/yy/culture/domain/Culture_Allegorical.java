@@ -1,6 +1,5 @@
 package com.sunfy.yy.culture.domain;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,7 +20,7 @@ catalog：用于指定数据库实例名。如果不指定，新建的表则出�
 schema：作用与catalog相同；
 indexes：用于对表字段建立索引。如：indexes={@Index(name=”idx_name_address”, unique=false, columnList=”name,address”)}
 uniqueConstraints：指定表的唯一性约束。可建立多个唯一性约束。如：uniqueConstraints={@UniqueConstraint(columnNames={“col1”,”col2”}),@UniqueConstraint(columnNames={“col3”,”col4”})}
-
+[唯一约束时最大字节数是3072]
 原文：https://blog.csdn.net/LZJLZJLZJLZJLZJLZJ/article/details/78635157
  */
 public class Culture_Allegorical {
