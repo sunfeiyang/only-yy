@@ -11,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames="dic_hanzi")})
 public class Culture_Dic {
 
     @Id
@@ -18,33 +19,41 @@ public class Culture_Dic {
     private Integer tid;
 
     //汉字
-    @Column(name = "dic_hanzi")
+    @Column(name = "dic_hanzi",columnDefinition = "varchar(64) comment '汉字'")
     private String dichanzi;
 
     //拼音
+    @Column(columnDefinition = "varchar(128) comment '拼音'")
     private String dic_pinyin;
 
     //读音
+    @Column(columnDefinition = "varchar(128) comment '读音'")
     private String dic_duyin;
 
     //部首
+    @Column(columnDefinition = "varchar(64) comment '部首'")
     private String dic_bushou;
 
     //笔画
+    @Column(columnDefinition = "varchar(64) comment '笔画'")
     private Integer dic_bihua;
 
     //简介
+    @Column(columnDefinition = "varchar(512) comment '简介'")
     private String dic_jianjie;
 
     //详解
+    @Column(columnDefinition = "text(0) comment '详解'")
     private String dic_xiangjie;
 
     //创建时间
     @CreatedDate
+    @Column(columnDefinition = "varchar(128) comment '创建时间'")
     private String createtime;
 
     //更新时间
     @LastModifiedDate
+    @Column(columnDefinition = "varchar(128) comment '更新时间'")
     private String updatetime;
 
     public Integer getTid() {

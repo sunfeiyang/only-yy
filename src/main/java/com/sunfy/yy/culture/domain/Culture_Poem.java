@@ -11,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames="poem_id")})
 public class Culture_Poem {
 
     @Id
@@ -21,26 +22,29 @@ public class Culture_Poem {
     private String poem_id;
 
     //标题
-    @Column(name = "poem_biaoti")
+    @Column(name = "poem_biaoti",columnDefinition = "varchar(512) comment '创建时间'")
     private String poembiaoti;
 
     //介绍
+    @Column(columnDefinition = "varchar(2048) comment '介绍'")
     private String poem_jieshao;
 
     //作者
-    @Column(name = "poem_zuozhe")
+    @Column(name = "poem_zuozhe",columnDefinition = "varchar(128) comment '作者'")
     private String poemzuozhe;
 
     //内容
-    @Column(name = "poem_neirong")
+    @Column(name = "poem_neirong",columnDefinition = "text(0) comment '内容'")
     private String poemneirong;
 
     //创建时间
     @CreatedDate
+    @Column(columnDefinition = "varchar(128) comment '创建时间'")
     private String createtime;
 
     //更新时间
     @LastModifiedDate
+    @Column(columnDefinition = "varchar(128) comment '更新时间'")
     private String updatetime;
 
     public Integer getTid() {

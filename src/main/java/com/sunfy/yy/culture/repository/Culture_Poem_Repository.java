@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface Culture_Poem_Repository extends JpaRepository<Culture_Poem,Integer> {
     //根据tid进行过滤
-    public List<Culture_Poem> findByTid(Integer tid);
+    public Culture_Poem findByTid(Integer tid);
     //根据标题、作者进行过滤(插入数据库时检查唯一性)
     public List<Culture_Poem> findByPoembiaotiAndPoemzuozhe(String poembiaoti,String poemzuozhe);
     //根据标题、内容以及作者进行过滤(搜索功能)
-    public List<Culture_Poem> findByPoembiaotiOrPoemzuozheOrPoemneirong(String poembiaoti,String poemzuozhe,String poemneirong);
+    public Culture_Poem findByPoembiaotiOrPoemzuozheOrPoemneirong(String poembiaoti,String poemzuozhe,String poemneirong);
 }

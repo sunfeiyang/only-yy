@@ -4,8 +4,7 @@ import com.sunfy.yy.common.enums.EnumCultureException;
 import com.sunfy.yy.common.exception.ExceptionCulture;
 import com.sunfy.yy.culture.domain.Culture_Famous;
 import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
-import com.sunfy.yy.common.utils.HttpRequest;
-import com.sunfy.yy.common.utils.JsonUtils;
+import com.sunfy.yy.culture.utils.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +15,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Service
-public class Culture_Famous_Service {
+public class Culture_Famous_Service extends Culture_Service{
 
     //名人名言数据库操作对象
     @Autowired
     private Culture_Famous_Repository culture_famous_repository;
-
-    //发送http请求的对象
-    HttpRequest httpRequest = new HttpRequest();
 
     private final static Logger logger = LoggerFactory.getLogger(Culture_Famous_Service.class);
 
@@ -33,62 +29,14 @@ public class Culture_Famous_Service {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Service—addFamous】请求成功！参数：url="+url);
         }
-        String jsonResult = httpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
-        Map map = null;
-        try {
-            map = jsonUtils.toMap(jsonResult);
-            Integer total = (Integer) map.get("total");
-            ArrayList list = (ArrayList) map.get("result");
-            if(list != null && list.size() > 0){
-                for (int i = 0; i < list.size(); i++) {
-                    Map mapList = (Map) list.get(i);
-                    //将数据存入数据库
-                    if(!this.listFiltrate(mapList)){
-                        if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Famous_Service—addFamous】插入数据！");
-                        }
-                        culture_famous_repository.save(this.mapToBean(mapList));
-                    }else{
-                        if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Famous_Service—addFamous】数据已存在！");
-                        }
-                    }
-                }
-                return list;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return addList(url, EnumRepositoryType.FAMOUS.getRepositoryType());
     }
 
-    public Map addFamousRandom(String url) {
+    public ArrayList addFamousRandom(String url) {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Service—addFamousRandom】请求成功！参数：url="+url);
         }
-        String jsonResult = httpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
-        Map map = null;
-        try {
-            map = jsonUtils.toMap(jsonResult);
-            Map mapList = (Map) map.get("result");
-            //将数据存入数据库
-            if(!this.listFiltrate(mapList)){
-                if(logger.isErrorEnabled()){
-                    logger.info("【Culture_Famous_Service—addFamousRandom】插入数据！");
-                }
-                culture_famous_repository.save(this.mapToBean(mapList));
-            }else{
-                if(logger.isErrorEnabled()){
-                    logger.info("【Culture_Famous_Service—addFamousRandom】数据已存在！");
-                }
-            }
-            return mapList;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return addRandom(url, EnumRepositoryType.FAMOUS.getRepositoryType());
     }
 
     /**
@@ -96,7 +44,7 @@ public class Culture_Famous_Service {
      * @param map 带有数据的map
      * @return 返回存入数据的bean对象
      */
-    public Culture_Famous mapToBean(Map map){
+    public static Culture_Famous mapToBean(Map map){
         //创建要转换的bean对象
         Culture_Famous culture_famous = new Culture_Famous();
         /*
@@ -113,7 +61,8 @@ public class Culture_Famous_Service {
      * @param map 待检查数据
      * @return 返回过滤结果 true：已存在 false：不存在
      */
-    public boolean listFiltrate(Map map){
+    public ArrayList listFiltrate(Map map){
+        ArrayList result_list = new ArrayList();
         String famous_name = "";
         String famous_saying = "";
         if(map != null){
@@ -122,16 +71,21 @@ public class Culture_Famous_Service {
         }else{
             throw new ExceptionCulture(EnumCultureException.ERROR);
         }
-        ArrayList list = null;
+        Culture_Famous culture_famous = null;
         if(famous_name != "" && famous_name != null && famous_saying != "" && famous_saying != null){
             //根据获得到的人名和对应的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
-            list = (ArrayList) culture_famous_repository.findByFamousnameAndFamoussaying(famous_name,famous_saying);
+            culture_famous = culture_famous_repository.findByFamousnameAndFamoussaying(famous_name,famous_saying);
         }else{
-            return true;
+            result_list.add(true);
+            result_list.add(culture_famous);
+            return result_list;
         }
-        if(list != null && list.size() > 0){
-            return true;
+        if(culture_famous != null){
+            result_list.add(true);
+            result_list.add(culture_famous);
+            return result_list;
         }
-        return false;
+        result_list.add(false);
+        return result_list;
     }
 }

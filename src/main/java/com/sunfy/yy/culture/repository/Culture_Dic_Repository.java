@@ -10,8 +10,8 @@ import java.util.List;
  */
 public interface Culture_Dic_Repository extends JpaRepository<Culture_Dic,Integer> {
     //根据Tid过滤
-    public List<Culture_Dic> findByTid(Integer tid);
+    public Culture_Dic findByTid(Integer tid);
     //根据Dichanzi(字)过滤——》数据库中映射的字段数据Dic_hanzi
-    public List<Culture_Dic> findByDichanzi(String Dichanzi);
+    public Culture_Dic findByDichanzi(String Dichanzi);
 
 }

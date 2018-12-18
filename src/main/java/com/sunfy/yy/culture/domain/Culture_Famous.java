@@ -12,6 +12,7 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"famous_name", "famous_saying"})})
 /*
 增加table注解后，Jpa会自动根据字段内容新增没有的字段，如果不写注解会做相应映射而不会新增字段
  */
@@ -23,19 +24,21 @@ public class Culture_Famous {
     private Integer tid;
 
     //姓名
-    @Column(name="famous_name")
+    @Column(name="famous_name",columnDefinition = "varchar(64) comment '姓名'")
     private String famousname;
 
     //内容
-    @Column(name="famous_saying")
+    @Column(name="famous_saying",columnDefinition = "varchar(256) comment '内容'")
     private String famoussaying;
 
     //创建时间
     @CreatedDate
+    @Column(columnDefinition = "varchar(128) comment '创建时间'")
     private String createtime;
 
     //更新时间
     @LastModifiedDate
+    @Column(columnDefinition = "varchar(128) comment '更新时间'")
     private String updatetime;
 
     public Integer getTid() {

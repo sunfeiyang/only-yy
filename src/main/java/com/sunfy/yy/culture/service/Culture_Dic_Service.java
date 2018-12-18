@@ -1,9 +1,8 @@
 package com.sunfy.yy.culture.service;
 
-import com.sunfy.yy.common.utils.HttpRequest;
-import com.sunfy.yy.common.utils.JsonUtils;
 import com.sunfy.yy.culture.domain.Culture_Dic;
 import com.sunfy.yy.culture.repository.Culture_Dic_Repository;
+import com.sunfy.yy.culture.utils.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +13,11 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Service
-public class Culture_Dic_Service {
+public class Culture_Dic_Service extends Culture_Service{
 
     //字典数据库操作对象
     @Autowired
     private Culture_Dic_Repository culture_Dic_repository;
-
-    //发送http请求的对象
-    HttpRequest httpRequest = new HttpRequest();
 
     private final static Logger logger = LoggerFactory.getLogger(Culture_Dic_Service.class);
 
@@ -31,34 +27,7 @@ public class Culture_Dic_Service {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Dic_Service—addDic】请求成功！参数：url="+url);
         }
-        String jsonResult = httpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
-        Map map = null;
-        try {
-            map = jsonUtils.toMap(jsonResult);
-            Integer total = (Integer) map.get("total");
-            ArrayList list = (ArrayList) map.get("result");
-            if(list != null && list.size() > 0){
-                for (int i = 0; i < list.size(); i++) {
-                    Map mapList = (Map) list.get(i);
-                    //将数据存入数据库
-                    if(!this.listFiltrate(mapList)){
-                        if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Dic_Service—addDic】插入数据！");
-                        }
-                        culture_Dic_repository.save(this.mapToBean(mapList));
-                    }else{
-                        if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Dic_Service—addDic】数据已存在！");
-                        }
-                    }
-                }
-                return list;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return addList(url, EnumRepositoryType.DIC.getRepositoryType());
     }
 
     /**
@@ -66,7 +35,7 @@ public class Culture_Dic_Service {
      * @param map 带有数据的map
      * @return 返回存入数据的bean对象
      */
-    public Culture_Dic mapToBean(Map map){
+    public static Culture_Dic mapToBean(Map map){
         //创建要转换的bean对象
         Culture_Dic culture_dic = new Culture_Dic();
         /*
@@ -88,14 +57,18 @@ public class Culture_Dic_Service {
      * @param map 待检查数据
      * @return 返回过滤结果 true：已存在 false：不存在
      */
-    public boolean listFiltrate(Map map){
+    public ArrayList listFiltrate(Map map){
+        ArrayList result_list = new ArrayList();
         String hanzi = (String)map.get("hanzi");
         //根据获得到的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
-        ArrayList list = (ArrayList) culture_Dic_repository.findByDichanzi(hanzi);
-        if(list != null && list.size() > 0){
-            return true;
+        Culture_Dic culture_dic = culture_Dic_repository.findByDichanzi(hanzi);
+        if(culture_dic != null){
+            result_list.add(true);
+            result_list.add(culture_dic);
+            return result_list;
         }
-        return false;
+        result_list.add(false);
+        return result_list;
     }
 
 }

@@ -15,12 +15,12 @@ public interface Culture_Famous_Repository extends JpaRepository<Culture_Famous,
         在对应bean中的字段与数据库中字段不一致的映射要通过注解来指定
      */
     //根据Tid过滤
-    public List<Culture_Famous> findByTid(Integer tid);
+    public Culture_Famous findByTid(Integer tid);
     //根据famousname(人名)过滤——》数据库中映射的字段数据FAMOUS_NAME
     public List<Culture_Famous> findByFamousname(String famousname);
     //根据famoussaying(内容)过滤
     public List<Culture_Famous> findByFamoussaying(String famoussaying);
     //根据famousname(人名)和famoussaying(内容)同时进行过滤，保证数据唯一性
-    public List<Culture_Famous> findByFamousnameAndFamoussaying(String famousname,String famoussaying);
+    public Culture_Famous findByFamousnameAndFamoussaying(String famousname,String famoussaying);
 
 }

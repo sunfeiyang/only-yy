@@ -11,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"today_history_month", "today_history_day"})})
 public class Culture_Today_History {
 
     @Id
@@ -18,30 +19,37 @@ public class Culture_Today_History {
     private Integer tid;
 
     //总条数
+    @Column(columnDefinition = "varchar(36) comment '总条数'")
     private String today_history_total;
 
     //月
+    @Column(columnDefinition = "varchar(36) comment '月'")
     private Integer today_history_month;
 
     //日
+    @Column(columnDefinition = "varchar(36) comment '日'")
     private Integer today_history_day;
 
     //内容
-    @Column(name = "today_history_title")
+    @Column(name = "today_history_title",columnDefinition = "varchar(4000) comment '内容'")
     private String todayhistorytitle;
 
     //类型1、国际2、民间
+    @Column(columnDefinition = "varchar(36) comment '类型1、国际2、民间'")
     private Integer today_history_type;
 
     //年
+    @Column(columnDefinition = "varchar(36) comment '年'")
     private Integer today_history_year;
 
     //创建时间
     @CreatedDate
+    @Column(columnDefinition = "varchar(128) comment '创建时间'")
     private String createtime;
 
     //更新时间
     @LastModifiedDate
+    @Column(columnDefinition = "varchar(128) comment '更新时间'")
     private String updatetime;
 
     public Integer getTid() {

@@ -7,10 +7,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableJpaAuditing
 /**
  * EnableScheduling 启用定时任务
  */
+@EnableJpaAuditing
 public class YyApplication {
 
     public static void main(String[] args) {

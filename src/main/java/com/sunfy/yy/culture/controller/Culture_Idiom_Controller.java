@@ -87,9 +87,9 @@ public class Culture_Idiom_Controller {
             logger.info("【Culture_Idiom_Controller—idiomRandom】请求成功！");
         }
         String url = EnumCultureApi.IDIOM_RANDOM.getURL();
-        Map map = culture_idiom_service.addIdiomRandom(url);
-        if(map != null && !map.isEmpty()){
-            return ResultUtil.success(map);
+        ArrayList list = culture_idiom_service.addIdiomRandom(url);
+        if(list != null && !list.isEmpty()){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

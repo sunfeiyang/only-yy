@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface Culture_Today_History_Repository extends JpaRepository<Culture_Today_History,Integer> {
     //根据Tid进行过滤
-    public List<Culture_Today_History> findByTid(Integer tid);
+    public Culture_Today_History findByTid(Integer tid);
     //根据内容进行过滤
-    public List<Culture_Today_History> findByTodayhistorytitle(String todayhistorytitle);
+    public Culture_Today_History findByTodayhistorytitle(String todayhistorytitle);
 }

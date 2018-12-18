@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * 唐诗宋词控制器
@@ -86,9 +85,9 @@ public class Culture_Poem_Controller {
             logger.info("【Culture_Poem_Controller—poemRandom】请求成功！");
         }
         String url = EnumCultureApi.POEM_RANDOM.getURL();
-        Map map = culture_poem_service.addPoemRandom(url);
-        if(map != null && !map.isEmpty()){
-            return ResultUtil.success(map);
+        ArrayList list = culture_poem_service.addPoemRandom(url);
+        if(list != null && !list.isEmpty()){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

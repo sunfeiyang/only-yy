@@ -70,9 +70,9 @@ public class Culture_Famous_Controller {
         if(culture_famous_service.addFamousRandom(url) != null){
             return ResultUtil.success(culture_famous_service.addFamousRandom(url));
         }
-        Map map = culture_famous_service.addFamousRandom(url);
-        if(map != null && !map.isEmpty()){
-            return ResultUtil.success(map);
+        ArrayList list = culture_famous_service.addFamousRandom(url);
+        if(list != null && !list.isEmpty()){
+            return ResultUtil.success(list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

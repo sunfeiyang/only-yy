@@ -5,7 +5,6 @@ import com.sunfy.yy.common.enums.EnumCultureApi;
 import com.sunfy.yy.common.enums.EnumCultureException;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Allegorical;
-import com.sunfy.yy.culture.domain.Culture_Famous;
 import com.sunfy.yy.culture.repository.Culture_Allegorical_Repository;
 import com.sunfy.yy.culture.service.Culture_Allegorical_Service;
 import org.slf4j.Logger;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * 歇后语控制器
@@ -37,9 +35,9 @@ public class Culture_Allegorical_Controller {
      * @return
      */
     @GetMapping(value = "allegorical/{keyword}")
-    public Result<Culture_Famous> allegoricalList(@PathVariable("keyword") String keyword,
-                                                  @RequestParam("rows") Integer rows,
-                                                  @RequestParam("page") Integer page){
+    public Result<Culture_Allegorical> allegoricalList(@PathVariable("keyword") String keyword,
+                                                       @RequestParam("rows") Integer rows,
+                                                       @RequestParam("page") Integer page){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Allegorical_Controller—allegoricalList】请求成功！");
         }
@@ -51,9 +49,9 @@ public class Culture_Allegorical_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        ArrayList list = culture_allegorical_service.addAllegorical(url);
-        if(list != null && list.size() > 0){
-            return ResultUtil.success(list);
+        ArrayList<Culture_Allegorical> result_list = culture_allegorical_service.addAllegorical(url);
+        if(result_list != null){
+            return ResultUtil.success(result_list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
@@ -63,14 +61,14 @@ public class Culture_Allegorical_Controller {
      * @return
      */
     @GetMapping(value = "allegoricalRandom")
-    public Result<Culture_Famous> allegoricalRandom(){
+    public Result<Culture_Allegorical> allegoricalRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Allegorical_Controller—allegoricalRandom】请求成功！");
         }
         String url = EnumCultureApi.ALLEGORICAL_RANDOM.getURL();
-        Map map = culture_allegorical_service.addAllegoricalRandom(url);
-        if(map != null && !map.isEmpty()){
-            return ResultUtil.success(map);
+        ArrayList<Culture_Allegorical> result_list = culture_allegorical_service.addAllegoricalRandom(url);
+        if(result_list != null){
+            return ResultUtil.success(result_list);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

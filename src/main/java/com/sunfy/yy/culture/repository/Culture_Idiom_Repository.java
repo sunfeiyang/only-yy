@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface Culture_Idiom_Repository extends JpaRepository<Culture_Idiom,Integer> {
     //根据tid进行过滤
-    public List<Culture_Idiom> findByTid(Integer tid);
+    public Culture_Idiom findByTid(Integer tid);
     //根据idiomname过滤
     public List<Culture_Idiom> findByIdiomname(String idiomname);
     //根据id过滤
-    public List<Culture_Idiom> findByIdiomid(String idiomid);
+    public Culture_Idiom findByIdiomid(String idiomid);
 }

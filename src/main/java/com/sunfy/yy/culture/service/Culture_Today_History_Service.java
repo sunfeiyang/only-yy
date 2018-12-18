@@ -1,9 +1,9 @@
 package com.sunfy.yy.culture.service;
 
 import com.sunfy.yy.common.utils.HttpRequest;
-import com.sunfy.yy.common.utils.JsonUtils;
 import com.sunfy.yy.culture.domain.Culture_Today_History;
 import com.sunfy.yy.culture.repository.Culture_Today_History_Repository;
+import com.sunfy.yy.culture.utils.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Service
-public class Culture_Today_History_Service {
+public class Culture_Today_History_Service extends Culture_Service{
 
     //历史上的今天数据库操作对象
     @Autowired
@@ -31,34 +31,7 @@ public class Culture_Today_History_Service {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Today_History_Service—addToday_History】请求成功！参数：url="+url);
         }
-        String jsonResult = httpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
-        Map map = null;
-        try {
-            map = jsonUtils.toMap(jsonResult);
-            Integer total = (Integer) map.get("total");
-            ArrayList list = (ArrayList) map.get("result");
-            if(list != null && list.size() > 0){
-                for (int i = 0; i < list.size(); i++) {
-                    Map mapList = (Map) list.get(i);
-                    //将数据存入数据库
-                    if(!this.listFiltrate(mapList)){
-                        if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Today_History_Service—addToday_History】插入数据！");
-                        }
-                        culture_today_history_repository.save(this.mapToBean(mapList));
-                    }else{
-                        if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Today_History_Service—addToday_History】数据已存在！");
-                        }
-                    }
-                }
-                return list;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return addList(url, EnumRepositoryType.TODAY_HISTORY.getRepositoryType());
     }
 
     /**
@@ -66,7 +39,7 @@ public class Culture_Today_History_Service {
      * @param map 带有数据的map
      * @return 返回存入数据的bean对象
      */
-    public Culture_Today_History mapToBean(Map map){
+    public static Culture_Today_History mapToBean(Map map){
         //创建要转换的bean对象
         Culture_Today_History culture_today_history = new Culture_Today_History();
         /*
@@ -86,14 +59,18 @@ public class Culture_Today_History_Service {
      * @param map 待检查数据
      * @return 返回过滤结果 true：已存在 false：不存在
      */
-    public boolean listFiltrate(Map map){
+    public ArrayList listFiltrate(Map map){
+        ArrayList result_list = new ArrayList();
         String title = (String)map.get("title");
         //根据获得到的人名和对应的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
-        ArrayList list = (ArrayList) culture_today_history_repository.findByTodayhistorytitle(title);
-        if(list != null && list.size() > 0){
-            return true;
+        Culture_Today_History culture_today_history = culture_today_history_repository.findByTodayhistorytitle(title);
+        if(culture_today_history != null){
+            result_list.add(true);
+            result_list.add(culture_today_history);
+            return result_list;
         }
-        return false;
+        result_list.add(false);
+        return result_list;
     }
 
 }

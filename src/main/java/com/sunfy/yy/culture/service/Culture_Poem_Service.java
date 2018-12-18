@@ -5,6 +5,7 @@ import com.sunfy.yy.common.utils.HttpRequest;
 import com.sunfy.yy.common.utils.JsonUtils;
 import com.sunfy.yy.culture.domain.Culture_Poem;
 import com.sunfy.yy.culture.repository.Culture_Poem_Repository;
+import com.sunfy.yy.culture.utils.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @Service
-public class Culture_Poem_Service {
+public class Culture_Poem_Service extends Culture_Service{
 
     //唐诗宋词数据库操作对象
     @Autowired
@@ -32,6 +33,8 @@ public class Culture_Poem_Service {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Service—addPoemList】请求成功！参数：url="+url);
         }
+        Culture_Poem culture_poem = null;
+        ArrayList<Culture_Poem> result_list = new ArrayList();
         String jsonResult = httpRequest.get(url);
         JsonUtils jsonUtils = new JsonUtils();
         Map map = null;
@@ -49,8 +52,18 @@ public class Culture_Poem_Service {
                     }
                     String jsonResultDetails = httpRequest.get(urlDetails);
                     Map mapDetails = jsonUtils.toMap(jsonResultDetails);
+                    //将原始数据进行过滤，根据返回状态判断是否写入数据库
+                    ArrayList listFiltrate = this.listFiltrate((Map) mapDetails.get("result"));
+                    //初始化数据库中是否存在该对象（默认是不存在）
+                    Boolean filtrate_isHave = false;
+                    if (listFiltrate != null && listFiltrate.size() > 0){
+                        filtrate_isHave = (Boolean) listFiltrate.get(0);
+                        if(listFiltrate.size() > 1){
+                            culture_poem = (Culture_Poem) listFiltrate.get(1);
+                        }
+                    }
                     //将数据存入数据库
-                    if(!this.listFiltrate((Map) mapDetails.get("result"))){
+                    if(filtrate_isHave){
                         if(logger.isErrorEnabled()){
                             logger.info("【Culture_Poem_Service—addPoemList】插入数据！");
                         }
@@ -61,7 +74,8 @@ public class Culture_Poem_Service {
                         }
                     }
                 }
-                return list;
+                result_list.add(culture_poem);
+                return result_list;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,63 +89,15 @@ public class Culture_Poem_Service {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Service—addPoem】请求成功！参数：url="+url);
         }
-        String jsonResult = httpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
-        Map map = null;
-        try {
-            map = jsonUtils.toMap(jsonResult);
-            Integer total = (Integer) map.get("total");
-            ArrayList list = (ArrayList) map.get("result");
-            if(list != null && list.size() > 0){
-                for (int i = 0; i < list.size(); i++) {
-                    Map mapList = (Map) list.get(i);
-                    //将数据存入数据库
-                    if(!this.listFiltrate(mapList)){
-                        if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Poem_Service—addPoem】插入数据！");
-                        }
-                        culture_poem_repository.save(this.mapToBean(mapList));
-                    }else{
-                        if(logger.isErrorEnabled()){
-                            logger.info("【Culture_Poem_Service—addPoem】数据已存在！");
-                        }
-                    }
-                }
-                return list;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return addList(url, EnumRepositoryType.POEM.getRepositoryType());
     }
 
     //事务操作 防止多条数据插入时 有失败情况
-    public Map addPoemRandom(String url) {
+    public ArrayList<Culture_Poem> addPoemRandom(String url) {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Service—addPoemRandom】请求成功！参数：url="+url);
         }
-        String jsonResult = httpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
-        Map map = null;
-        try {
-            map = jsonUtils.toMap(jsonResult);
-            Map mapList = (Map) map.get("result");
-            //将数据存入数据库
-            if(!this.listFiltrate(mapList)){
-                if(logger.isErrorEnabled()){
-                    logger.info("【Culture_Poem_Service—addPoemRandom】插入数据！");
-                }
-                culture_poem_repository.save(this.mapToBean(mapList));
-            }else{
-                if(logger.isErrorEnabled()){
-                    logger.info("【Culture_Poem_Service—addPoemRandom】数据已存在！");
-                }
-            }
-            return mapList;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return addRandom(url, EnumRepositoryType.POEM.getRepositoryType());
     }
 
     /**
@@ -139,7 +105,7 @@ public class Culture_Poem_Service {
      * @param map 带有数据的map
      * @return 返回存入数据的bean对象
      */
-    public Culture_Poem mapToBean(Map map){
+    public static Culture_Poem mapToBean(Map map){
         //创建要转换的bean对象
         Culture_Poem culture_poem = new Culture_Poem();
         /*
@@ -159,16 +125,20 @@ public class Culture_Poem_Service {
      * @param map 待检查数据
      * @return 返回过滤结果 true：已存在 false：不存在
      */
-    public boolean listFiltrate(Map map){
+    public ArrayList listFiltrate(Map map){
+        ArrayList result_list = new ArrayList();
         String biaoti = (String)map.get("biaoti");
         String zuozhe = (String)map.get("zuozhe");
         String neirong = (String)map.get("neirong");
         //根据获得到的人名和对应的内容进行过滤，判断内容是否存在，存在返回true，否则返回false
-        ArrayList list = (ArrayList) culture_poem_repository.findByPoembiaotiOrPoemzuozheOrPoemneirong(biaoti,zuozhe,neirong);
-        if(list != null && list.size() > 0){
-            return true;
+        Culture_Poem culture_poem = culture_poem_repository.findByPoembiaotiOrPoemzuozheOrPoemneirong(biaoti,zuozhe,neirong);
+        if(culture_poem != null){
+            result_list.add(true);
+            result_list.add(culture_poem);
+            return result_list;
         }
-        return false;
+        result_list.add(false);
+        return result_list;
     }
 
 }

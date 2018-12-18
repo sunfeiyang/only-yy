@@ -1,18 +1,29 @@
 package com.sunfy.yy.culture.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * 歇后语
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(name="CULTURE_ALLEGORICAL",
+        uniqueConstraints = {@UniqueConstraint(columnNames={"allegorical_question", "allegorical_answer"})})
+/*
+@Table：该注解标注在类上，主要作用是定义该实体对应在数据库中的信息，有以下几个常用属性：
+name：定义该实体对应数据库的表名，如果不指定，则使用类名作为表名；
+catalog：用于指定数据库实例名。如果不指定，新建的表则出现在数据库连接url指定的数据库中；
+schema：作用与catalog相同；
+indexes：用于对表字段建立索引。如：indexes={@Index(name=”idx_name_address”, unique=false, columnList=”name,address”)}
+uniqueConstraints：指定表的唯一性约束。可建立多个唯一性约束。如：uniqueConstraints={@UniqueConstraint(columnNames={“col1”,”col2”}),@UniqueConstraint(columnNames={“col3”,”col4”})}
+
+原文：https://blog.csdn.net/LZJLZJLZJLZJLZJLZJ/article/details/78635157
+ */
 public class Culture_Allegorical {
 
     @Id
@@ -34,14 +45,15 @@ public class Culture_Allegorical {
     private Integer tid;
 
     //前者
-    @Column(name = "allegorical_question")
+    @Column(name = "ALLEGORICAL_QUESTION",columnDefinition = "varchar(128) comment '前者'")
     private String allegoricalquestion;
 
     //后者
-    @Column(name = "allegorical_answer")
+    @Column(name = "ALLEGORICAL_ANSWER",columnDefinition = "varchar(128) comment '后者'")
     private String allegoricalanswer;
 
     //字母
+    @Column(columnDefinition = "varchar(16) comment '字母'")
     private String allegorical_zimu;
 
     //创建时间
@@ -56,9 +68,11 @@ public class Culture_Allegorical {
         首先申明实体类，需要在类上加上注解@EntityListeners(AuditingEntityListener.class)，其次在application启动类中加上注解EnableJpaAuditing，同时在需要的字段上加上@CreatedDate、@CreatedBy、@LastModifiedDate、@LastModifiedBy等注解。
         这个时候，在jpa.save方法被调用的时候，时间字段会自动设置并插入数据库，但是CreatedBy和LastModifiedBy并没有赋值，因为需要实现AuditorAware接口来返回你需要插入的值。
      */
+    @Column(columnDefinition = "varchar(128) comment '创建时间'")
     private String createtime;
     //更新时间
     @LastModifiedDate
+    @Column(columnDefinition = "varchar(128) comment '更新时间'")
     private String updatetime;
 
     public Integer getTid() {
