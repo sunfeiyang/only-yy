@@ -26,6 +26,7 @@ uniqueConstraints：指定表的唯一性约束。可建立多个唯一性约束
 public class Culture_Allegorical {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     /*
     环境：@GeneratedValue(strategy = GenerationType.AUTO)，数据库用的mysql

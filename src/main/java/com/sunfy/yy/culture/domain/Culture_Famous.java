@@ -16,7 +16,6 @@ import javax.persistence.*;
 /*
 增加table注解后，Jpa会自动根据字段内容新增没有的字段，如果不写注解会做相应映射而不会新增字段
  */
-//@Table(name = "culture_famous")
 public class Culture_Famous {
 
     @Id

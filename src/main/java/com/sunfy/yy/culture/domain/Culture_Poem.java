@@ -19,7 +19,8 @@ public class Culture_Poem {
     private Integer tid;
 
     //id
-    private String poem_id;
+    @Column(name = "poem_id")
+    private String poemid;
 
     //标题
     @Column(name = "poem_biaoti",columnDefinition = "varchar(512) comment '创建时间'")
@@ -55,12 +56,12 @@ public class Culture_Poem {
         this.tid = tid;
     }
 
-    public String getPoem_id() {
-        return poem_id;
+    public String getPoemid() {
+        return poemid;
     }
 
-    public void setPoem_id(String poem_id) {
-        this.poem_id = poem_id;
+    public void setPoemid(String poemid) {
+        this.poemid = poemid;
     }
 
     public String getPoembiaoti() {

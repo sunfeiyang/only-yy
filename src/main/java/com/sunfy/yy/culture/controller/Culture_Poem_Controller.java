@@ -7,6 +7,7 @@ import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Poem;
 import com.sunfy.yy.culture.repository.Culture_Poem_Repository;
 import com.sunfy.yy.culture.service.Culture_Poem_Service;
+import com.sunfy.yy.culture.utils.UtilsAboutController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class Culture_Poem_Controller {
      * @return
      */
     @GetMapping(value = "poem/{keyword}")
-    public Result<Culture_Poem> poemList(@PathVariable("keyword") String keyword,
+    public Result poemList(@PathVariable("keyword") String keyword,
                                          @RequestParam("rows") Integer rows,
                                          @RequestParam("page") Integer page){
         if(logger.isInfoEnabled()){
@@ -49,11 +50,8 @@ public class Culture_Poem_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        ArrayList list = culture_poem_service.addPoemList(url);
-        if(list != null && list.size() > 0){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_poem_service.addPoemList(url);
+        return UtilsAboutController.setResult(result_list);
     }
 
     /**
@@ -61,17 +59,14 @@ public class Culture_Poem_Controller {
      * @return
      */
     @GetMapping(value = "poemDetails/{id}")
-    public Result<Culture_Poem> poemDetails(@PathVariable("id") String id){
+    public Result poemDetails(@PathVariable("id") String id){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemDetails】请求成功！");
         }
         String url = EnumCultureApi.POEM_DETAILS.getURL();
         url += "&id="+id;
-        ArrayList list = culture_poem_service.addPoem(url);
-        if(list != null && list.size() > 0){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_poem_service.addPoem(url);
+        return UtilsAboutController.setResult(result_list);
     }
 
 
@@ -80,16 +75,13 @@ public class Culture_Poem_Controller {
      * @return
      */
     @GetMapping(value = "poemRandom")
-    public Result<Culture_Poem> poemRandom(){
+    public Result poemRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemRandom】请求成功！");
         }
         String url = EnumCultureApi.POEM_RANDOM.getURL();
-        ArrayList list = culture_poem_service.addPoemRandom(url);
-        if(list != null && !list.isEmpty()){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_poem_service.addPoemRandom(url);
+        return UtilsAboutController.setResult(result_list);
     }
 
     /**
@@ -99,19 +91,16 @@ public class Culture_Poem_Controller {
      * @return Result<Culture_Famous
      */
     @PostMapping(value = "poem")
-    public Result<Culture_Poem> famous(@Valid Culture_Poem culture_poem, BindingResult bindingResult){
+    public Result famous(@Valid Culture_Poem culture_poem, BindingResult bindingResult){
         //插入数据出现异常
         if(bindingResult.hasErrors()){
             //将错误信息打印出来
             return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
-        if(culture_poem_repository.save(culture_poem) != null){
-            return ResultUtil.success(culture_poem_repository.save(culture_poem));
-        }
         @Valid Culture_Poem list = culture_poem_repository.save(culture_poem);
         if(list != null){
-            return ResultUtil.success(list);
+            return ResultUtil.success(list,EnumCultureException.SUCCESS);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

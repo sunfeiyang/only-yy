@@ -17,7 +17,7 @@ public class HttpAspect {
     private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
 
     //加两个点表示所有参数都会拦截
-    @Pointcut("execution(public * com.sunfy.yy.culture.controller.Culture_Allegorical_Controller.*(..))")
+    @Pointcut("execution(public * com.sunfy.yy.culture.controller.Culture_Today_History_Controller.*(..))")
 //    @Before("execution(public * com.sunfy.yy.culture.controller.*(..))")
     public void log(){
     }

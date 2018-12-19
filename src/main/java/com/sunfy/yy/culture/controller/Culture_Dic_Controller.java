@@ -7,6 +7,7 @@ import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Dic;
 import com.sunfy.yy.culture.repository.Culture_Dic_Repository;
 import com.sunfy.yy.culture.service.Culture_Dic_Service;
+import com.sunfy.yy.culture.utils.UtilsAboutController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,17 +36,15 @@ public class Culture_Dic_Controller {
      * @return
      */
     @GetMapping(value = "dic/{keyword}")
-    public Result<Culture_Dic> dicList(@PathVariable("keyword") String keyword){
+    public Result dicList(@PathVariable("keyword") String keyword){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Dic_Controller—dicList】请求成功！");
         }
         String url = EnumCultureApi.DIC.getURL();
         url += "&content="+keyword;
-        ArrayList list = culture_dic_service.addDic(url);
-        if(list != null && list.size() > 0){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_dic_service.addDic(url);
+
+        return UtilsAboutController.setResult(result_list);
     }
 
     /**
@@ -55,7 +54,7 @@ public class Culture_Dic_Controller {
      * @return Result<Culture_Famous
      */
     @PostMapping(value = "dic")
-    public Result<Culture_Dic> famous(@Valid Culture_Dic culture_dic, BindingResult bindingResult){
+    public Result famous(@Valid Culture_Dic culture_dic, BindingResult bindingResult){
         //插入数据出现异常
         if(bindingResult.hasErrors()){
             //将错误信息打印出来
@@ -64,7 +63,7 @@ public class Culture_Dic_Controller {
         //将数据写入数据库，并返回当前对象
         @Valid Culture_Dic list = culture_dic_repository.save(culture_dic);
         if(list != null){
-            return ResultUtil.success(list);
+            return ResultUtil.success(list,EnumCultureException.SUCCESS);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

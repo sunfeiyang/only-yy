@@ -14,13 +14,13 @@ public interface Culture_Allegorical_Service {
      * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList<Culture_Allegorical> addAllegorical(String url);
+    public ArrayList addAllegorical(String url);
 
     /**
      * 随机插入生成一条数据
      * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList<Culture_Allegorical> addAllegoricalRandom(String url);
+    public ArrayList addAllegoricalRandom(String url);
 
 }

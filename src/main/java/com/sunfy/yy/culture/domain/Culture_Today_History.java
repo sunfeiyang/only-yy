@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"today_history_month", "today_history_day"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames="today_history_title")})
 public class Culture_Today_History {
 
     @Id

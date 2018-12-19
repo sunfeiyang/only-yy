@@ -8,16 +8,16 @@ import com.sunfy.yy.common.enums.EnumCultureException;
  */
 public class ResultUtil {
 
-    public static Result success(Object object){
+    public static Result success(Object object,EnumCultureException enumCultureException){
         Result result = new Result();
-        result.setCode(EnumCultureException.SUCCESS.getCode());
-        result.setMsg(EnumCultureException.SUCCESS.getMsg());
+        result.setCode(enumCultureException.getCode());
+        result.setMsg(enumCultureException.getMsg());
         result.setData(object);
         return result;
     }
 
     public static Result success(){
-        return success(null);
+        return success(null,EnumCultureException.ERROR_NULL);
     }
 
     public static Result error(Integer code, String msg){

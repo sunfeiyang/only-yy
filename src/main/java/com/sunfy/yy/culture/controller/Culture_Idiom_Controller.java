@@ -7,6 +7,7 @@ import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Idiom;
 import com.sunfy.yy.culture.repository.Culture_Idiom_Repository;
 import com.sunfy.yy.culture.service.Culture_Idiom_Service;
+import com.sunfy.yy.culture.utils.UtilsAboutController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class Culture_Idiom_Controller {
      * @return
      */
     @GetMapping(value = "idiom/{keyword}")
-    public Result<Culture_Idiom> idiomList(@PathVariable("keyword") String keyword,
+    public Result idiomList(@PathVariable("keyword") String keyword,
                                            @RequestParam("rows") Integer rows,
                                            @RequestParam("page") Integer page){
         if(logger.isInfoEnabled()){
@@ -49,11 +50,8 @@ public class Culture_Idiom_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        ArrayList list = culture_idiom_service.addIdiomList(url);
-        if(list != null && list.size() > 0){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_idiom_service.addIdiomList(url);
+        return UtilsAboutController.setResult(result_list);
     }
 
     /**
@@ -61,7 +59,7 @@ public class Culture_Idiom_Controller {
      * @return
      */
     @GetMapping(value = "idiomDetails/{id}")
-    public Result<Culture_Idiom> idiomDetails(@PathVariable("id") String id){
+    public Result idiomDetails(@PathVariable("id") String id){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Idiom_Controller—idiomDetails】请求成功！");
         }
@@ -69,11 +67,8 @@ public class Culture_Idiom_Controller {
         if(!id.equals("") && id != null){
             url += "&id="+id;
         }
-        ArrayList list = culture_idiom_service.addIdiom(url);
-        if(list != null && list.size() > 0){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_idiom_service.addIdiom(url);
+        return UtilsAboutController.setResult(result_list);
     }
 
     /**
@@ -81,16 +76,13 @@ public class Culture_Idiom_Controller {
      * @return
      */
     @GetMapping(value = "idiomRandom")
-    public Result<Culture_Idiom> idiomRandom(){
+    public Result idiomRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Idiom_Controller—idiomRandom】请求成功！");
         }
         String url = EnumCultureApi.IDIOM_RANDOM.getURL();
-        ArrayList list = culture_idiom_service.addIdiomRandom(url);
-        if(list != null && !list.isEmpty()){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_idiom_service.addIdiomRandom(url);
+        return UtilsAboutController.setResult(result_list);
     }
 
     /**
@@ -100,7 +92,7 @@ public class Culture_Idiom_Controller {
      * @return Result<Culture_Famous
      */
     @PostMapping(value = "idiom")
-    public Result<Culture_Idiom> famous(@Valid Culture_Idiom culture_idiom, BindingResult bindingResult){
+    public Result famous(@Valid Culture_Idiom culture_idiom, BindingResult bindingResult){
         //插入数据出现异常
         if(bindingResult.hasErrors()){
             //将错误信息打印出来
@@ -109,7 +101,7 @@ public class Culture_Idiom_Controller {
         //将数据写入数据库，并返回当前对象
         @Valid Culture_Idiom list = culture_idiom_repository.save(culture_idiom);
         if(list != null){
-            return ResultUtil.success(list);
+            return ResultUtil.success(list,EnumCultureException.SUCCESS);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }

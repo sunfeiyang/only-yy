@@ -59,7 +59,7 @@ public class Culture_Poem_ServiceImpl extends Culture_ServiceImpl implements Cul
          * 从传入的map中获取对应的数据并将获取的内容写入对应的bean对象中
          * 【注：此处不同的bean对象都需做对应修改】
          */
-        culture_poem.setPoem_id((String) map.get("id"));
+        culture_poem.setPoemid((String) map.get("id"));
         culture_poem.setPoembiaoti((String) map.get("biaoti"));
         culture_poem.setPoem_jieshao((String) map.get("jieshao"));
         culture_poem.setPoemzuozhe((String) map.get("zuozhe"));

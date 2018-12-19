@@ -7,6 +7,7 @@ import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
 import com.sunfy.yy.culture.service.Culture_Famous_Service;
 import com.sunfy.yy.common.utils.ResultUtil;
+import com.sunfy.yy.culture.utils.UtilsAboutController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,9 @@ public class Culture_Famous_Controller {
      * @return
      */
     @GetMapping(value = "famous/{keyword}")
-    public Result<Culture_Famous> famousList(@PathVariable("keyword") String keyword,
-                                             @RequestParam("rows") Integer rows,
-                                             @RequestParam("page") Integer page){
+    public Result famousList(@PathVariable("keyword") String keyword,
+                             @RequestParam("rows") Integer rows,
+                             @RequestParam("page") Integer page){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousList】请求成功！");
         }
@@ -49,11 +50,8 @@ public class Culture_Famous_Controller {
         if(!page.equals("") && page != null){
             url += "&page="+page;
         }
-        ArrayList list = culture_famous_service.addFamous(url);
-        if(list != null && list.size() > 0){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_famous_service.addFamous(url);
+        return UtilsAboutController.setResult(result_list);
     }
 
     /**
@@ -61,19 +59,13 @@ public class Culture_Famous_Controller {
      * @return
      */
     @GetMapping(value = "famousRandom")
-    public Result<Culture_Famous> famousRandom(){
+    public Result famousRandom(){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousRandom】请求成功！");
         }
         String url = EnumCultureApi.FAMOUS_RANDOM.getURL();
-        if(culture_famous_service.addFamousRandom(url) != null){
-            return ResultUtil.success(culture_famous_service.addFamousRandom(url));
-        }
-        ArrayList list = culture_famous_service.addFamousRandom(url);
-        if(list != null && !list.isEmpty()){
-            return ResultUtil.success(list);
-        }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        ArrayList result_list = culture_famous_service.addFamousRandom(url);
+        return UtilsAboutController.setResult(result_list);
     }
 
     /**
@@ -83,7 +75,7 @@ public class Culture_Famous_Controller {
      * @return Result<Culture_Famous
      */
     @PostMapping(value = "famous")
-    public Result<Culture_Famous> famous(@Valid Culture_Famous culture_famous, BindingResult bindingResult){
+    public Result famous(@Valid Culture_Famous culture_famous, BindingResult bindingResult){
         //插入数据出现异常
         if(bindingResult.hasErrors()){
             //将错误信息打印出来
@@ -92,7 +84,7 @@ public class Culture_Famous_Controller {
         //将数据写入数据库，并返回当前对象
         @Valid Culture_Famous list = culture_famous_repository.save(culture_famous);
         if(list != null){
-            return ResultUtil.success(list);
+            return ResultUtil.success(list,EnumCultureException.SUCCESS);
         }
         return ResultUtil.error(EnumCultureException.ERROR_NULL);
     }
