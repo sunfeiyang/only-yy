@@ -4,27 +4,27 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 影视预告
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","prevue_id"})})
 public class Movie_Prevue {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //影视id
-    private String subject_id;
+    @Column(name = "SUBJECT_ID",columnDefinition = "varchar(128) comment '影视id'")
+    private String subjectid;
 
     //预告片id
-    private String prevue_id;
+    @Column(name = "PREVUE_ID",columnDefinition = "varchar(128) comment '预告片id'")
+    private String prevuid;
 
     //预告片图片（中）
     private String prevue_medium;
@@ -73,20 +73,20 @@ public class Movie_Prevue {
         this.tid = tid;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getSubjectid() {
+        return subjectid;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setSubjectid(String subjectid) {
+        this.subjectid = subjectid;
     }
 
-    public String getPrevue_id() {
-        return prevue_id;
+    public String getPrevuid() {
+        return prevuid;
     }
 
-    public void setPrevue_id(String prevue_id) {
-        this.prevue_id = prevue_id;
+    public void setPrevuid(String prevuid) {
+        this.prevuid = prevuid;
     }
 
     public String getPrevue_medium() {

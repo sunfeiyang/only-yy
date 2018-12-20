@@ -4,29 +4,29 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 影视资源
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","video_id"})})
 public class Movie_Video {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //影视id
-    private String subject_id;
+    @Column(name = "SUBJECT_ID",columnDefinition = "varchar(128) comment '影视id'")
+    private String subjectid;
 
-    //影视来源id
-    private String video_id;
+    //影视资源id
+    @Column(name = "VIDEO_ID",columnDefinition = "varchar(128) comment '影视来源id'")
+    private String videoid;
 
-    //影视来源英文
+    //影视资源英文
     private String video_source_literal;
 
     //是否需要付费
@@ -73,20 +73,20 @@ public class Movie_Video {
         this.tid = tid;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getSubjectid() {
+        return subjectid;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setSubjectid(String subjectid) {
+        this.subjectid = subjectid;
     }
 
-    public String getVideo_id() {
-        return video_id;
+    public String getVideoid() {
+        return videoid;
     }
 
-    public void setVideo_id(String video_id) {
-        this.video_id = video_id;
+    public void setVideoid(String videoid) {
+        this.videoid = videoid;
     }
 
     public String getVideo_source_literal() {

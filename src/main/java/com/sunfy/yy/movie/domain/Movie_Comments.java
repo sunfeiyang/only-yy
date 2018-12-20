@@ -4,24 +4,27 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 影视短评
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","comments_id"})})
 public class Movie_Comments {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //影视id
-    private String subject_id;
+    @Column(name = "SUBJECT_ID",columnDefinition = "varchar(128) comment '影视id'")
+    private String subjectid;
+
+    //豆瓣id
+    @Column(name = "COMMENTS_ID",columnDefinition = "varchar(128) comment '豆瓣id'")
+    private String commentsid;
 
     //最高评分
     private String comments_rating_max;
@@ -43,9 +46,6 @@ public class Movie_Comments {
 
     //发布时间
     private String comments_created_at;
-
-    //豆瓣id
-    private String comments_id;
 
     //短评总条数
     private String comments_total;
@@ -82,12 +82,20 @@ public class Movie_Comments {
         this.tid = tid;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getSubjectid() {
+        return subjectid;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setSubjectid(String subjectid) {
+        this.subjectid = subjectid;
+    }
+
+    public String getCommentsid() {
+        return commentsid;
+    }
+
+    public void setCommentsid(String commentsid) {
+        this.commentsid = commentsid;
     }
 
     public String getComments_rating_max() {
@@ -144,14 +152,6 @@ public class Movie_Comments {
 
     public void setComments_created_at(String comments_created_at) {
         this.comments_created_at = comments_created_at;
-    }
-
-    public String getComments_id() {
-        return comments_id;
-    }
-
-    public void setComments_id(String comments_id) {
-        this.comments_id = comments_id;
     }
 
     public String getComments_total() {

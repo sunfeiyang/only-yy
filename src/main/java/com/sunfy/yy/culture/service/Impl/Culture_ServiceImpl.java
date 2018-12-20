@@ -1,13 +1,13 @@
 package com.sunfy.yy.culture.service.Impl;
 
-import com.sunfy.yy.common.enums.EnumCultureException;
-import com.sunfy.yy.common.exception.ExceptionCulture;
+import com.sunfy.yy.common.enums.EnumException;
+import com.sunfy.yy.common.exception.ExceptionSystem;
 import com.sunfy.yy.common.utils.HttpRequest;
 import com.sunfy.yy.common.utils.JsonUtils;
 import com.sunfy.yy.culture.domain.*;
 import com.sunfy.yy.culture.repository.*;
 import com.sunfy.yy.culture.service.Culture_Service;
-import com.sunfy.yy.culture.utils.EnumRepositoryType;
+import com.sunfy.yy.common.enums.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Culture_ServiceImpl implements Culture_Service {
-
-    //发送http请求的对象
-    HttpRequest httpRequest = new HttpRequest();
 
     //歇后语数据库操作对象
     @Autowired
@@ -62,7 +59,7 @@ public class Culture_ServiceImpl implements Culture_Service {
         //定义返回对象
         ArrayList result_list = new ArrayList();
         //数据请求结果
-        String jsonResult = httpRequest.get(url);
+        String jsonResult = HttpRequest.get(url);
 
         JsonUtils jsonUtils = new JsonUtils();
         Map map = null;
@@ -74,10 +71,6 @@ public class Culture_ServiceImpl implements Culture_Service {
             } else {
                 map = jsonUtils.toMap(jsonResult);
                 Map mapList = (Map) map.get("result");
-                if (logger.isErrorEnabled()) {
-                    logger.info("【Culture_ServiceImpl—" + repositoryType + "】插入数据！");
-                }
-
                 result_list.add(getRepositoryTypeResult(mapList, repositoryType));
             }
             return result_list;
@@ -104,12 +97,12 @@ public class Culture_ServiceImpl implements Culture_Service {
         //定义返回对象
         ArrayList result_list = new ArrayList();
 
-        String jsonResult = httpRequest.get(url);
+        String jsonResult = HttpRequest.get(url);
         JsonUtils jsonUtils = new JsonUtils();
         Map map = null;
         try {
             if (jsonResult == "" || jsonResult == null) {
-                throw new ExceptionCulture(EnumCultureException.SUCCESSNULL);
+                throw new ExceptionSystem(EnumException.SUCCESSNULL);
             } else {
                 map = jsonUtils.toMap(jsonResult);
                 Integer total = (Integer) map.get("total");
@@ -127,7 +120,7 @@ public class Culture_ServiceImpl implements Culture_Service {
         } finally {
             if (result_list == null || result_list.size() <= 0) {
                 result_list.add("ERROR");
-                result_list.add(EnumCultureException.SUCCESSNULL);
+                result_list.add(EnumException.SUCCESSNULL);
             }
             return result_list;
         }
@@ -142,12 +135,12 @@ public class Culture_ServiceImpl implements Culture_Service {
         }
         ArrayList result_list = new ArrayList();
         Object obj = null;
-        String jsonResult = httpRequest.get(url);
+        String jsonResult = HttpRequest.get(url);
         JsonUtils jsonUtils = new JsonUtils();
         Map map = null;
         try {
             if (jsonResult == "" || jsonResult == null) {
-                throw new ExceptionCulture(EnumCultureException.SUCCESSNULL);
+                throw new ExceptionSystem(EnumException.SUCCESSNULL);
             } else {
                 map = jsonUtils.toMap(jsonResult);
                 Integer total = (Integer) map.get("total");
@@ -159,7 +152,7 @@ public class Culture_ServiceImpl implements Culture_Service {
                         if (!id.equals("") && id != null) {
                             urlDetails += "&id=" + id;
                         }
-                        String jsonResultDetails = httpRequest.get(urlDetails);
+                        String jsonResultDetails = HttpRequest.get(urlDetails);
                         Map mapDetails = jsonUtils.toMap(jsonResultDetails);
 
                         //将原始数据进行过滤，根据返回状态判断是否写入数据库
@@ -168,7 +161,7 @@ public class Culture_ServiceImpl implements Culture_Service {
                     }
                 }
                 result_list.add("ERROR");
-                result_list.add(EnumCultureException.SUCCESSNULL);
+                result_list.add(EnumException.SUCCESSNULL);
                 return result_list;
             }
         } catch (Exception e) {

@@ -4,27 +4,27 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 影视剧照
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","photos_id"})})
 public class Movie_Photos {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //影视id
-    private String subject_id;
+    @Column(name = "SUBJECT_ID",columnDefinition = "varchar(128) comment '影视id'")
+    private String subjectid;
 
     //剧照ID
-    private String photos_id;
+    @Column(name = "PHOTOS_ID",columnDefinition = "varchar(128) comment '剧照ID'")
+    private String photosid;
 
     //剧照总数
     private String photos_total;
@@ -118,20 +118,20 @@ public class Movie_Photos {
         this.tid = tid;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getSubjectid() {
+        return subjectid;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setSubjectid(String subjectid) {
+        this.subjectid = subjectid;
     }
 
-    public String getPhotos_id() {
-        return photos_id;
+    public String getPhotosid() {
+        return photosid;
     }
 
-    public void setPhotos_id(String photos_id) {
-        this.photos_id = photos_id;
+    public void setPhotosid(String photosid) {
+        this.photosid = photosid;
     }
 
     public String getPhotos_total() {

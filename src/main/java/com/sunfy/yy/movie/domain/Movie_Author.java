@@ -4,27 +4,23 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * 豆瓣用户
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames="author_id")})
 public class Movie_Author {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
-    //影视id
-    private String subject_id;
-
     //豆瓣用户id
-    private String author_id;
+    @Column(name = "AUTHOR_ID",columnDefinition = "varchar(128) comment '豆瓣用户id'")
+    private String authorid;
 
     //用户昵称
     private String author_uid;
@@ -73,20 +69,12 @@ public class Movie_Author {
         this.tid = tid;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getAuthorid() {
+        return authorid;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
-    }
-
-    public String getAuthor_id() {
-        return author_id;
-    }
-
-    public void setAuthor_id(String author_id) {
-        this.author_id = author_id;
+    public void setAuthorid(String authorid) {
+        this.authorid = authorid;
     }
 
     public String getAuthor_uid() {

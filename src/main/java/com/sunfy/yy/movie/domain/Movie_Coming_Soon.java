@@ -4,24 +4,23 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
- * 影视语言
+ * 即将上映
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames="subject_id")})
 public class Movie_Coming_Soon {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //影视id
-    private String subject_id;
+    @Column(name = "SUBJECT_ID",columnDefinition = "varchar(128) comment '影视id'")
+    private String subjectid;
 
     //名称
     private String subject_title;
@@ -106,12 +105,12 @@ public class Movie_Coming_Soon {
         this.tid = tid;
     }
 
-    public String getSubject_id() {
-        return subject_id;
+    public String getSubjectid() {
+        return subjectid;
     }
 
-    public void setSubject_id(String subject_id) {
-        this.subject_id = subject_id;
+    public void setSubjectid(String subjectid) {
+        this.subjectid = subjectid;
     }
 
     public String getSubject_title() {
