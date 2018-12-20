@@ -1,13 +1,13 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.domain.Result;
-import com.sunfy.yy.common.enums.EnumCultureApi;
-import com.sunfy.yy.common.enums.EnumCultureException;
+import com.sunfy.yy.common.enums.EnumApi;
+import com.sunfy.yy.common.enums.EnumException;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Dic;
 import com.sunfy.yy.culture.repository.Culture_Dic_Repository;
 import com.sunfy.yy.culture.service.Culture_Dic_Service;
-import com.sunfy.yy.culture.utils.UtilsAboutController;
+import com.sunfy.yy.common.utils.UtilsAboutController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class Culture_Dic_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Dic_Controller—dicList】请求成功！");
         }
-        String url = EnumCultureApi.DIC.getURL();
+        String url = EnumApi.DIC.getURL();
         url += "&content="+keyword;
         ArrayList result_list = culture_dic_service.addDic(url);
 
@@ -63,8 +63,8 @@ public class Culture_Dic_Controller {
         //将数据写入数据库，并返回当前对象
         @Valid Culture_Dic list = culture_dic_repository.save(culture_dic);
         if(list != null){
-            return ResultUtil.success(list,EnumCultureException.SUCCESS);
+            return ResultUtil.success(list,EnumException.SUCCESS);
         }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        return ResultUtil.error(EnumException.ERROR_NULL);
     }
 }

@@ -1,6 +1,6 @@
 package com.sunfy.yy.common.TimedTask;
 
-import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.culture.controller.Culture_Allegorical_Controller;
 import com.sunfy.yy.culture.service.Impl.Culture_Allegorical_ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class ScheduledExecutorTest {
                 System.out.println("timerAllegorical开始执行，时间为："+System.currentTimeMillis());
                 //culture_allegorical_controller.allegoricalRandom();
 
-                String url = EnumCultureApi.ALLEGORICAL_RANDOM.getURL();
+                String url = EnumApi.ALLEGORICAL_RANDOM.getURL();
                 culture_allegorical_serviceImpl.addAllegoricalRandom(url);
                 System.out.println("timerAllegorical执行结束");
             }

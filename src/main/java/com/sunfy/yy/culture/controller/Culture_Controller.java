@@ -1,6 +1,6 @@
 package com.sunfy.yy.culture.controller;
 
-import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.culture.service.Culture_Today_History_Service;
 import com.sunfy.yy.culture.service.*;
 import org.slf4j.Logger;
@@ -57,10 +57,10 @@ public class Culture_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Controller—CultureRandom】定时任务执行中...");
         }
-        String url_allegorical = EnumCultureApi.ALLEGORICAL_RANDOM.getURL();
-        String url_famous = EnumCultureApi.FAMOUS_RANDOM.getURL();
-        String url_idiom = EnumCultureApi.IDIOM_RANDOM.getURL();
-        String url_poem = EnumCultureApi.POEM_RANDOM.getURL();
+        String url_allegorical = EnumApi.ALLEGORICAL_RANDOM.getURL();
+        String url_famous = EnumApi.FAMOUS_RANDOM.getURL();
+        String url_idiom = EnumApi.IDIOM_RANDOM.getURL();
+        String url_poem = EnumApi.POEM_RANDOM.getURL();
         //执行任务
         culture_allegorical_service.addAllegoricalRandom(url_allegorical);
         culture_famous_service.addFamousRandom(url_famous);

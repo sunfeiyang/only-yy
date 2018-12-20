@@ -1,13 +1,13 @@
 package com.sunfy.yy.culture.controller;
 
-import com.sunfy.yy.common.enums.EnumCultureApi;
-import com.sunfy.yy.common.enums.EnumCultureException;
+import com.sunfy.yy.common.enums.EnumApi;
+import com.sunfy.yy.common.enums.EnumException;
 import com.sunfy.yy.culture.domain.Culture_Famous;
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
 import com.sunfy.yy.culture.service.Culture_Famous_Service;
 import com.sunfy.yy.common.utils.ResultUtil;
-import com.sunfy.yy.culture.utils.UtilsAboutController;
+import com.sunfy.yy.common.utils.UtilsAboutController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class Culture_Famous_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousList】请求成功！");
         }
-        String url = EnumCultureApi.FAMOUS.getURL();
+        String url = EnumApi.FAMOUS.getURL();
         url += "&keyword="+keyword;
         if(!rows.equals("") && rows != null){
             url += "&rows="+rows;
@@ -63,7 +63,7 @@ public class Culture_Famous_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Famous_Controller—famousRandom】请求成功！");
         }
-        String url = EnumCultureApi.FAMOUS_RANDOM.getURL();
+        String url = EnumApi.FAMOUS_RANDOM.getURL();
         ArrayList result_list = culture_famous_service.addFamousRandom(url);
         return UtilsAboutController.setResult(result_list);
     }
@@ -84,8 +84,8 @@ public class Culture_Famous_Controller {
         //将数据写入数据库，并返回当前对象
         @Valid Culture_Famous list = culture_famous_repository.save(culture_famous);
         if(list != null){
-            return ResultUtil.success(list,EnumCultureException.SUCCESS);
+            return ResultUtil.success(list,EnumException.SUCCESS);
         }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        return ResultUtil.error(EnumException.ERROR_NULL);
     }
 }

@@ -2,7 +2,7 @@ package com.sunfy.yy.culture.service.Impl;
 
 import com.sunfy.yy.culture.domain.Culture_Dic;
 import com.sunfy.yy.culture.service.Culture_Dic_Service;
-import com.sunfy.yy.culture.utils.EnumRepositoryType;
+import com.sunfy.yy.common.enums.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

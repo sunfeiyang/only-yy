@@ -1,13 +1,13 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.domain.Result;
-import com.sunfy.yy.common.enums.EnumCultureApi;
-import com.sunfy.yy.common.enums.EnumCultureException;
+import com.sunfy.yy.common.enums.EnumApi;
+import com.sunfy.yy.common.enums.EnumException;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Poem;
 import com.sunfy.yy.culture.repository.Culture_Poem_Repository;
 import com.sunfy.yy.culture.service.Culture_Poem_Service;
-import com.sunfy.yy.culture.utils.UtilsAboutController;
+import com.sunfy.yy.common.utils.UtilsAboutController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class Culture_Poem_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemList】请求成功！");
         }
-        String url = EnumCultureApi.POEM.getURL();
+        String url = EnumApi.POEM.getURL();
         url += "&keyWord="+keyword;
         if(!rows.equals("") && rows != null){
             url += "&rows="+rows;
@@ -63,7 +63,7 @@ public class Culture_Poem_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemDetails】请求成功！");
         }
-        String url = EnumCultureApi.POEM_DETAILS.getURL();
+        String url = EnumApi.POEM_DETAILS.getURL();
         url += "&id="+id;
         ArrayList result_list = culture_poem_service.addPoem(url);
         return UtilsAboutController.setResult(result_list);
@@ -79,7 +79,7 @@ public class Culture_Poem_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Controller—poemRandom】请求成功！");
         }
-        String url = EnumCultureApi.POEM_RANDOM.getURL();
+        String url = EnumApi.POEM_RANDOM.getURL();
         ArrayList result_list = culture_poem_service.addPoemRandom(url);
         return UtilsAboutController.setResult(result_list);
     }
@@ -100,8 +100,8 @@ public class Culture_Poem_Controller {
         //将数据写入数据库，并返回当前对象
         @Valid Culture_Poem list = culture_poem_repository.save(culture_poem);
         if(list != null){
-            return ResultUtil.success(list,EnumCultureException.SUCCESS);
+            return ResultUtil.success(list,EnumException.SUCCESS);
         }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        return ResultUtil.error(EnumException.ERROR_NULL);
     }
 }

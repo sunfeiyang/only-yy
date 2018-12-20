@@ -3,7 +3,7 @@ package com.sunfy.yy.common.enums;
 /**
  * 枚举（异常处理）
  */
-public enum EnumCultureApi {
+public enum EnumApi {
 
     ALLEGORICAL("https://api.avatardata.cn/XieHouYu/Search?key=387bcf2fd17944af8695d21b1e41a91d"),
     ALLEGORICAL_RANDOM("https://api.avatardata.cn/XieHouYu/Random?key=387bcf2fd17944af8695d21b1e41a91d"),
@@ -16,11 +16,13 @@ public enum EnumCultureApi {
     POEM("https://api.avatardata.cn/TangShiSongCi/Search?key=8cf90379938940f19cb49b18522db439"),
     POEM_DETAILS("https://api.avatardata.cn/TangShiSongCi/LookUp?key=8cf90379938940f19cb49b18522db439"),
     POEM_RANDOM("https://api.avatardata.cn/TangShiSongCi/Random?key=8cf90379938940f19cb49b18522db439"),
-    TODAY_HISTORY("https://api.avatardata.cn/HistoryToday/LookUp?key=a8f8ad8a787c4abca058a1a306423158");
+    TODAY_HISTORY("https://api.avatardata.cn/HistoryToday/LookUp?key=a8f8ad8a787c4abca058a1a306423158"),
+    M_IN_THEATERS("https://douban.uieee.com/v2/movie/in_theaters")
+    ;
 
     private String URL;
 
-    EnumCultureApi(String URL) {
+    EnumApi(String URL) {
         this.URL = URL;
     }
 

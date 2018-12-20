@@ -1,7 +1,7 @@
-package com.sunfy.yy.culture.utils;
+package com.sunfy.yy.common.utils;
 
 import com.sunfy.yy.common.domain.Result;
-import com.sunfy.yy.common.enums.EnumCultureException;
+import com.sunfy.yy.common.enums.EnumException;
 import com.sunfy.yy.common.utils.ResultUtil;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ public class UtilsAboutController {
 
     public static Result setResult(ArrayList result_list) {
         if (result_list != null && result_list.size() > 0 && "ERROR".equals(result_list.get(0))) {
-            return ResultUtil.success(null, (EnumCultureException) result_list.get(1));
+            return ResultUtil.success(null, (EnumException) result_list.get(1));
         } else if (result_list != null) {
-            return ResultUtil.success(result_list, EnumCultureException.SUCCESS);
+            return ResultUtil.success(result_list, EnumException.SUCCESS);
         }
-        return ResultUtil.error(EnumCultureException.ERROR_NULL);
+        return ResultUtil.error(EnumException.ERROR_NULL);
     }
 
     public static String addArgs(String url, Map map) {

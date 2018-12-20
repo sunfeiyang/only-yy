@@ -1,9 +1,9 @@
 package com.sunfy.yy.culture.service.Impl;
 
-import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.culture.domain.Culture_Poem;
 import com.sunfy.yy.culture.service.Culture_Poem_Service;
-import com.sunfy.yy.culture.utils.EnumRepositoryType;
+import com.sunfy.yy.common.enums.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class Culture_Poem_ServiceImpl extends Culture_ServiceImpl implements Cul
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Poem_Service—addPoemList】请求成功！参数：url="+url);
         }
-        String urlDetails = EnumCultureApi.POEM_DETAILS.getURL();
+        String urlDetails = EnumApi.POEM_DETAILS.getURL();
         return addDetailsList(url,urlDetails,EnumRepositoryType.POEM.getRepositoryType());
     }
 

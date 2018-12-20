@@ -1,6 +1,6 @@
 package com.sunfy.yy.common.enums;
 
-public enum EnumCultureException {
+public enum EnumException {
 
     SUCCESS(1000,"数据请求成功！"),
     SUCCESSNULL(1001,"暂无相关数据！"),
@@ -13,7 +13,7 @@ public enum EnumCultureException {
 
     private String msg;
 
-    EnumCultureException(int code, String msg) {
+    EnumException(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }

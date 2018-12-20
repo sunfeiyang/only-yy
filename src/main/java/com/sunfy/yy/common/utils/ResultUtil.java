@@ -1,14 +1,14 @@
 package com.sunfy.yy.common.utils;
 
 import com.sunfy.yy.common.domain.Result;
-import com.sunfy.yy.common.enums.EnumCultureException;
+import com.sunfy.yy.common.enums.EnumException;
 
 /**
  * 工具类  处理返回信息
  */
 public class ResultUtil {
 
-    public static Result success(Object object,EnumCultureException enumCultureException){
+    public static Result success(Object object, EnumException enumCultureException){
         Result result = new Result();
         result.setCode(enumCultureException.getCode());
         result.setMsg(enumCultureException.getMsg());
@@ -17,7 +17,7 @@ public class ResultUtil {
     }
 
     public static Result success(){
-        return success(null,EnumCultureException.ERROR_NULL);
+        return success(null,EnumException.ERROR_NULL);
     }
 
     public static Result error(Integer code, String msg){
@@ -28,7 +28,7 @@ public class ResultUtil {
         return result;
     }
 
-    public static Result error(EnumCultureException enumCultureException){
+    public static Result error(EnumException enumCultureException){
         Result result = new Result();
         result.setCode(enumCultureException.getCode());
         result.setMsg(enumCultureException.getMsg());

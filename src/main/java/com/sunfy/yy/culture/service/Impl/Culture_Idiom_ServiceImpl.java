@@ -1,9 +1,9 @@
 package com.sunfy.yy.culture.service.Impl;
 
-import com.sunfy.yy.common.enums.EnumCultureApi;
+import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.culture.domain.Culture_Idiom;
 import com.sunfy.yy.culture.service.Culture_Idiom_Service;
-import com.sunfy.yy.culture.utils.EnumRepositoryType;
+import com.sunfy.yy.common.enums.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class Culture_Idiom_ServiceImpl extends Culture_ServiceImpl implements Cu
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Idiom_Service—addIdiomList】请求成功！参数：url="+url);
         }
-        String urlDetails = EnumCultureApi.IDIOM_DETAILS.getURL();
+        String urlDetails = EnumApi.IDIOM_DETAILS.getURL();
         return addDetailsList(url,urlDetails,EnumRepositoryType.IDIOM.getRepositoryType());
     }
 
