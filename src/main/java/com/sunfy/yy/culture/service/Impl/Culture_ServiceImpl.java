@@ -11,9 +11,13 @@ import com.sunfy.yy.common.enums.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Culture_ServiceImpl implements Culture_Service {
@@ -125,6 +129,48 @@ public class Culture_ServiceImpl implements Culture_Service {
             return result_list;
         }
     }
+
+    /**
+     * Like查询数据库中内容
+     * @param map 所要查询的字段及内容
+     * @return ArrayList
+     */
+    public ArrayList selDBListLike(Map map){
+        String idiomname = "%"+  map.get("idiomname")+"%";
+        ArrayList list = (ArrayList) culture_idiom_repository.findByIdiomnameLike(idiomname);
+        if(list != null && list.size()>0){
+            return list;
+        }else{
+            list.add("ERROR");
+            list.add(EnumException.SUCCESSNULL);
+        }
+        return list;
+    }
+
+    /**
+     * 分页查询
+     * @param map 查询条件
+     * @return ArrayList
+     */
+    public List selDBListLikePage(Map map){
+        Integer pageSize = (Integer) map.get("pageSize");
+        Integer pageNum = (Integer) map.get("pageNum");
+
+//        Pageable pageable = new Pageable(pageNum == null? 0 : Integer.parseInt(pageNum),
+////                pageSize == null? 10 : Integer.parseInt(pageSize),
+////                new Sort(Sort.Direction.DESC), "tid");
+        Pageable pageable =new PageRequest(pageNum, pageSize);
+        List page_result = culture_idiom_repository.findAll(pageable).getContent();
+        if(page_result != null && page_result.size() > 0){
+            return page_result;
+        }else{
+            page_result.add("ERROR");
+            page_result.add(EnumException.SUCCESSNULL);
+        }
+        return page_result;
+    }
+
+
 
     @Transactional
     //事务操作 防止多条数据插入时 有失败情况

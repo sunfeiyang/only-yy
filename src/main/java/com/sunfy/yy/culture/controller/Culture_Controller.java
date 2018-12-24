@@ -42,7 +42,7 @@ public class Culture_Controller {
      * 随机返回一条（定时任务）
      * @return
      */
-    @Scheduled(cron = "1 * * * * *")
+    @Scheduled(cron = "1/30 * * * * *")
     @Async
     /*
     在上面的定时任务中，我们在方法上使用@Scheduled注解来设置任务的执行时间，并且使用三种属性配置方式：

@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 成语控制器
@@ -51,6 +54,37 @@ public class Culture_Idiom_Controller {
             url += "&page="+page;
         }
         ArrayList result_list = culture_idiom_service.addIdiomList(url);
+        return UtilsAboutController.setResult(result_list);
+    }
+
+    /**
+     * 分页查询(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "selidiomPage/{keyword}")
+    public Result selidiomListPage(@RequestParam("pageSize") Integer pageSize,
+                                   @RequestParam("pageNum") Integer pageNum){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Idiom_Controller—idiomList】请求成功！");
+        }
+        Map map = new HashMap();
+        map.put("pageSize",pageSize);
+        map.put("pageNum",pageNum);
+        List result_list = culture_idiom_service.seladdIdiomListPage(map);
+        return UtilsAboutController.setResult(result_list);
+    }
+    /**
+     * 查询成语(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "selidiom/{keyword}")
+    public Result selidiomList(@PathVariable("keyword") String keyword){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Idiom_Controller—selidiomList】请求成功！");
+        }
+        Map map = new HashMap();
+        map.put("idiomname",keyword);
+        ArrayList result_list = culture_idiom_service.seladdIdiomList(map);
         return UtilsAboutController.setResult(result_list);
     }
 

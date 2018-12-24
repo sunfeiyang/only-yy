@@ -2,10 +2,9 @@ package com.sunfy.yy.common.utils;
 
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.common.enums.EnumException;
-import com.sunfy.yy.common.utils.ResultUtil;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Map;
  */
 public class UtilsAboutController {
 
-    public static Result setResult(ArrayList result_list) {
+    public static Result setResult(List result_list) {
         if (result_list != null && result_list.size() > 0 && "ERROR".equals(result_list.get(0))) {
             return ResultUtil.success(null, (EnumException) result_list.get(1));
         } else if (result_list != null) {

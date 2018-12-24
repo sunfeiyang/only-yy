@@ -12,7 +12,7 @@ public interface Culture_Idiom_Repository extends JpaRepository<Culture_Idiom,In
     //根据tid进行过滤
     public Culture_Idiom findByTid(Integer tid);
     //根据idiomname过滤
-    public List<Culture_Idiom> findByIdiomname(String idiomname);
+    public List<Culture_Idiom> findByIdiomnameLike(String idiomname);
     //根据id过滤
     public Culture_Idiom findByIdiomid(String idiomid);
 }

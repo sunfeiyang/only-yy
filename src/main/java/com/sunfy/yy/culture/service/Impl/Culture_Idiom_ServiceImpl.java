@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -26,6 +27,22 @@ public class Culture_Idiom_ServiceImpl extends Culture_ServiceImpl implements Cu
         }
         String urlDetails = EnumApi.IDIOM_DETAILS.getURL();
         return addDetailsList(url,urlDetails,EnumRepositoryType.IDIOM.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList seladdIdiomList(Map map) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Idiom_Service—seladdIdiomList】请求成功！");
+        }
+        return selDBListLike(map);
+    }
+
+    @Override
+    public List seladdIdiomListPage(Map map) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Idiom_Service—seladdIdiomListPage】请求成功！");
+        }
+        return selDBListLikePage(map);
     }
 
     @Transactional
