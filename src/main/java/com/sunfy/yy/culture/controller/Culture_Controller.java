@@ -1,6 +1,7 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.enums.EnumApi;
+import com.sunfy.yy.common.utils.DateUtil;
 import com.sunfy.yy.culture.service.Culture_Today_History_Service;
 import com.sunfy.yy.culture.service.*;
 import org.slf4j.Logger;
@@ -61,11 +62,20 @@ public class Culture_Controller {
         String url_famous = EnumApi.FAMOUS_RANDOM.getURL();
         String url_idiom = EnumApi.IDIOM_RANDOM.getURL();
         String url_poem = EnumApi.POEM_RANDOM.getURL();
+        String url_today_history = EnumApi.TODAY_HISTORY.getURL();
+        String month = DateUtil.getCurrentMonth();
+        int day = DateUtil.getCurrentDay();
+        url_today_history += "&yue="+month;
+        url_today_history += "&ri="+day;
         //执行任务
         culture_allegorical_service.addAllegoricalRandom(url_allegorical);
         culture_famous_service.addFamousRandom(url_famous);
         culture_idiom_service.addIdiomRandom(url_idiom);
         culture_poem_service.addPoemRandom(url_poem);
+        if(sum == 1){
+            System.out.println("执行历史上的今天数据");
+            culture_today_history_service.addToday_History(url_today_history);
+        }
 
         //记录执行次数（每次启动后初始为 0 ）
         if(logger.isInfoEnabled()){

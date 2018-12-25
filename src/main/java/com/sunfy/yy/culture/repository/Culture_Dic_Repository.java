@@ -14,4 +14,6 @@ public interface Culture_Dic_Repository extends JpaRepository<Culture_Dic,Intege
     //根据Dichanzi(字)过滤——》数据库中映射的字段数据Dic_hanzi
     public Culture_Dic findByDichanzi(String Dichanzi);
 
+    public List findByDichanziLike(String keyword);
+
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -32,6 +33,16 @@ public class Culture_Famous_ServiceImpl extends Culture_ServiceImpl implements C
             logger.info("【Culture_Famous_Service—addFamousRandom】请求成功！参数：url="+url);
         }
         return addRandom(url, EnumRepositoryType.FAMOUS.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList selLikeList(Map map) {
+        return selLikeList(map,EnumRepositoryType.FAMOUS.getRepositoryType());
+    }
+
+    @Override
+    public List selListPage(Map map) {
+        return selListPage(map,EnumRepositoryType.FAMOUS.getRepositoryType());
     }
 
     /**

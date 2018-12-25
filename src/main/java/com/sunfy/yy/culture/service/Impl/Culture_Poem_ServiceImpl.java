@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -36,6 +37,16 @@ public class Culture_Poem_ServiceImpl extends Culture_ServiceImpl implements Cul
             logger.info("【Culture_Poem_Service—addPoem】请求成功！参数：url="+url);
         }
         return addList(url, EnumRepositoryType.POEM.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList selLikeList(Map map) {
+        return selLikeList(map,EnumRepositoryType.POEM.getRepositoryType());
+    }
+
+    @Override
+    public List selListPage(Map map) {
+        return selListPage(map,EnumRepositoryType.POEM.getRepositoryType());
     }
 
     //事务操作 防止多条数据插入时 有失败情况

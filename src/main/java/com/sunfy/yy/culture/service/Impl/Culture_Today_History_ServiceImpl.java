@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -24,6 +25,16 @@ public class Culture_Today_History_ServiceImpl extends Culture_ServiceImpl imple
             logger.info("【Culture_Today_History_Service—addToday_History】请求成功！参数：url="+url);
         }
         return addList(url, EnumRepositoryType.TODAY_HISTORY.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList selLikeList(Map map) {
+        return selLikeList(map,EnumRepositoryType.TODAY_HISTORY.getRepositoryType());
+    }
+
+    @Override
+    public List selListPage(Map map) {
+        return selListPage(map,EnumRepositoryType.TODAY_HISTORY.getRepositoryType());
     }
 
     /**

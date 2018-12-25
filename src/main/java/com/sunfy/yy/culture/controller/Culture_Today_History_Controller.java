@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 历史上的今天控制器
@@ -37,8 +40,8 @@ public class Culture_Today_History_Controller {
      */
     @GetMapping(value = "today_history")
     public Result today_HistoryList(@RequestParam("yue") Integer yue,
-                                                           @RequestParam("ri") Integer ri,
-                                                           @RequestParam("type") Integer type){
+                                    @RequestParam("ri") Integer ri,
+                                    @RequestParam("type") Integer type){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Today_History_Controller—today_HistoryList】请求成功！");
         }
@@ -55,6 +58,38 @@ public class Culture_Today_History_Controller {
         ArrayList result_list = culture_today_history_service.addToday_History(url);
         return UtilsAboutController.setResult(result_list);
     }
+
+    /**
+     * 分页查询(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "seltoday_historyPage/{keyword}")
+    public Result selListPage(@RequestParam("pageSize") Integer pageSize,
+                              @RequestParam("pageNum") Integer pageNum){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Today_History_Controller—selListPage】请求成功！");
+        }
+        Map map = new HashMap();
+        map.put("pageSize",pageSize);
+        map.put("pageNum",pageNum);
+        List result_list = culture_today_history_service.selListPage(map);
+        return UtilsAboutController.setResult(result_list);
+    }
+    /**
+     * 查询成语(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "seltoday_history/{keyword}")
+    public Result selList(@PathVariable("keyword") String keyword){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Today_History_Controller—selList】请求成功！");
+        }
+        Map map = new HashMap();
+        map.put("keyword",keyword);
+        ArrayList result_list = culture_today_history_service.selLikeList(map);
+        return UtilsAboutController.setResult(result_list);
+    }
+
 
     /**
      * 插入历史上的今天

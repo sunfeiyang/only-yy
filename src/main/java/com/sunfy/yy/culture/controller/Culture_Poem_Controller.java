@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 唐诗宋词控制器
@@ -83,6 +86,38 @@ public class Culture_Poem_Controller {
         ArrayList result_list = culture_poem_service.addPoemRandom(url);
         return UtilsAboutController.setResult(result_list);
     }
+
+    /**
+     * 分页查询(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "selpoemPage/{keyword}")
+    public Result selListPage(@RequestParam("pageSize") Integer pageSize,
+                              @RequestParam("pageNum") Integer pageNum){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Poem_Controller—selListPage】请求成功！");
+        }
+        Map map = new HashMap();
+        map.put("pageSize",pageSize);
+        map.put("pageNum",pageNum);
+        List result_list = culture_poem_service.selListPage(map);
+        return UtilsAboutController.setResult(result_list);
+    }
+    /**
+     * 查询成语(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "selpoem/{keyword}")
+    public Result selList(@PathVariable("keyword") String keyword){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Poem_Controller—selList】请求成功！");
+        }
+        Map map = new HashMap();
+        map.put("keyword",keyword);
+        ArrayList result_list = culture_poem_service.selLikeList(map);
+        return UtilsAboutController.setResult(result_list);
+    }
+
 
     /**
      * 插入唐诗宋词

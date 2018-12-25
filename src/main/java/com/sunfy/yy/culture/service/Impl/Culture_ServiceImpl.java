@@ -135,14 +135,39 @@ public class Culture_ServiceImpl implements Culture_Service {
      * @param map 所要查询的字段及内容
      * @return ArrayList
      */
-    public ArrayList selDBListLike(Map map){
-        String idiomname = "%"+  map.get("idiomname")+"%";
-        ArrayList list = (ArrayList) culture_idiom_repository.findByIdiomnameLike(idiomname);
+    @Override
+    public ArrayList selLikeList(Map map,String repositoryType){
+        String keyword = "%"+  map.get("keyword")+"%";
+        ArrayList list = null;
+
+        if (repositoryType.equals(EnumRepositoryType.ALLEGORICAL.getRepositoryType())) {
+            list = (ArrayList) culture_allegorical_repository.findByAllegoricalquestionLike(keyword);
+            list.add( culture_allegorical_repository.findByAllegoricalanswerLike(keyword));
+        } else if (repositoryType.equals(EnumRepositoryType.DIC.getRepositoryType())) {
+            list = (ArrayList) culture_Dic_repository.findByDichanziLike(keyword);
+        } else if (repositoryType.equals(EnumRepositoryType.FAMOUS.getRepositoryType())) {
+            list = (ArrayList) culture_famous_repository.findByFamousnameLike(keyword);
+            list.add(culture_famous_repository.findByFamoussayingLike(keyword));
+        } else if (repositoryType.equals(EnumRepositoryType.IDIOM.getRepositoryType())) {
+            list = (ArrayList) culture_idiom_repository.findByIdiomnameLike(keyword);
+        } else if (repositoryType.equals(EnumRepositoryType.POEM.getRepositoryType())) {
+            list = (ArrayList) culture_poem_repository.findByPoembiaotiLike(keyword);
+            list.add(culture_poem_repository.findByPoemzuozheLike(keyword));
+        } else if (repositoryType.equals(EnumRepositoryType.TODAY_HISTORY.getRepositoryType())) {
+            list = (ArrayList) culture_today_history_repository.findByTodayhistorytitleLike(keyword);
+        }
+
         if(list != null && list.size()>0){
+            if (logger.isInfoEnabled()) {
+                logger.info("【Culture_ServiceImpl—selLikeList】查询到数据！类型为：" + repositoryType);
+            }
             return list;
         }else{
             list.add("ERROR");
             list.add(EnumException.SUCCESSNULL);
+            if (logger.isInfoEnabled()) {
+                logger.info("【Culture_ServiceImpl—selLikeList】查询数据为空！类型为：" + repositoryType);
+            }
         }
         return list;
     }
@@ -152,18 +177,39 @@ public class Culture_ServiceImpl implements Culture_Service {
      * @param map 查询条件
      * @return ArrayList
      */
-    public List selDBListLikePage(Map map){
+    @Override
+    public List selListPage(Map map,String repositoryType){
         Integer pageSize = (Integer) map.get("pageSize");
         Integer pageNum = (Integer) map.get("pageNum");
-
 //        Pageable pageable = new Pageable(pageNum == null? 0 : Integer.parseInt(pageNum),
 ////                pageSize == null? 10 : Integer.parseInt(pageSize),
 ////                new Sort(Sort.Direction.DESC), "tid");
         Pageable pageable =new PageRequest(pageNum, pageSize);
-        List page_result = culture_idiom_repository.findAll(pageable).getContent();
+        List page_result = null;
+
+        if (repositoryType.equals(EnumRepositoryType.ALLEGORICAL.getRepositoryType())) {
+            page_result = culture_allegorical_repository.findAll(pageable).getContent();
+        } else if (repositoryType.equals(EnumRepositoryType.DIC.getRepositoryType())) {
+            page_result = culture_Dic_repository.findAll(pageable).getContent();
+        } else if (repositoryType.equals(EnumRepositoryType.FAMOUS.getRepositoryType())) {
+            page_result = culture_famous_repository.findAll(pageable).getContent();
+        } else if (repositoryType.equals(EnumRepositoryType.IDIOM.getRepositoryType())) {
+            page_result = culture_idiom_repository.findAll(pageable).getContent();
+        } else if (repositoryType.equals(EnumRepositoryType.POEM.getRepositoryType())) {
+            page_result = culture_poem_repository.findAll(pageable).getContent();
+        } else if (repositoryType.equals(EnumRepositoryType.TODAY_HISTORY.getRepositoryType())) {
+            page_result = culture_today_history_repository.findAll(pageable).getContent();
+        }
+
         if(page_result != null && page_result.size() > 0){
+            if (logger.isInfoEnabled()) {
+                logger.info("【Culture_ServiceImpl—selListPage】分页查询到数据！类型为：" + repositoryType);
+            }
             return page_result;
         }else{
+            if (logger.isInfoEnabled()) {
+                logger.info("【Culture_ServiceImpl—selListPage】分页未查询到数据！类型为：" + repositoryType);
+            }
             page_result.add("ERROR");
             page_result.add(EnumException.SUCCESSNULL);
         }

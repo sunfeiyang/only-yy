@@ -17,4 +17,8 @@ public interface Culture_Poem_Repository extends JpaRepository<Culture_Poem,Inte
     public Culture_Poem findByPoembiaotiOrPoemzuozheOrPoemneirong(String poembiaoti,String poemzuozhe,String poemneirong);
     //根据poemID过滤
     public Culture_Poem findByPoemid(String poemid);
+
+    public List findByPoembiaotiLike(String keyword);
+
+    public List findByPoemzuozheLike(String keyword);
 }

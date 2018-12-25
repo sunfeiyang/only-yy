@@ -30,19 +30,13 @@ public class Culture_Idiom_ServiceImpl extends Culture_ServiceImpl implements Cu
     }
 
     @Override
-    public ArrayList seladdIdiomList(Map map) {
-        if(logger.isInfoEnabled()){
-            logger.info("【Culture_Idiom_Service—seladdIdiomList】请求成功！");
-        }
-        return selDBListLike(map);
+    public ArrayList selLikeList(Map map) {
+        return selLikeList(map,EnumRepositoryType.IDIOM.getRepositoryType());
     }
 
     @Override
-    public List seladdIdiomListPage(Map map) {
-        if(logger.isInfoEnabled()){
-            logger.info("【Culture_Idiom_Service—seladdIdiomListPage】请求成功！");
-        }
-        return selDBListLikePage(map);
+    public List selListPage(Map map) {
+        return selListPage(map,EnumRepositoryType.IDIOM.getRepositoryType());
     }
 
     @Transactional

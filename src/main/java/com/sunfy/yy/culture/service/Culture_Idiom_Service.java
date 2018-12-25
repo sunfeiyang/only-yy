@@ -23,14 +23,14 @@ public interface Culture_Idiom_Service {
      * @param map 查询条件
      * @return ArrayList
      */
-    public ArrayList seladdIdiomList(Map map);
+    public ArrayList selLikeList(Map map);
 
     /**
      * 分页查询
      * @param map 分页条件
      * @return ArrayList
      */
-    public List seladdIdiomListPage(Map map);
+    public List selListPage(Map map);
 
     /**
      * 插入数据列表

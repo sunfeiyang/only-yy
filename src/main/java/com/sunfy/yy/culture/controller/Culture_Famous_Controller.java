@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 名人名言控制器
@@ -67,6 +70,38 @@ public class Culture_Famous_Controller {
         ArrayList result_list = culture_famous_service.addFamousRandom(url);
         return UtilsAboutController.setResult(result_list);
     }
+
+    /**
+     * 分页查询(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "selfamousPage/{keyword}")
+    public Result selListPage(@RequestParam("pageSize") Integer pageSize,
+                              @RequestParam("pageNum") Integer pageNum){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Famous_Controller—selListPage】请求成功！");
+        }
+        Map map = new HashMap();
+        map.put("pageSize",pageSize);
+        map.put("pageNum",pageNum);
+        List result_list = culture_famous_service.selListPage(map);
+        return UtilsAboutController.setResult(result_list);
+    }
+    /**
+     * 查询成语(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "selfamous/{keyword}")
+    public Result selList(@PathVariable("keyword") String keyword){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Famous_Controller—selList】请求成功！");
+        }
+        Map map = new HashMap();
+        map.put("keyword",keyword);
+        ArrayList result_list = culture_famous_service.selLikeList(map);
+        return UtilsAboutController.setResult(result_list);
+    }
+
 
     /**
      * 插入名人名言（单条Post请求）

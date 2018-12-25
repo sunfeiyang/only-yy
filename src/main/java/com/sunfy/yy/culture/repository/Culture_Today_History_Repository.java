@@ -13,4 +13,6 @@ public interface Culture_Today_History_Repository extends JpaRepository<Culture_
     public Culture_Today_History findByTid(Integer tid);
     //根据内容进行过滤
     public Culture_Today_History findByTodayhistorytitle(String todayhistorytitle);
+
+    public List findByTodayhistorytitleLike(String keyword);
 }

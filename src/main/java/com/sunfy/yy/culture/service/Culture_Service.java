@@ -1,6 +1,8 @@
 package com.sunfy.yy.culture.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 父类整体实现重复方法
@@ -27,4 +29,20 @@ public interface Culture_Service {
      * @return ArrayList
      */
     public ArrayList addDetailsList(String url,String urlDetails,String repositoryType);
+
+
+
+    /**
+     * 数据库根据条件查询数据
+     * @param map 查询条件
+     * @return ArrayList
+     */
+    public ArrayList selLikeList(Map map, String repositoryType);
+
+    /**
+     * 分页查询
+     * @param map 分页条件
+     * @return ArrayList
+     */
+    public List selListPage(Map map, String repositoryType);
 }

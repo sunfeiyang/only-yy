@@ -70,7 +70,7 @@ public class Culture_Idiom_Controller {
         Map map = new HashMap();
         map.put("pageSize",pageSize);
         map.put("pageNum",pageNum);
-        List result_list = culture_idiom_service.seladdIdiomListPage(map);
+        List result_list = culture_idiom_service.selListPage(map);
         return UtilsAboutController.setResult(result_list);
     }
     /**
@@ -83,8 +83,8 @@ public class Culture_Idiom_Controller {
             logger.info("【Culture_Idiom_Controller—selidiomList】请求成功！");
         }
         Map map = new HashMap();
-        map.put("idiomname",keyword);
-        ArrayList result_list = culture_idiom_service.seladdIdiomList(map);
+        map.put("keyword",keyword);
+        ArrayList result_list = culture_idiom_service.selLikeList(map);
         return UtilsAboutController.setResult(result_list);
     }
 
