@@ -52,7 +52,11 @@ public class Culture_Today_History_ServiceImpl extends Culture_ServiceImpl imple
         culture_today_history.setToday_history_day((Integer) map.get("day"));
         culture_today_history.setToday_history_year((Integer) map.get("year"));
         culture_today_history.setToday_history_month((Integer) map.get("month"));
-        culture_today_history.setTodayhistorytitle((String) map.get("title"));
+        if((String) map.get("title") == null){
+            culture_today_history.setTodayhistorytitle("无内容");
+        }else{
+            culture_today_history.setTodayhistorytitle((String) map.get("title"));
+        }
         culture_today_history.setToday_history_type((Integer) map.get("type"));
         return culture_today_history;
     }

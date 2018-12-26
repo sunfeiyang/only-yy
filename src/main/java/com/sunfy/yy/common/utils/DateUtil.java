@@ -583,5 +583,6 @@ public class DateUtil {
         System.out.println(getString(new Date(),"DD"));//获取当前日期是今年第多少天
         System.out.println(getChineseDate(new Date()));
         System.out.println(getCurrentDay());
+        System.out.println(addDays(new Date(),-1));
     }
 }

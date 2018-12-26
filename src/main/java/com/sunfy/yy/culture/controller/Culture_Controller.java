@@ -1,6 +1,7 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.enums.EnumApi;
+import com.sunfy.yy.common.utils.ChineseCreat;
 import com.sunfy.yy.common.utils.DateUtil;
 import com.sunfy.yy.culture.service.Culture_Today_History_Service;
 import com.sunfy.yy.culture.service.*;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+
+import java.util.Date;
 
 /**
  * Culture中全局的控制器
@@ -37,13 +40,18 @@ public class Culture_Controller {
     @Autowired
     private Culture_Today_History_Service culture_today_history_service;
 
+    @Autowired
+    private Culture_WordSea_Service culture_wordSea_service;
+
     private Integer sum = 1;
+
+    Date date = new Date();
 
     /**
      * 随机返回一条（定时任务）
      * @return
      */
-    @Scheduled(cron = "1/30 * * * * *")
+    @Scheduled(cron = "1/15 * * * * *")
     @Async
     /*
     在上面的定时任务中，我们在方法上使用@Scheduled注解来设置任务的执行时间，并且使用三种属性配置方式：
@@ -58,24 +66,86 @@ public class Culture_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Controller—CultureRandom】定时任务执行中...");
         }
+        /*
+        获取RANDOM 随机生成一条的url
+         */
         String url_allegorical = EnumApi.ALLEGORICAL_RANDOM.getURL();
         String url_famous = EnumApi.FAMOUS_RANDOM.getURL();
         String url_idiom = EnumApi.IDIOM_RANDOM.getURL();
         String url_poem = EnumApi.POEM_RANDOM.getURL();
         String url_today_history = EnumApi.TODAY_HISTORY.getURL();
-        String month = DateUtil.getCurrentMonth();
-        int day = DateUtil.getCurrentDay();
-        url_today_history += "&yue="+month;
-        url_today_history += "&ri="+day;
-        //执行任务
-        culture_allegorical_service.addAllegoricalRandom(url_allegorical);
-        culture_famous_service.addFamousRandom(url_famous);
-        culture_idiom_service.addIdiomRandom(url_idiom);
-        culture_poem_service.addPoemRandom(url_poem);
-        if(sum == 1){
-            System.out.println("执行历史上的今天数据");
-            culture_today_history_service.addToday_History(url_today_history);
+        String url_wordsea = EnumApi.WORD_SEA_RANDOM.getURL();
+
+        //随机插入一条
+//        culture_allegorical_service.addAllegoricalRandom(url_allegorical);
+//        culture_idiom_service.addIdiomRandom(url_idiom);
+//        culture_poem_service.addPoemRandom(url_poem);
+//        culture_wordSea_service.addRandom(url_wordsea);
+//        culture_famous_service.addFamousRandom(url_famous);
+//        if(sum <= 55){
+//            culture_famous_service.addFamousRandom(url_famous);
+//        }
+
+        /*
+        获取批量数据插入链接
+         */
+        String url_wordsea_list = EnumApi.WORD_SEA.getURL();
+        url_wordsea_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+
+        String url_idiom_list = EnumApi.IDIOM.getURL();
+        url_idiom_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+
+        String url_famous_list = EnumApi.FAMOUS.getURL();
+        url_famous_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+
+        String url_poem_list = EnumApi.POEM.getURL();
+        url_poem_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+
+        String url_allegorical_list = EnumApi.ALLEGORICAL.getURL();
+        url_allegorical_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+
+        /*
+        处理历史上的今天数据
+         */
+//        int month = DateUtil.getCurrentDayMM(date);
+//        int day = DateUtil.getCurrentDayDD(date);
+//        url_today_history += "&yue="+month;
+//        url_today_history += "&ri="+day;
+//        if(sum%2 == 1){
+//            url_today_history += "&type=1";
+//            System.out.println("获取数据为【国内国际大事件】");
+//        }else {
+//            url_today_history += "&type=2";
+//            System.out.println("获取数据为【民间事件包含部分国家大事件】");
+//            //两个事件获取完成后加一天
+////            int num = 1;
+////            if(month == 12){
+////                num = 199;
+////            }
+//            date = DateUtil.addDays(date,-1);
+//        }
+//        url_today_history += "&page=1&rows=50";
+//
+//        System.out.println("获得的日期为：【"+month+"】月【"+day+"】日");
+
+        String url_dic = EnumApi.DIC.getURL();
+        String str1 = "";
+        for (int i = 0; i < 100; i++) {
+            str1 += ChineseCreat.getRandomHan();
         }
+        url_dic += "&content="+str1;
+        System.out.println("获得的汉字为：【"+str1+"】");
+
+
+//      culture_today_history_service.addToday_History(url_today_history);
+        culture_dic_service.addDic(url_dic);
+        culture_wordSea_service.addList(url_wordsea_list);
+//        culture_idiom_service.addIdiomList(url_idiom_list);
+//        if(sum <= 99){
+//            culture_famous_service.addFamous(url_famous_list);
+//        }
+//        culture_poem_service.addPoemList(url_poem_list);
+        culture_allegorical_service.addAllegorical(url_allegorical_list);
 
         //记录执行次数（每次启动后初始为 0 ）
         if(logger.isInfoEnabled()){

@@ -11,7 +11,6 @@ import com.sunfy.yy.common.enums.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -45,6 +44,10 @@ public class Culture_ServiceImpl implements Culture_Service {
     //历史上的今天数据库操作对象
     @Autowired
     private Culture_Today_History_Repository culture_today_history_repository;
+
+    //历史上的今天数据库操作对象
+    @Autowired
+    private Culture_WordSea_Repository culture_wordSea_repository;
 
     private final static Logger logger = LoggerFactory.getLogger(Culture_ServiceImpl.class);
 
@@ -155,6 +158,8 @@ public class Culture_ServiceImpl implements Culture_Service {
             list.add(culture_poem_repository.findByPoemzuozheLike(keyword));
         } else if (repositoryType.equals(EnumRepositoryType.TODAY_HISTORY.getRepositoryType())) {
             list = (ArrayList) culture_today_history_repository.findByTodayhistorytitleLike(keyword);
+        } else if (repositoryType.equals(EnumRepositoryType.WORD_SEA.getRepositoryType())) {
+            list = (ArrayList) culture_wordSea_repository.findByWordseawordsLike(keyword);
         }
 
         if(list != null && list.size()>0){
@@ -199,6 +204,8 @@ public class Culture_ServiceImpl implements Culture_Service {
             page_result = culture_poem_repository.findAll(pageable).getContent();
         } else if (repositoryType.equals(EnumRepositoryType.TODAY_HISTORY.getRepositoryType())) {
             page_result = culture_today_history_repository.findAll(pageable).getContent();
+        } else if (repositoryType.equals(EnumRepositoryType.WORD_SEA.getRepositoryType())) {
+            page_result = culture_wordSea_repository.findAll(pageable).getContent();
         }
 
         if(page_result != null && page_result.size() > 0){
@@ -221,7 +228,7 @@ public class Culture_ServiceImpl implements Culture_Service {
     @Transactional
     //事务操作 防止多条数据插入时 有失败情况
     @Override
-    public ArrayList addDetailsList(String url, String urlDetails, String repositoryType) {
+    public ArrayList addDetailsList(String url, String urlDetailsStar, String repositoryType) {
         if (logger.isInfoEnabled()) {
             logger.info("【Culture_ServiceImpl—addDetailsList】请求成功！参数：url=" + url);
         }
@@ -241,8 +248,9 @@ public class Culture_ServiceImpl implements Culture_Service {
                     for (int i = 0; i < list.size(); i++) {
                         Map mapList = (Map) list.get(i);
                         String id = (String) mapList.get("id");
+                        String urlDetails = "";
                         if (!id.equals("") && id != null) {
-                            urlDetails += "&id=" + id;
+                            urlDetails = urlDetailsStar + "&id=" + id;
                         }
                         String jsonResultDetails = HttpRequest.get(urlDetails);
                         Map mapDetails = jsonUtils.toMap(jsonResultDetails);
@@ -333,6 +341,15 @@ public class Culture_ServiceImpl implements Culture_Service {
                 } else {
                     obj = culture_today_history_repository.save(Culture_Today_History_ServiceImpl.mapToBean(mapList));
                 }
+            } else if (repositoryType.equals(EnumRepositoryType.WORD_SEA.getRepositoryType())) {
+                String words = (String) mapList.get("words");
+                Culture_WordSea culture_wordSea = culture_wordSea_repository.findByWordseawords(words);
+                if (culture_wordSea != null) {
+                    dataIsHave = true;
+                    obj = culture_wordSea;
+                } else {
+                    obj = culture_wordSea_repository.save(Culture_WordSea_ServiceImpl.mapToBean(mapList));
+                }
             }
             //控制台数据标识
             if (dataIsHave) {
@@ -351,7 +368,7 @@ public class Culture_ServiceImpl implements Culture_Service {
                 logger.info("【Culture_ServiceImpl—getRepositoryTypeResult】请求数据为null！类型为【" + repositoryType + "】");
             }
 //            throw new ExceptionCulture(EnumCultureException.ERROR_NULL);
-            Integer tid = (int) (Math.random() * 120);
+            Integer tid = (int) (Math.random() * 600);
             if (repositoryType.equals(EnumRepositoryType.ALLEGORICAL.getRepositoryType())) {
                 obj = culture_allegorical_repository.findByTid(tid);
             } else if (repositoryType.equals(EnumRepositoryType.DIC.getRepositoryType())) {
@@ -364,6 +381,8 @@ public class Culture_ServiceImpl implements Culture_Service {
                 obj = culture_poem_repository.findByTid(tid);
             } else if (repositoryType.equals(EnumRepositoryType.TODAY_HISTORY.getRepositoryType())) {
                 obj = culture_today_history_repository.findByTid(tid);
+            } else if (repositoryType.equals(EnumRepositoryType.WORD_SEA.getRepositoryType())) {
+                obj = culture_wordSea_repository.findByTid(tid);
             }
             return obj;
         }

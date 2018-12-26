@@ -75,6 +75,14 @@ public class ChineseCreat {
         return str;
     }
 
+
+    public static char getRandomHan() {
+        Random ran = new Random();
+        int delta = 0x9fa5 - 0x4e00 + 1;
+        return (char)(0x4e00 + ran.nextInt(delta));
+    }
+
+
     public static void main(String[] args) {
         String str = "啊啊啊";
         char[] cs = str.toCharArray();
@@ -89,5 +97,8 @@ public class ChineseCreat {
             str1 = getRandomChar();
             System.out.print(str1 + " ");
         }
+
+        System.out.println();
+        System.out.println(getRandomHan());
     }
 }

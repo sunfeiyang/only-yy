@@ -40,8 +40,8 @@ public class Culture_Idiom_Controller {
      */
     @GetMapping(value = "idiom/{keyword}")
     public Result idiomList(@PathVariable("keyword") String keyword,
-                                           @RequestParam("rows") Integer rows,
-                                           @RequestParam("page") Integer page){
+                            @RequestParam("rows") Integer rows,
+                            @RequestParam("page") Integer page){
         if(logger.isInfoEnabled()){
             logger.info("【Culture_Idiom_Controller—idiomList】请求成功！");
         }
