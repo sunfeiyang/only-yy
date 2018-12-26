@@ -48,8 +48,8 @@ public class BaiduFace {
 //        System.out.println(res1.toString(2));
 
         //人脸对比
-        String image1 = "E:/face.jpg";
-        String image2 = "E:/face4.jpg";
+        String image1 = "E:/face6.png";
+        String image2 = "E:/face2.jpg";
         String path1 = Base64Test.GetImageStr(image1);
         String path2 = Base64Test.GetImageStr(image2);
 
