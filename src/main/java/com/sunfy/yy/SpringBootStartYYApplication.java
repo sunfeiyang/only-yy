@@ -5,6 +5,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 /**
  * 修改启动类，继承 SpringBootServletInitializer 并重写 configure 方法
+ * 使用项目用服务器启动
  */
 public class SpringBootStartYYApplication extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder){
