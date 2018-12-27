@@ -1,10 +1,12 @@
 package com.sunfy.yy.culture.service.Impl;
 
 import com.sunfy.yy.culture.domain.Culture_Today_History;
+import com.sunfy.yy.culture.repository.Culture_Today_History_Repository;
 import com.sunfy.yy.culture.service.Culture_Today_History_Service;
 import com.sunfy.yy.common.enums.EnumRepositoryType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,6 +18,10 @@ import java.util.Map;
 public class Culture_Today_History_ServiceImpl extends Culture_ServiceImpl implements Culture_Today_History_Service {
 
     private final static Logger logger = LoggerFactory.getLogger(Culture_Today_History_ServiceImpl.class);
+
+    //历史上的今天数据库操作对象
+    @Autowired
+    private Culture_Today_History_Repository culture_today_history_repository;
 
     @Transactional
     //事务操作 防止多条数据插入时 有失败情况
@@ -37,6 +43,16 @@ public class Culture_Today_History_ServiceImpl extends Culture_ServiceImpl imple
         return selListPage(map,EnumRepositoryType.TODAY_HISTORY.getRepositoryType());
     }
 
+    @Override
+    public ArrayList selTodayList(Map map) {
+        Integer month = (Integer) map.get("month");
+        Integer day = (Integer) map.get("day");
+        Integer type = (Integer) map.get("type");
+
+        ArrayList list = (ArrayList) culture_today_history_repository.findByTodayhistorymonthAndTodayhistorydayAndTodayhistorytype(month,day,type);
+        return list;
+    }
+
     /**
      * 将map中数据存入指定bean对象中并将bean对象返回
      * @param map 带有数据的map
@@ -49,15 +65,15 @@ public class Culture_Today_History_ServiceImpl extends Culture_ServiceImpl imple
          * 从传入的map中获取对应的数据并将获取的内容写入对应的bean对象中
          * 【注：此处不同的bean对象都需做对应修改】
          */
-        culture_today_history.setToday_history_day((Integer) map.get("day"));
+        culture_today_history.setTodayhistoryday((Integer) map.get("day"));
         culture_today_history.setToday_history_year((Integer) map.get("year"));
-        culture_today_history.setToday_history_month((Integer) map.get("month"));
+        culture_today_history.setTodayhistorymonth((Integer) map.get("month"));
         if((String) map.get("title") == null){
             culture_today_history.setTodayhistorytitle("无内容");
         }else{
             culture_today_history.setTodayhistorytitle((String) map.get("title"));
         }
-        culture_today_history.setToday_history_type((Integer) map.get("type"));
+        culture_today_history.setTodayhistorytype((Integer) map.get("type"));
         return culture_today_history;
     }
 

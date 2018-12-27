@@ -3,6 +3,7 @@ package com.sunfy.yy.culture.controller;
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.common.enums.EnumException;
+import com.sunfy.yy.common.utils.DateUtil;
 import com.sunfy.yy.common.utils.ResultUtil;
 import com.sunfy.yy.culture.domain.Culture_Today_History;
 import com.sunfy.yy.culture.repository.Culture_Today_History_Repository;
@@ -15,10 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 历史上的今天控制器
@@ -76,7 +74,7 @@ public class Culture_Today_History_Controller {
         return UtilsAboutController.setResult(result_list);
     }
     /**
-     * 查询成语(请求数据库)
+     * 关键字查询(请求数据库)
      * @return
      */
     @GetMapping(value = "seltoday_history/{keyword}")
@@ -87,6 +85,25 @@ public class Culture_Today_History_Controller {
         Map map = new HashMap();
         map.put("keyword",keyword);
         ArrayList result_list = culture_today_history_service.selLikeList(map);
+        return UtilsAboutController.setResult(result_list);
+    }
+    /**
+     * 查询历史上的今天(请求数据库)
+     * @return
+     */
+    @GetMapping(value = "seltoday/{type}")
+    public Result selTodayHistory(@PathVariable("type") Integer type){
+        if(logger.isInfoEnabled()){
+            logger.info("【Culture_Today_History_Controller—selList】请求成功！");
+        }
+        Date date = new Date();
+        Map map = new HashMap();
+        int month = DateUtil.getCurrentDayMM(date);
+        int day = DateUtil.getCurrentDayDD(date);
+        map.put("month",month);
+        map.put("day",day);
+        map.put("type",type);
+        ArrayList result_list = culture_today_history_service.selTodayList(map);
         return UtilsAboutController.setResult(result_list);
     }
 

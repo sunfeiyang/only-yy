@@ -35,7 +35,7 @@ public class Culture_WordSea_Controller {
     private Culture_WordSea_Service culture_wordSea_service;
 
     /**
-     * 查询所有的名人名言（列表get请求）
+     * 查询所有的辞海（列表get请求）
      * @return
      */
     @GetMapping(value = "wordsea/{keyword}")
@@ -58,7 +58,7 @@ public class Culture_WordSea_Controller {
     }
 
     /**
-     * 查询名人名言（随机返回一条get请求）
+     * 查询辞海（随机返回一条get请求）
      * @return
      */
     @GetMapping(value = "wordseaRandom")
@@ -75,7 +75,7 @@ public class Culture_WordSea_Controller {
      * 分页查询(请求数据库)
      * @return
      */
-    @GetMapping(value = "selwordseaPage/{keyword}")
+        @GetMapping(value = "selwordseaPage/{keyword}")
     public Result selListPage(@RequestParam("pageSize") Integer pageSize,
                               @RequestParam("pageNum") Integer pageNum){
         if(logger.isInfoEnabled()){
@@ -88,7 +88,7 @@ public class Culture_WordSea_Controller {
         return UtilsAboutController.setResult(result_list);
     }
     /**
-     * 查询成语(请求数据库)
+     * 查询辞海(请求数据库)
      * @return
      */
     @GetMapping(value = "selwordsea/{keyword}")
@@ -104,7 +104,7 @@ public class Culture_WordSea_Controller {
 
 
     /**
-     * 插入名人名言（单条Post请求）
+     * 插入辞海（单条Post请求）
      * @param culture_wordSea 待插入对象
      * @param bindingResult 返回结果
      * @return Result<Culture_Famous

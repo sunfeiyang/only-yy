@@ -15,4 +15,6 @@ public interface Culture_Today_History_Repository extends JpaRepository<Culture_
     public Culture_Today_History findByTodayhistorytitle(String todayhistorytitle);
 
     public List findByTodayhistorytitleLike(String keyword);
+
+    public List findByTodayhistorymonthAndTodayhistorydayAndTodayhistorytype(Integer todayhistorymonth, Integer todayhistoryday, Integer todayhistorytype);
 }

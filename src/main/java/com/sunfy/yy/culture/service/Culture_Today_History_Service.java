@@ -29,4 +29,11 @@ public interface Culture_Today_History_Service {
      * @return ArrayList
      */
     public List selListPage(Map map);
+
+    /**
+     * 查询今天
+     * @param map 条件
+     * @return ArrayList
+     */
+    public ArrayList selTodayList(Map map);
 }
