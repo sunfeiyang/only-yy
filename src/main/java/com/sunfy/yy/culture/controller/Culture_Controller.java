@@ -51,7 +51,7 @@ public class Culture_Controller {
      * 随机返回一条（定时任务）
      * @return
      */
-    @Scheduled(cron = "1/15 * * * * *")
+    @Scheduled(cron = "1/55 * * * * *")
     @Async
     /*
     在上面的定时任务中，我们在方法上使用@Scheduled注解来设置任务的执行时间，并且使用三种属性配置方式：
@@ -140,11 +140,11 @@ public class Culture_Controller {
 //      culture_today_history_service.addToday_History(url_today_history);
         culture_dic_service.addDic(url_dic);
         culture_wordSea_service.addList(url_wordsea_list);
-//        culture_idiom_service.addIdiomList(url_idiom_list);
+        culture_idiom_service.addIdiomList(url_idiom_list);
 //        if(sum <= 99){
-//            culture_famous_service.addFamous(url_famous_list);
+            culture_famous_service.addFamous(url_famous_list);
 //        }
-//        culture_poem_service.addPoemList(url_poem_list);
+        culture_poem_service.addPoemList(url_poem_list);
         culture_allegorical_service.addAllegorical(url_allegorical_list);
 
         //记录执行次数（每次启动后初始为 0 ）
