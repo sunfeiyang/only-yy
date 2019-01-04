@@ -72,9 +72,13 @@ public class Culture_Poem_ServiceImpl extends Culture_ServiceImpl implements Cul
          */
         culture_poem.setPoemid((String) map.get("id"));
         culture_poem.setPoembiaoti((String) map.get("biaoti"));
-        culture_poem.setPoem_jieshao((String) map.get("jieshao"));
+        String jieshao = (String) map.get("jieshao");
+        jieshao = jieshao.replace("\r\n","<br>");
+        culture_poem.setPoem_jieshao(jieshao);
         culture_poem.setPoemzuozhe((String) map.get("zuozhe"));
-        culture_poem.setPoemneirong((String) map.get("neirong"));
+        String neirong = (String) map.get("neirong");
+        neirong = neirong.replace("\r\n","<br>");
+        culture_poem.setPoemneirong(neirong);
         return culture_poem;
     }
 

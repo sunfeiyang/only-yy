@@ -104,7 +104,7 @@ public class Culture_Poem_Controller {
         return UtilsAboutController.setResult(result_list);
     }
     /**
-     * 查询成语(请求数据库)
+     * 查询唐诗宋词(请求数据库)
      * @return
      */
     @GetMapping(value = "selpoem/{keyword}")

@@ -38,7 +38,7 @@ public class OcrServiceImpl implements OcrService {
         // 调用接口
         String path = "E:/test/"+ImageUrl;
         JSONObject res = client.basicGeneral(path, new HashMap<String, String>());
-        System.out.println(res.toString(2));
+//        System.out.println(res.toString(2));
 
         // 对识别结果进行格式化处理
         String ocrStr = res.toString(2);

@@ -145,17 +145,17 @@ public class Culture_ServiceImpl implements Culture_Service {
 
         if (repositoryType.equals(EnumRepositoryType.ALLEGORICAL.getRepositoryType())) {
             list = (ArrayList) culture_allegorical_repository.findByAllegoricalquestionLike(keyword);
-            list.add( culture_allegorical_repository.findByAllegoricalanswerLike(keyword));
+            list.addAll( culture_allegorical_repository.findByAllegoricalanswerLike(keyword));
         } else if (repositoryType.equals(EnumRepositoryType.DIC.getRepositoryType())) {
             list = (ArrayList) culture_Dic_repository.findByDichanziLike(keyword);
         } else if (repositoryType.equals(EnumRepositoryType.FAMOUS.getRepositoryType())) {
             list = (ArrayList) culture_famous_repository.findByFamousnameLike(keyword);
-            list.add(culture_famous_repository.findByFamoussayingLike(keyword));
+            list.addAll(culture_famous_repository.findByFamoussayingLike(keyword));
         } else if (repositoryType.equals(EnumRepositoryType.IDIOM.getRepositoryType())) {
             list = (ArrayList) culture_idiom_repository.findByIdiomnameLike(keyword);
         } else if (repositoryType.equals(EnumRepositoryType.POEM.getRepositoryType())) {
             list = (ArrayList) culture_poem_repository.findByPoembiaotiLike(keyword);
-            list.add(culture_poem_repository.findByPoemzuozheLike(keyword));
+            list.addAll(culture_poem_repository.findByPoemzuozheLike(keyword));
         } else if (repositoryType.equals(EnumRepositoryType.TODAY_HISTORY.getRepositoryType())) {
             list = (ArrayList) culture_today_history_repository.findByTodayhistorytitleLike(keyword);
         } else if (repositoryType.equals(EnumRepositoryType.WORD_SEA.getRepositoryType())) {
