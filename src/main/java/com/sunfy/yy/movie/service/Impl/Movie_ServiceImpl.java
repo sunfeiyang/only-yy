@@ -3,8 +3,8 @@ package com.sunfy.yy.movie.service.Impl;
 import com.sunfy.yy.common.enums.EnumRepositoryType;
 import com.sunfy.yy.common.utils.HttpRequest;
 import com.sunfy.yy.common.utils.JsonUtils;
-import com.sunfy.yy.movie.domain.Movie_In_Theaters;
-import com.sunfy.yy.movie.repository.Movie_In_Theaters_Repository;
+import com.sunfy.yy.movie.domain.*;
+import com.sunfy.yy.movie.repository.*;
 import com.sunfy.yy.movie.service.Movie_Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +20,26 @@ public class Movie_ServiceImpl implements Movie_Service {
     //正在热映数据库操作对象
     @Autowired
     private Movie_In_Theaters_Repository movie_in_theaters_repository;
+
+    //即将上映数据库操作对象
+    @Autowired
+    private Movie_Coming_Soon_Repository movie_coming_soon_repository;
+
+    // 新片榜
+    @Autowired
+    private Movie_New_Movies_Repository movie_new_movies_repository;
+
+    // Top
+    @Autowired
+    private Movie_Top250_Repository movie_top250_repository;
+
+    // Weekly
+    @Autowired
+    private Movie_Weekly_Repository movie_weekly_repository;
+
+    // 北美票房榜
+    @Autowired
+    private Movie_Us_Box_Repository movie_us_box_repository;
 
     @Override
     public ArrayList setMovie(String url,String repositoryType) {
@@ -39,12 +59,14 @@ public class Movie_ServiceImpl implements Movie_Service {
             } else {
                 map = jsonUtils.toMap(jsonResult);
                 ArrayList list = (ArrayList) map.get("subjects");
-                String total = map.get("total").toString();
+                String total = map.get("total") + "";
+                String date = map.get("date") + "";
                 if (list != null && list.size() > 0) {
                     for (int i = 0; i < list.size(); i++) {
                         Map mapList = (Map) list.get(i);
                         //将数据存入数据库
                         mapList.put("subject_total",total);
+                        mapList.put("date",date);
                         result_list.add(getRepositoryTypeResult(mapList, repositoryType));
                     }
                 }
@@ -78,7 +100,53 @@ public class Movie_ServiceImpl implements Movie_Service {
                     dataIsHave = true;
                     obj = movie_in_theaters;
                 } else {
-                    obj = movie_in_theaters_repository.save(Movie_List_ServiceImpl.mapToBean(mapList));
+                    obj = movie_in_theaters_repository.save(Movie_List_ServiceImpl.mapToBean_In_Theaters(mapList));
+                }
+            }else if (repositoryType.equals(EnumRepositoryType.M_COMINGSOON.getRepositoryType())) {
+                String subjectid = (String) mapList.get("id");
+                Movie_Coming_Soon movie_coming_soon = movie_coming_soon_repository.findBySubjectid(subjectid);
+                if (movie_coming_soon != null) {
+                    dataIsHave = true;
+                    obj = movie_coming_soon;
+                } else {
+                    obj = movie_coming_soon_repository.save(Movie_List_ServiceImpl.mapToBean_Coming_Soon(mapList));
+                }
+            }else if (repositoryType.equals(EnumRepositoryType.M_NEW_MOVIES.getRepositoryType())) {
+                String subjectid = (String) mapList.get("id");
+                Movie_New_Movies movie_new_movies = movie_new_movies_repository.findBySubjectid(subjectid);
+                if (movie_new_movies != null) {
+                    dataIsHave = true;
+                    obj = movie_new_movies;
+                } else {
+                    obj = movie_new_movies_repository.save(Movie_List_ServiceImpl.mapToBean_New_Movies(mapList));
+                }
+            }else if (repositoryType.equals(EnumRepositoryType.M_TOP250.getRepositoryType())) {
+                String subjectid = (String) mapList.get("id");
+                Movie_Top250 movie_top250 = movie_top250_repository.findBySubjectid(subjectid);
+                if (movie_top250 != null) {
+                    dataIsHave = true;
+                    obj = movie_top250;
+                } else {
+                    obj = movie_top250_repository.save(Movie_List_ServiceImpl.mapToBean_Top250(mapList));
+                }
+            }else if (repositoryType.equals(EnumRepositoryType.M_WEEKLY.getRepositoryType())) {
+                Map mapList_subjectid = (Map) mapList.get("subject");
+                String subjectid = mapList_subjectid.get("id")+ "";
+                Movie_Weekly movie_weekly = movie_weekly_repository.findBySubjectid(subjectid);
+                if (movie_weekly != null) {
+                    dataIsHave = true;
+                    obj = movie_weekly;
+                } else {
+                    obj = movie_weekly_repository.save(Movie_List_ServiceImpl.mapToBean_Weekly(mapList));
+                }
+            }else if (repositoryType.equals(EnumRepositoryType.M_USBOX.getRepositoryType())) {
+                String subjectid = (String) mapList.get("id");
+                Movie_Us_Box movie_us_box = movie_us_box_repository.findBySubjectid(subjectid);
+                if (movie_us_box != null) {
+                    dataIsHave = true;
+                    obj = movie_us_box;
+                } else {
+                    obj = movie_us_box_repository.save(Movie_List_ServiceImpl.mapToBean_Us_Box(mapList));
                 }
             }
             //控制台数据标识

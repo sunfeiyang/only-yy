@@ -32,7 +32,13 @@ public enum EnumApi {
     WORD_SEA(" https://api.avatardata.cn/CiHai/query?key=78341ceb68984c1bbb0f0c766059394b"),
     WORD_SEA_DETAILS("https://api.avatardata.cn/CiHai/LookUp?key=78341ceb68984c1bbb0f0c766059394b"),
     WORD_SEA_RANDOM("https://api.avatardata.cn/CiHai/Random?key=78341ceb68984c1bbb0f0c766059394b"),
-    M_IN_THEATERS("https://douban.uieee.com/v2/movie/in_theaters")
+    M_IN_THEATERS("https://douban.uieee.com/v2/movie/in_theaters"),
+    M_COMINGSOON("https://douban.uieee.com/v2/movie/coming_soon"),
+    M_NEW_MOVIES("https://douban.uieee.com/v2/movie/new_movies"),
+    M_TOP250("https://douban.uieee.com/v2/movie/top250"),
+    M_WEEKLY("https://douban.uieee.com/v2/movie/weekly"),
+    M_USBOX("https://douban.uieee.com/v2/movie/us_box"),
+    M_SUBJECT("https://douban.uieee.com/v2/movie/subject")
     ;
 
     private String URL;

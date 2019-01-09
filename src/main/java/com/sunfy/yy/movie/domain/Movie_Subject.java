@@ -89,7 +89,7 @@ public class Movie_Subject {
     private String subject_share_url;
 
     //赛季数
-    private String SUBJECT_SEASONS_COUNT;
+    private String subject_seasons_count;
 
     //预定url
     private String subject_schedule_url;
@@ -334,12 +334,12 @@ public class Movie_Subject {
         this.subject_share_url = subject_share_url;
     }
 
-    public String getSUBJECT_SEASONS_COUNT() {
-        return SUBJECT_SEASONS_COUNT;
+    public String getSubject_seasons_count() {
+        return subject_seasons_count;
     }
 
-    public void setSUBJECT_SEASONS_COUNT(String SUBJECT_SEASONS_COUNT) {
-        this.SUBJECT_SEASONS_COUNT = SUBJECT_SEASONS_COUNT;
+    public void setSubject_seasons_count(String subject_seasons_count) {
+        this.subject_seasons_count = subject_seasons_count;
     }
 
     public String getSubject_schedule_url() {

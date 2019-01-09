@@ -9,43 +9,37 @@ public interface Movie_List_Service {
 
     /**
      * 正在热映
-     * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList getInTheaters(String url);
+    public ArrayList getInTheaters();
 
     /**
      * 即将上映
-     * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList getComingSoon(String url);
+    public ArrayList getComingSoon();
 
     /**
      * 北美票房榜
-     * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList getUsBox(String url);
+    public ArrayList getUsBox();
 
     /**
      * 一周口碑榜
-     * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList getWeekly(String url);
+    public ArrayList getWeekly();
 
     /**
      * TOP250
-     * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList getTop250(String url);
+    public ArrayList getTop250();
 
     /**
      * 新片榜
-     * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList getNewMovies(String url);
+    public ArrayList getNewMovies();
 }

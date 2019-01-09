@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames="subject_id")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","durations_val"})})
 public class Movie_Durations {
 
     @Id
@@ -23,7 +23,8 @@ public class Movie_Durations {
     private String subjectid;
 
     //影视时长
-    private String durations_val;
+    @Column(name = "DURATIONS_VAL")
+    private String durationsval;
 
     //创建时间
     @CreatedDate
@@ -65,11 +66,11 @@ public class Movie_Durations {
         this.subjectid = subjectid;
     }
 
-    public String getDurations_val() {
-        return durations_val;
+    public String getDurationsval() {
+        return durationsval;
     }
 
-    public void setDurations_val(String durations_val) {
-        this.durations_val = durations_val;
+    public void setDurationsval(String durationsval) {
+        this.durationsval = durationsval;
     }
 }

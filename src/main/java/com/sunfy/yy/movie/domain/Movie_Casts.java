@@ -11,12 +11,16 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames="casts_id")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","casts_id"})})
 public class Movie_Casts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
+
+    //影视id
+    @Column(name = "SUBJECT_ID",columnDefinition = "varchar(128) comment '影视id'")
+    private String subjectid;
 
     //演员ID
     @Column(name = "CASTS_ID",columnDefinition = "varchar(128) comment '演员ID'")
@@ -50,6 +54,14 @@ public class Movie_Casts {
     //更新时间
     @LastModifiedDate
     private String updatetime;
+
+    public String getSubjectid() {
+        return subjectid;
+    }
+
+    public void setSubjectid(String subjectid) {
+        this.subjectid = subjectid;
+    }
 
     public String getCreatetime() {
         return createtime;

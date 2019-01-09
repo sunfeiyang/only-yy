@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames="subject_id")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","pubdate_date"})})
 public class Movie_Pubdate {
 
     @Id
@@ -23,7 +23,8 @@ public class Movie_Pubdate {
     private String subjectid;
 
     //上映日期
-    private String pubdate_date;
+    @Column(name = "PUBDATE_DATE")
+    private String pubdatedate;
 
     //创建时间
     @CreatedDate
@@ -65,11 +66,11 @@ public class Movie_Pubdate {
         this.subjectid = subjectid;
     }
 
-    public String getPubdate_date() {
-        return pubdate_date;
+    public String getPubdatedate() {
+        return pubdatedate;
     }
 
-    public void setPubdate_date(String pubdate_date) {
-        this.pubdate_date = pubdate_date;
+    public void setPubdatedate(String pubdatedate) {
+        this.pubdatedate = pubdatedate;
     }
 }

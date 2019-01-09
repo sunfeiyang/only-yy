@@ -11,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames="subject_id")})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","languages_val"})})
 public class Movie_Languages {
 
     @Id
@@ -23,7 +23,8 @@ public class Movie_Languages {
     private String subjectid;
 
     //影视语言
-    private String languages_val;
+    @Column(name = "LANGUAGES_VAL",columnDefinition = "varchar(128) comment '影视id'")
+    private String languagesval;
 
     //创建时间
     @CreatedDate
@@ -65,11 +66,11 @@ public class Movie_Languages {
         this.subjectid = subjectid;
     }
 
-    public String getLanguages_val() {
-        return languages_val;
+    public String getLanguagesval() {
+        return languagesval;
     }
 
-    public void setLanguages_val(String languages_val) {
-        this.languages_val = languages_val;
+    public void setLanguagesval(String languagesval) {
+        this.languagesval = languagesval;
     }
 }

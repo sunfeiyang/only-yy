@@ -24,7 +24,7 @@ public class Movie_Prevue {
 
     //预告片id
     @Column(name = "PREVUE_ID",columnDefinition = "varchar(128) comment '预告片id'")
-    private String prevuid;
+    private String prevueid;
 
     //预告片图片（中）
     private String prevue_medium;
@@ -81,12 +81,12 @@ public class Movie_Prevue {
         this.subjectid = subjectid;
     }
 
-    public String getPrevuid() {
-        return prevuid;
+    public String getPrevueid() {
+        return prevueid;
     }
 
-    public void setPrevuid(String prevuid) {
-        this.prevuid = prevuid;
+    public void setPrevueid(String prevueid) {
+        this.prevueid = prevueid;
     }
 
     public String getPrevue_medium() {
