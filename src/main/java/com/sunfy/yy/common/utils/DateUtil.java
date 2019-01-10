@@ -102,11 +102,31 @@ public class DateUtil {
      * @param endDate               Date 结束日期
      * @return long 相差小时数目，如果beginDate>endDate，返回负数
      */
-    public static long getTimes(Date beginDate, Date endDate) {
+    public static long getHours(Date beginDate, Date endDate) {
         long time = -1;
         long beginMillisecond = beginDate.getTime();
         long endMillisecond = endDate.getTime();
         long millisecondForDay = 60 * 60 * 1000;
+        time = (long) ((endMillisecond - beginMillisecond) / millisecondForDay);
+        return time;
+    }
+
+
+
+
+    /**
+     * 获得两个日期对象之间相差的小时数目
+     *  
+     *
+     * @param beginDate            Date 开始日期
+     * @param endDate               Date 结束日期
+     * @return long 相差小时数目，如果beginDate>endDate，返回负数
+     */
+    public static long getMinute(Date beginDate, Date endDate) {
+        long time = -1;
+        long beginMillisecond = beginDate.getTime();
+        long endMillisecond = endDate.getTime();
+        long millisecondForDay = 60 * 1000;
         time = (long) ((endMillisecond - beginMillisecond) / millisecondForDay);
         return time;
     }

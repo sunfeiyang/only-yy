@@ -24,7 +24,7 @@ public class Movie_Details_Controller {
     Movie_Details_Service movie_details_service;
 
     @GetMapping(value = "subject/{subjectID}")
-    public Result setSubject(@PathVariable("subjectID") Integer subjectID){
+    public Result setSubject(@PathVariable("subjectID") String subjectID){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_Controller—setSubject】请求成功！");
         }
@@ -33,7 +33,7 @@ public class Movie_Details_Controller {
     }
 
     @GetMapping(value = "subject/tags/{subjectID}")
-    public void setTags(@PathVariable("subjectID") Integer subjectID){
+    public void setTags(@PathVariable("subjectID") String subjectID){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_Controller—setTags】请求成功！");
         }
@@ -41,7 +41,7 @@ public class Movie_Details_Controller {
     }
 
     @GetMapping(value = "subject/comments/{subjectID}")
-    public void setComments(@PathVariable("subjectID") Integer subjectID){
+    public void setComments(@PathVariable("subjectID") String subjectID){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_Controller—setComments】请求成功！");
         }
@@ -49,7 +49,7 @@ public class Movie_Details_Controller {
     }
 
     @GetMapping(value = "subject/reviews/{subjectID}")
-    public void setReviews(@PathVariable("subjectID") Integer subjectID){
+    public void setReviews(@PathVariable("subjectID") String subjectID){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_Controller—setReviews】请求成功！");
         }
@@ -57,7 +57,7 @@ public class Movie_Details_Controller {
     }
 
     @GetMapping(value = "subject/photos/{subjectID}")
-    public void setPhotos(@PathVariable("subjectID") Integer subjectID){
+    public void setPhotos(@PathVariable("subjectID") String subjectID){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_Controller—setPhotos】请求成功！");
         }

@@ -42,9 +42,9 @@ public class Movie_ServiceImpl implements Movie_Service {
     private Movie_Us_Box_Repository movie_us_box_repository;
 
     @Override
-    public ArrayList setMovie(String url,String repositoryType) {
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_ServiceImpl—setMovie】请求成功！参数：url="+url);
+    public ArrayList setMovie(String url, String repositoryType, Boolean isDel) {
+        if (logger.isInfoEnabled()) {
+            logger.info("【Movie_ServiceImpl—setMovie】请求成功！参数：url=" + url);
         }
         //定义返回对象
         ArrayList result_list = new ArrayList();
@@ -62,11 +62,13 @@ public class Movie_ServiceImpl implements Movie_Service {
                 String total = map.get("total") + "";
                 String date = map.get("date") + "";
                 if (list != null && list.size() > 0) {
+                    // 数据删除
+                    this.delRepositoryTypeResult(repositoryType,isDel);
                     for (int i = 0; i < list.size(); i++) {
                         Map mapList = (Map) list.get(i);
                         //将数据存入数据库
-                        mapList.put("subject_total",total);
-                        mapList.put("date",date);
+                        mapList.put("subject_total", total);
+                        mapList.put("date", date);
                         result_list.add(getRepositoryTypeResult(mapList, repositoryType));
                     }
                 }
@@ -102,7 +104,7 @@ public class Movie_ServiceImpl implements Movie_Service {
                 } else {
                     obj = movie_in_theaters_repository.save(Movie_List_ServiceImpl.mapToBean_In_Theaters(mapList));
                 }
-            }else if (repositoryType.equals(EnumRepositoryType.M_COMINGSOON.getRepositoryType())) {
+            } else if (repositoryType.equals(EnumRepositoryType.M_COMINGSOON.getRepositoryType())) {
                 String subjectid = (String) mapList.get("id");
                 Movie_Coming_Soon movie_coming_soon = movie_coming_soon_repository.findBySubjectid(subjectid);
                 if (movie_coming_soon != null) {
@@ -111,7 +113,7 @@ public class Movie_ServiceImpl implements Movie_Service {
                 } else {
                     obj = movie_coming_soon_repository.save(Movie_List_ServiceImpl.mapToBean_Coming_Soon(mapList));
                 }
-            }else if (repositoryType.equals(EnumRepositoryType.M_NEW_MOVIES.getRepositoryType())) {
+            } else if (repositoryType.equals(EnumRepositoryType.M_NEW_MOVIES.getRepositoryType())) {
                 String subjectid = (String) mapList.get("id");
                 Movie_New_Movies movie_new_movies = movie_new_movies_repository.findBySubjectid(subjectid);
                 if (movie_new_movies != null) {
@@ -120,7 +122,7 @@ public class Movie_ServiceImpl implements Movie_Service {
                 } else {
                     obj = movie_new_movies_repository.save(Movie_List_ServiceImpl.mapToBean_New_Movies(mapList));
                 }
-            }else if (repositoryType.equals(EnumRepositoryType.M_TOP250.getRepositoryType())) {
+            } else if (repositoryType.equals(EnumRepositoryType.M_TOP250.getRepositoryType())) {
                 String subjectid = (String) mapList.get("id");
                 Movie_Top250 movie_top250 = movie_top250_repository.findBySubjectid(subjectid);
                 if (movie_top250 != null) {
@@ -129,9 +131,9 @@ public class Movie_ServiceImpl implements Movie_Service {
                 } else {
                     obj = movie_top250_repository.save(Movie_List_ServiceImpl.mapToBean_Top250(mapList));
                 }
-            }else if (repositoryType.equals(EnumRepositoryType.M_WEEKLY.getRepositoryType())) {
+            } else if (repositoryType.equals(EnumRepositoryType.M_WEEKLY.getRepositoryType())) {
                 Map mapList_subjectid = (Map) mapList.get("subject");
-                String subjectid = mapList_subjectid.get("id")+ "";
+                String subjectid = mapList_subjectid.get("id") + "";
                 Movie_Weekly movie_weekly = movie_weekly_repository.findBySubjectid(subjectid);
                 if (movie_weekly != null) {
                     dataIsHave = true;
@@ -139,9 +141,9 @@ public class Movie_ServiceImpl implements Movie_Service {
                 } else {
                     obj = movie_weekly_repository.save(Movie_List_ServiceImpl.mapToBean_Weekly(mapList));
                 }
-            }else if (repositoryType.equals(EnumRepositoryType.M_USBOX.getRepositoryType())) {
-                String subjectid = (String) mapList.get("id");
-                Movie_Us_Box movie_us_box = movie_us_box_repository.findBySubjectid(subjectid);
+            } else if (repositoryType.equals(EnumRepositoryType.M_USBOX.getRepositoryType())) {
+                Map map_subject = (Map) mapList.get("subject");
+                Movie_Us_Box movie_us_box = movie_us_box_repository.findBySubjectid(map_subject.get("id").toString());
                 if (movie_us_box != null) {
                     dataIsHave = true;
                     obj = movie_us_box;
@@ -161,5 +163,39 @@ public class Movie_ServiceImpl implements Movie_Service {
             }
         }
         return obj;
+    }
+
+    /**
+     * 根据不同的数据库请求对象，进行数据删除
+     *
+     * @param repositoryType 数据库请求对象类型
+     * @return Object
+     */
+    public void delRepositoryTypeResult(String repositoryType,Boolean isDel) {
+        //此处需要动态修改【根据传入的数据库类型判断要执行的数据库对象，
+        // 并根据EnumRepositoryType中设置的清空数据库的状态来判断是否执行清空数据原有数据】
+        if (repositoryType.equals(EnumRepositoryType.M_IN_THEATERS.getRepositoryType())
+                && isDel) {
+            movie_in_theaters_repository.deleteAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_COMINGSOON.getRepositoryType())
+                && isDel) {
+            movie_coming_soon_repository.deleteAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_NEW_MOVIES.getRepositoryType())
+                && isDel) {
+            movie_new_movies_repository.deleteAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_TOP250.getRepositoryType())
+                && isDel) {
+            movie_top250_repository.deleteAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_WEEKLY.getRepositoryType())
+                && isDel) {
+            movie_weekly_repository.deleteAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_USBOX.getRepositoryType())
+                && isDel) {
+            movie_us_box_repository.deleteAll();
+        }
+        //控制台输出结果
+        if (logger.isInfoEnabled() && isDel) {
+            logger.info("【Movie_ServiceImpl—delRepositoryTypeResult】数据已清空！类型为：" + repositoryType);
+        }
     }
 }

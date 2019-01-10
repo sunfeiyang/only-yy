@@ -1,7 +1,7 @@
 package com.sunfy.yy.common.domain;
 
 /**
- * http最外成返回的对象
+ * http最外层返回的对象
  * @param <T>
  */
 public class Result<T> {

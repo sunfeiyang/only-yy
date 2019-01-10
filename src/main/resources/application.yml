@@ -12,6 +12,7 @@ spring:
       ddl-auto: update
       naming:
         property-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 
 AsyncConfig:

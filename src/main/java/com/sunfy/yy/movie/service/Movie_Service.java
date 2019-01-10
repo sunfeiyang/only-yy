@@ -12,5 +12,5 @@ public interface Movie_Service {
      * @param url 数据请求链接
      * @return ArrayList
      */
-    public ArrayList setMovie(String url,String repositoryType);
+    public ArrayList setMovie(String url,String repositoryType,Boolean idDel);
 }

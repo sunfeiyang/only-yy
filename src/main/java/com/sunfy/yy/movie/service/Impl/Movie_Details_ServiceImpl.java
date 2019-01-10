@@ -73,7 +73,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     JsonUtils jsonUtils = new JsonUtils();
 
     @Override
-    public ArrayList setSubjectDetails(Integer subjectID) {
+    public ArrayList setSubjectDetails(String subjectID) {
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_ServiceImpl—setSubjectDetails】请求成功！");
         }

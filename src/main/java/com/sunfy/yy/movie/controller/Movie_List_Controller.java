@@ -1,6 +1,7 @@
 package com.sunfy.yy.movie.controller;
 
 import com.sunfy.yy.common.domain.Result;
+import com.sunfy.yy.common.enums.EnumRepositoryType;
 import com.sunfy.yy.common.utils.UtilsAboutController;
 import com.sunfy.yy.movie.service.Movie_List_Service;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class Movie_List_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Movie_List_Controller—getInTheaters】请求成功！");
         }
-        ArrayList result_list = movie_list_service.getInTheaters();
+        ArrayList result_list = movie_list_service.setInTheaters(count,start, EnumRepositoryType.M_IN_THEATERS.getDel());
         return UtilsAboutController.setResult(result_list);
     }
 
@@ -47,7 +48,7 @@ public class Movie_List_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Movie_List_Controller—getComingsoon】请求成功！");
         }
-        ArrayList result_list = movie_list_service.getComingSoon();
+        ArrayList result_list = movie_list_service.setComingSoon(count,start, EnumRepositoryType.M_COMINGSOON.getDel());
         return UtilsAboutController.setResult(result_list);
     }
 
@@ -56,12 +57,11 @@ public class Movie_List_Controller {
      * @return Result
      */
     @GetMapping(value = "newMovies")
-    public Result getNewMovies(@RequestParam("count") Integer count,
-                               @RequestParam("start") Integer start){
+    public Result getNewMovies(){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_List_Controller—getNewMovies】请求成功！");
         }
-        ArrayList result_list = movie_list_service.getNewMovies();
+        ArrayList result_list = movie_list_service.setNewMovies(EnumRepositoryType.M_NEW_MOVIES.getDel());
         return UtilsAboutController.setResult(result_list);
     }
 
@@ -70,12 +70,11 @@ public class Movie_List_Controller {
      * @return Result
      */
     @GetMapping(value = "weekly")
-    public Result getWeekly(@RequestParam("count") Integer count,
-                            @RequestParam("start") Integer start){
+    public Result getWeekly(){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_List_Controller—getWeekly】请求成功！");
         }
-        ArrayList result_list = movie_list_service.getWeekly();
+        ArrayList result_list = movie_list_service.setWeekly(EnumRepositoryType.M_WEEKLY.getDel());
         return UtilsAboutController.setResult(result_list);
     }
 
@@ -89,7 +88,7 @@ public class Movie_List_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Movie_List_Controller—getTop250】请求成功！");
         }
-        ArrayList result_list = movie_list_service.getTop250();
+        ArrayList result_list = movie_list_service.setTop250(count,start,EnumRepositoryType.M_TOP250.getDel());
         return UtilsAboutController.setResult(result_list);
     }
 
@@ -98,12 +97,11 @@ public class Movie_List_Controller {
      * @return Result
      */
     @GetMapping(value = "usbox")
-    public Result getUsbox(@RequestParam("count") Integer count,
-                           @RequestParam("start") Integer start){
+    public Result getUsbox(){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_List_Controller—getUsbox】请求成功！");
         }
-        ArrayList result_list = movie_list_service.getUsBox();
+        ArrayList result_list = movie_list_service.setUsBox(EnumRepositoryType.M_USBOX.getDel());
         return UtilsAboutController.setResult(result_list);
     }
 

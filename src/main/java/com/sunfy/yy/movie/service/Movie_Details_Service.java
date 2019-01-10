@@ -12,7 +12,7 @@ public interface Movie_Details_Service {
      * @param subjectID 影片ID
      * @return ArrayList
      */
-    public ArrayList setSubjectDetails(Integer subjectID);
+    public ArrayList setSubjectDetails(String subjectID);
 
     /**
      * 根据电影ID插入标签

@@ -11,35 +11,35 @@ public interface Movie_List_Service {
      * 正在热映
      * @return ArrayList
      */
-    public ArrayList getInTheaters();
+    public ArrayList setInTheaters(Integer count,Integer start,Boolean idDel);
 
     /**
      * 即将上映
      * @return ArrayList
      */
-    public ArrayList getComingSoon();
+    public ArrayList setComingSoon(Integer count,Integer start,Boolean isDel);
 
     /**
      * 北美票房榜
      * @return ArrayList
      */
-    public ArrayList getUsBox();
+    public ArrayList setUsBox(Boolean isDel);
 
     /**
      * 一周口碑榜
      * @return ArrayList
      */
-    public ArrayList getWeekly();
+    public ArrayList setWeekly(Boolean isDel);
 
     /**
      * TOP250
      * @return ArrayList
      */
-    public ArrayList getTop250();
+    public ArrayList setTop250(Integer count,Integer start,Boolean isDel);
 
     /**
      * 新片榜
      * @return ArrayList
      */
-    public ArrayList getNewMovies();
+    public ArrayList setNewMovies(Boolean isDel);
 }
