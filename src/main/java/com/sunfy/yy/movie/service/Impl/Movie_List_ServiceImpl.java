@@ -19,7 +19,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
     @Override
     public ArrayList setInTheaters(Integer count,Integer start,Boolean idDel) {
         if(logger.isInfoEnabled()){
-            logger.info("【Movie_List_ServiceImpl—getInTheaters】请求成功！");
+            logger.info("【Movie_List_ServiceImpl—setInTheaters】请求成功！");
         }
         return setMovie(EnumApi.M_IN_THEATERS.getURL()+"?count="+count+"&start="+start,
                 EnumRepositoryType.M_IN_THEATERS.getRepositoryType(),
@@ -29,7 +29,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
     @Override
     public ArrayList setComingSoon(Integer count,Integer start,Boolean idDel) {
         if(logger.isInfoEnabled()){
-            logger.info("【Movie_List_ServiceImpl—getComingSoon】请求成功！");
+            logger.info("【Movie_List_ServiceImpl—setComingSoon】请求成功！");
         }
         return setMovie(EnumApi.M_COMINGSOON.getURL()+"?count="+count+"&start="+start,
                 EnumRepositoryType.M_COMINGSOON.getRepositoryType(),
@@ -39,7 +39,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
     @Override
     public ArrayList setUsBox(Boolean idDel) {
         if(logger.isInfoEnabled()){
-            logger.info("【Movie_List_ServiceImpl—getUsBox】请求成功！");
+            logger.info("【Movie_List_ServiceImpl—setUsBox】请求成功！");
         }
         return setMovie(EnumApi.M_USBOX.getURL(),
                 EnumRepositoryType.M_USBOX.getRepositoryType(),
@@ -49,7 +49,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
     @Override
     public ArrayList setWeekly(Boolean idDel) {
         if(logger.isInfoEnabled()){
-            logger.info("【Movie_List_ServiceImpl—getWeekly】请求成功！");
+            logger.info("【Movie_List_ServiceImpl—setWeekly】请求成功！");
         }
         return setMovie(EnumApi.M_WEEKLY.getURL(),
                 EnumRepositoryType.M_WEEKLY.getRepositoryType(),
@@ -59,7 +59,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
     @Override
     public ArrayList setTop250(Integer count,Integer start,Boolean idDel) {
         if(logger.isInfoEnabled()){
-            logger.info("【Movie_List_ServiceImpl—getTop250】请求成功！");
+            logger.info("【Movie_List_ServiceImpl—setTop250】请求成功！");
         }
         return setMovie(EnumApi.M_TOP250.getURL()+"?count="+count+"&start="+start,
                 EnumRepositoryType.M_TOP250.getRepositoryType(),
@@ -69,11 +69,58 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
     @Override
     public ArrayList setNewMovies(Boolean idDel) {
         if(logger.isInfoEnabled()){
-            logger.info("【Movie_List_ServiceImpl—getNewMovies】请求成功！");
+            logger.info("【Movie_List_ServiceImpl—setNewMovies】请求成功！");
         }
         return setMovie(EnumApi.M_NEW_MOVIES.getURL(),
                 EnumRepositoryType.M_NEW_MOVIES.getRepositoryType(),
                 idDel);
+    }
+    @Override
+    public ArrayList getInTheaters(Integer count,Integer start) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_List_ServiceImpl—getInTheaters】请求成功！");
+        }
+        return getMovieList(EnumRepositoryType.M_IN_THEATERS.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList getComingSoon(Integer count,Integer start) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_List_ServiceImpl—getComingSoon】请求成功！");
+        }
+        return getMovieList(EnumRepositoryType.M_COMINGSOON.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList getUsBox() {
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_List_ServiceImpl—getUsBox】请求成功！");
+        }
+        return getMovieList(EnumRepositoryType.M_USBOX.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList getWeekly() {
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_List_ServiceImpl—getWeekly】请求成功！");
+        }
+        return getMovieList(EnumRepositoryType.M_WEEKLY.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList getTop250(Integer count,Integer start) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_List_ServiceImpl—getTop250】请求成功！");
+        }
+        return getMovieList(EnumRepositoryType.M_TOP250.getRepositoryType());
+    }
+
+    @Override
+    public ArrayList getNewMovies() {
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_List_ServiceImpl—getNewMovies】请求成功！");
+        }
+        return getMovieList(EnumRepositoryType.M_NEW_MOVIES.getRepositoryType());
     }
 
     /**

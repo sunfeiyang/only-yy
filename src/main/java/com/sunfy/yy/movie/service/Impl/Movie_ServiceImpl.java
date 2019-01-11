@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Movie_ServiceImpl implements Movie_Service {
@@ -78,6 +79,18 @@ public class Movie_ServiceImpl implements Movie_Service {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public ArrayList getMovieList(String repositoryType) {
+        if (logger.isInfoEnabled()) {
+            logger.info("【Movie_ServiceImpl—getMovie】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = new ArrayList();
+        //数据请求结果
+        result_list.addAll(getRepositoryTypeResultFromDB(repositoryType));
+        return result_list;
     }
 
     /**
@@ -161,6 +174,36 @@ public class Movie_ServiceImpl implements Movie_Service {
                     logger.info("【Movie_ServiceImpl—getRepositoryTypeResult】插入数据！类型为：" + repositoryType);
                 }
             }
+        }
+        return obj;
+    }
+
+    /**
+     * 根据不同的数据库请求对象，将数据写入对应的数据库
+     *
+     * @param repositoryType 数据库请求对象类型
+     * @return Object
+     */
+    public List getRepositoryTypeResultFromDB(String repositoryType) {
+        //定义返回对象
+        List obj = null;
+        //此处需要动态修改【每次插入数据前根据设置的唯一性标识检查数据是否存在，存在则直接返回】
+        if (repositoryType.equals(EnumRepositoryType.M_IN_THEATERS.getRepositoryType())) {
+            obj = movie_in_theaters_repository.findAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_COMINGSOON.getRepositoryType())) {
+            obj = movie_coming_soon_repository.findAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_NEW_MOVIES.getRepositoryType())) {
+            obj = movie_new_movies_repository.findAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_TOP250.getRepositoryType())) {
+            obj = movie_top250_repository.findAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_WEEKLY.getRepositoryType())) {
+            obj = movie_weekly_repository.findAll();
+        } else if (repositoryType.equals(EnumRepositoryType.M_USBOX.getRepositoryType())) {
+            obj = movie_us_box_repository.findAll();
+        }
+        //控制台数据标识
+        if (logger.isInfoEnabled()) {
+            logger.info("【Movie_ServiceImpl—getRepositoryTypeResultFromDB】数据请求完成！类型为：" + repositoryType);
         }
         return obj;
     }

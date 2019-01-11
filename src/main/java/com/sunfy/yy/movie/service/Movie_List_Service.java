@@ -22,7 +22,7 @@ public interface Movie_List_Service {
     /**
      * 北美票房榜
      * @return ArrayList
-     */
+     */ 
     public ArrayList setUsBox(Boolean isDel);
 
     /**
@@ -42,4 +42,40 @@ public interface Movie_List_Service {
      * @return ArrayList
      */
     public ArrayList setNewMovies(Boolean isDel);
+
+    /**
+     * 正在热映
+     * @return ArrayList
+     */
+    public ArrayList getInTheaters(Integer count,Integer start);
+
+    /**
+     * 即将上映
+     * @return ArrayList
+     */
+    public ArrayList getComingSoon(Integer count,Integer start);
+
+    /**
+     * 北美票房榜
+     * @return ArrayList
+     */
+    public ArrayList getUsBox();
+
+    /**
+     * 一周口碑榜
+     * @return ArrayList
+     */
+    public ArrayList getWeekly();
+
+    /**
+     * TOP250
+     * @return ArrayList
+     */
+    public ArrayList getTop250(Integer count,Integer start);
+
+    /**
+     * 新片榜
+     * @return ArrayList
+     */
+    public ArrayList getNewMovies();
 }
