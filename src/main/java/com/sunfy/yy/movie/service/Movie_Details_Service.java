@@ -42,4 +42,40 @@ public interface Movie_Details_Service {
      */
     public void setPhotos_url(String subjectID);
 
+
+    /**
+     * 根据电影ID查询数据
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getSubjectDetails(String subjectID);
+
+    /**
+     * 根据电影ID查询标签
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getTags_url(String subjectID);
+
+    /**
+     * 根据电影ID查询短评
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getComments_url(String subjectID);
+
+    /**
+     * 根据电影ID查询长评
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getReviews_url(String subjectID);
+
+    /**
+     * 根据电影ID查询剧照
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getPhotos_url(String subjectID);
+
 }

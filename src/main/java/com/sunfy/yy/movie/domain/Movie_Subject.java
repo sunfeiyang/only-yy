@@ -5,6 +5,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 影视详情
@@ -68,7 +70,10 @@ public class Movie_Subject {
     private String subject_has_video;
 
     //海报地址
-    private String subject_images;
+    //级联查询 name 为本表内的字段 referencedColumnName 为关联表的主键
+    @OneToOne
+    @JoinColumn(name = "subject_id",referencedColumnName = "subject_id")
+    private Movie_Images subject_images;
 
     //豆瓣链接
     private String subject_alt;
@@ -125,6 +130,14 @@ public class Movie_Subject {
     //更新时间
     @LastModifiedDate
     private String updatetime;
+
+    public Movie_Images getSubject_images() {
+        return subject_images;
+    }
+
+    public void setSubject_images(Movie_Images subject_images) {
+        this.subject_images = subject_images;
+    }
 
     public String getCreatetime() {
         return createtime;
@@ -276,14 +289,6 @@ public class Movie_Subject {
 
     public void setSubject_has_video(String subject_has_video) {
         this.subject_has_video = subject_has_video;
-    }
-
-    public String getSubject_images() {
-        return subject_images;
-    }
-
-    public void setSubject_images(String subject_images) {
-        this.subject_images = subject_images;
     }
 
     public String getSubject_alt() {

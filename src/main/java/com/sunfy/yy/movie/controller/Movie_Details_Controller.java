@@ -63,4 +63,49 @@ public class Movie_Details_Controller {
         }
         movie_details_service.setPhotos_url(subjectID+"");
     }
+
+    @GetMapping(value = "getSubject/{subjectID}")
+    public Result getSubject(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—getSubject】请求成功！");
+        }
+        ArrayList result = movie_details_service.getSubjectDetails(subjectID);
+        return UtilsAboutController.setResult(result);
+    }
+
+    @GetMapping(value = "getSubject/tags/{subjectID}")
+    public Result getTags(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—getTags】请求成功！");
+        }
+        ArrayList result = movie_details_service.getTags_url(subjectID+"");
+        return UtilsAboutController.setResult(result);
+    }
+
+    @GetMapping(value = "getSubject/comments/{subjectID}")
+    public Result getComments(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—getComments】请求成功！");
+        }
+        ArrayList result = movie_details_service.getComments_url(subjectID+"");
+        return UtilsAboutController.setResult(result);
+    }
+
+    @GetMapping(value = "getSubject/reviews/{subjectID}")
+    public Result getReviews(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—getReviews】请求成功！");
+        }
+        ArrayList result = movie_details_service.getReviews_url(subjectID+"");
+        return UtilsAboutController.setResult(result);
+    }
+
+    @GetMapping(value = "getSubject/photos/{subjectID}")
+    public Result getPhotos(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—getPhotos】请求成功！");
+        }
+        ArrayList result = movie_details_service.getPhotos_url(subjectID+"");
+        return UtilsAboutController.setResult(result);
+    }
 }

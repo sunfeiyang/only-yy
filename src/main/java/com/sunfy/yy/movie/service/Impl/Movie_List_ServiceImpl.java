@@ -151,7 +151,9 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_in_theaters.setSubject_durations(map.get("durations").toString());
         movie_in_theaters.setSubject_mainland_pubdate(map.get("mainland_pubdate").toString());
         movie_in_theaters.setSubject_has_video(map.get("has_video").toString());
-        movie_in_theaters.setSubject_images(map.get("images").toString());
+        Map imagesMap = (Map) map.get("images");
+        String small = (String)imagesMap.get("small");
+        movie_in_theaters.setSubject_images(small);
         movie_in_theaters.setSubject_alt(map.get("alt").toString());
         movie_in_theaters.setSubject_total(map.get("subject_total")+ "");
         return movie_in_theaters;
@@ -185,7 +187,9 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_new_movies.setSubject_durations(map.get("durations").toString());
         movie_new_movies.setSubject_mainland_pubdate(map.get("mainland_pubdate").toString());
         movie_new_movies.setSubject_has_video(map.get("has_video").toString());
-        movie_new_movies.setSubject_images(map.get("images").toString());
+        Map imagesMap = (Map) map.get("images");
+        String small = (String)imagesMap.get("small");
+        movie_new_movies.setSubject_images(small);
         movie_new_movies.setSubject_alt(map.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
         return movie_new_movies;
@@ -219,7 +223,9 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_top250.setSubject_durations(map.get("durations").toString());
         movie_top250.setSubject_mainland_pubdate(map.get("mainland_pubdate").toString());
         movie_top250.setSubject_has_video(map.get("has_video").toString());
-        movie_top250.setSubject_images(map.get("images").toString());
+        Map imagesMap = (Map) map.get("images");
+        String small = (String)imagesMap.get("small");
+        movie_top250.setSubject_images(small);
         movie_top250.setSubject_alt(map.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
         return movie_top250;
@@ -258,7 +264,9 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_us_box.setSubject_durations(map_subject.get("durations").toString());
         movie_us_box.setSubject_mainland_pubdate(map_subject.get("mainland_pubdate").toString());
         movie_us_box.setSubject_has_video(map_subject.get("has_video").toString());
-        movie_us_box.setSubject_images(map_subject.get("images").toString());
+        Map imagesMap = (Map) map_subject.get("images");
+        String small = (String)imagesMap.get("small");
+        movie_us_box.setSubject_images(small);
         movie_us_box.setSubject_alt(map_subject.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
         return movie_us_box;
@@ -293,7 +301,9 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_weekly.setSubject_durations(subject.get("durations").toString());
         movie_weekly.setSubject_mainland_pubdate(subject.get("mainland_pubdate").toString());
         movie_weekly.setSubject_has_video(subject.get("has_video").toString());
-        movie_weekly.setSubject_images(subject.get("images").toString());
+        Map imagesMap = (Map) subject.get("images");
+        String small = (String)imagesMap.get("small");
+        movie_weekly.setSubject_images(small);
         movie_weekly.setSubject_alt(subject.get("alt").toString());
         movie_weekly.setSubject_rank(map.get("rank").toString());
         movie_weekly.setSubject_delta(map.get("delta").toString());
@@ -329,7 +339,9 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_coming_soon.setSubject_durations(map.get("durations").toString());
         movie_coming_soon.setSubject_mainland_pubdate(map.get("mainland_pubdate").toString());
         movie_coming_soon.setSubject_has_video(map.get("has_video").toString());
-        movie_coming_soon.setSubject_images(map.get("images").toString());
+        Map imagesMap = (Map) map.get("images");
+        String small = (String)imagesMap.get("small");
+        movie_coming_soon.setSubject_images(small);
         movie_coming_soon.setSubject_alt(map.get("alt").toString());
         movie_coming_soon.setSubject_total(map.get("subject_total").toString());
         return movie_coming_soon;
