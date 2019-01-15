@@ -156,6 +156,7 @@ public class Culture_ServiceImpl implements Culture_Service {
                     String keyword_i = keyword.substring(i,i+1);
                     if(keyword_i != "" && keyword_i != null){
                         List result = culture_Dic_repository.findByDichanzi(keyword_i);
+                        // 此处需要在初次赋值时进行特殊处理，否则会有空指针异常
                         if(i == 0){
                             list = (ArrayList) result;
                         }else{
