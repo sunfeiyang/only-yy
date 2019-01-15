@@ -604,5 +604,13 @@ public class DateUtil {
         System.out.println(getChineseDate(new Date()));
         System.out.println(getCurrentDay());
         System.out.println(addDays(new Date(),-1));
+        String str = "孙斐扬";
+        if(str != ""){
+            for (int i = 0; i < str.length(); i++) {
+                String str1 = str.substring(i,i+1);
+                System.out.println(str1);
+            }
+        }
+
     }
 }

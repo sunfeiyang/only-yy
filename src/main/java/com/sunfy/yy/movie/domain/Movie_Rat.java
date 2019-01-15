@@ -14,11 +14,11 @@ import javax.persistence.*;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames="subject_id")})
 public class Movie_Rat {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tid;
 
     //影视id
+    @Id
     @Column(name = "SUBJECT_ID",columnDefinition = "varchar(128) comment '影视id'")
     private String subjectid;
 

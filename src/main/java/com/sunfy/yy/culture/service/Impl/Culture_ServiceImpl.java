@@ -140,14 +140,30 @@ public class Culture_ServiceImpl implements Culture_Service {
      */
     @Override
     public ArrayList selLikeList(Map map,String repositoryType){
-        String keyword = "%"+  map.get("keyword")+"%";
+        String keyword = map.get("keyword")+ "";
+        if (!repositoryType.equals(EnumRepositoryType.DIC.getRepositoryType())){
+            keyword = "%"+  map.get("keyword")+"%";
+        }
         ArrayList list = null;
 
         if (repositoryType.equals(EnumRepositoryType.ALLEGORICAL.getRepositoryType())) {
             list = (ArrayList) culture_allegorical_repository.findByAllegoricalquestionLike(keyword);
             list.addAll( culture_allegorical_repository.findByAllegoricalanswerLike(keyword));
         } else if (repositoryType.equals(EnumRepositoryType.DIC.getRepositoryType())) {
-            list = (ArrayList) culture_Dic_repository.findByDichanziLike(keyword);
+            // 字典时，逐字进行查询
+            if(keyword != "" && keyword != null){
+                for (int i = 0; i < keyword.length(); i++) {
+                    String keyword_i = keyword.substring(i,i+1);
+                    if(keyword_i != "" && keyword_i != null){
+                        List result = culture_Dic_repository.findByDichanzi(keyword_i);
+                        if(i == 0){
+                            list = (ArrayList) result;
+                        }else{
+                            list.addAll(result);
+                        }
+                    }
+                }
+            }
         } else if (repositoryType.equals(EnumRepositoryType.FAMOUS.getRepositoryType())) {
             list = (ArrayList) culture_famous_repository.findByFamousnameLike(keyword);
             list.addAll(culture_famous_repository.findByFamoussayingLike(keyword));
@@ -297,7 +313,7 @@ public class Culture_ServiceImpl implements Culture_Service {
                 }
             } else if (repositoryType.equals(EnumRepositoryType.DIC.getRepositoryType())) {
                 String hanzi = (String) mapList.get("hanzi");
-                Culture_Dic culture_dic = culture_Dic_repository.findByDichanzi(hanzi);
+                List culture_dic = culture_Dic_repository.findByDichanzi(hanzi);
                 if (culture_dic != null) {
                     dataIsHave = true;
                     obj = culture_dic;

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 演职员
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames={"subject_id","casts_id"})})
-public class Movie_Casts {
+public class Movie_Casts implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +56,8 @@ public class Movie_Casts {
     @LastModifiedDate
     private String updatetime;
 
+//    @ManyToOne
+//    @JoinColumn(name="subjectid", insertable=false, updatable=false)
     public String getSubjectid() {
         return subjectid;
     }
