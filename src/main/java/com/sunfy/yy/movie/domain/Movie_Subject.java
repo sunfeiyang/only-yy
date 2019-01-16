@@ -71,10 +71,10 @@ public class Movie_Subject implements Serializable {
     private String subject_has_video;
 
     //海报地址
-//    //级联查询 name 为本表内的字段 referencedColumnName 为关联表的主键
-//    @OneToOne
-//    @JoinColumn(name = "subject_id",referencedColumnName = "subject_id")
-//    private Movie_Images subject_images;
+    //级联查询 name 为本表内的字段 referencedColumnName 为关联表的主键
+    @OneToOne
+    @JoinColumn(name = "subject_id",referencedColumnName = "subject_id")
+    private Movie_Images subject_images;
 
     //豆瓣链接
     private String subject_alt;
@@ -162,13 +162,13 @@ public class Movie_Subject implements Serializable {
         this.subject_casts = subject_casts;
     }
 
-//    public Movie_Images getSubject_images() {
-//        return subject_images;
-//    }
-//
-//    public void setSubject_images(Movie_Images subject_images) {
-//        this.subject_images = subject_images;
-//    }
+    public Movie_Images getSubject_images() {
+        return subject_images;
+    }
+
+    public void setSubject_images(Movie_Images subject_images) {
+        this.subject_images = subject_images;
+    }
 
     public String getCreatetime() {
         return createtime;
