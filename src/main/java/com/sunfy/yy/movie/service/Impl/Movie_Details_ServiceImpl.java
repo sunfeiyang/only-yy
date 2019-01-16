@@ -302,7 +302,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                     String useful_count = Map_comments.get("useful_count") + "";
                     // 评论人相关信息
                     Map author = (Map)Map_comments.get("author");
-                    String author_id = rating.get("id") + "";
+                    String author_id = author.get("id") + "";
                     this.setAuthor(author);
 
                     String subject_id = Map_comments.get("subject_id") + "";
