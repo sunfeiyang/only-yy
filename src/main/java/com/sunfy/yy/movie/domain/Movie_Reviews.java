@@ -5,6 +5,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * 影视长评
@@ -70,6 +71,17 @@ public class Movie_Reviews {
 
     //评论总条数
     private String reviews_total;
+
+    //用户详情
+    private ArrayList reviews_movie_author;
+
+    public ArrayList getReviews_movie_author() {
+        return reviews_movie_author;
+    }
+
+    public void setReviews_movie_author(ArrayList reviews_movie_author) {
+        this.reviews_movie_author = reviews_movie_author;
+    }
 
     //创建时间
     @CreatedDate

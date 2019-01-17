@@ -5,6 +5,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * 影视短评
@@ -49,6 +50,17 @@ public class Movie_Comments {
 
     //短评总条数
     private String comments_total;
+
+    //评论用户详情
+    private ArrayList comments_movie_author;
+
+    public ArrayList getComments_movie_author() {
+        return comments_movie_author;
+    }
+
+    public void setComments_movie_author(ArrayList comments_movie_author) {
+        this.comments_movie_author = comments_movie_author;
+    }
 
     public String getCreatetime() {
         return createtime;

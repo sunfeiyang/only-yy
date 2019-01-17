@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -132,33 +133,58 @@ public class Movie_Subject implements Serializable {
     @LastModifiedDate
     private String updatetime;
 
+    // 短评
+    private ArrayList subject_comments;
+
+    // 长评
+    private ArrayList subject_reviews;
+
     //演员详情
-    private Movie_Casts subject_casts;
+    private ArrayList subject_casts;
 
-    //评分详情
-//    @OneToOne
-//    @JoinColumn(name = "subject_id",referencedColumnName = "subject_id")
-//    private Movie_Rat subject_rating;
-//
-//    public Movie_Rat getSubject_rating() {
-//        return subject_rating;
-//    }
-//
-//    public void setSubject_rating(Movie_Rat subject_rating) {
-//        this.subject_rating = subject_rating;
-//    }
+    //评论详情
+    /*
+    使用hibernate注解@Transien放在实体类的属性上可以解决上面的问题。
+    如果你的属性没有get方法就可以直接在属性上面加注解，像下面这种写法：
+    @Transient
+    private Integer actioncount;
+     如果 你的属性有get方法注解要写在get方法上面，不然注解会不起作用.
 
-    @OneToMany
-    @JoinTable(
-            name="movie_casts",
-            joinColumns = @JoinColumn( name="subjectid"),
-            inverseJoinColumns = @JoinColumn( name="subjectid")
-    )
-    public Movie_Casts getSubject_casts() {
+    @Transient
+    public String getActioncount() { return actioncount; 
+    */
+//    @Transient
+    private ArrayList subject_rat;
+
+    public ArrayList getSubject_rat() {
+        return subject_rat;
+    }
+
+    public void setSubject_rat(ArrayList subject_rat) {
+        this.subject_rat = subject_rat;
+    }
+
+    public ArrayList getSubject_reviews() {
+        return subject_reviews;
+    }
+
+    public void setSubject_reviews(ArrayList subject_reviews) {
+        this.subject_reviews = subject_reviews;
+    }
+
+    public ArrayList getSubject_comments() {
+        return subject_comments;
+    }
+
+    public void setSubject_comments(ArrayList subject_comments) {
+        this.subject_comments = subject_comments;
+    }
+
+    public ArrayList getSubject_casts() {
         return subject_casts;
     }
 
-    public void setSubject_casts(Movie_Casts subject_casts) {
+    public void setSubject_casts(ArrayList subject_casts) {
         this.subject_casts = subject_casts;
     }
 
