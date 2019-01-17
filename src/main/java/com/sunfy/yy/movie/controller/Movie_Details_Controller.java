@@ -87,7 +87,7 @@ public class Movie_Details_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_Controller—getComments】请求成功！");
         }
-        ArrayList result = movie_details_service.getComments_url(subjectID+"");
+        ArrayList result = movie_details_service.getComments(subjectID+"");
         return UtilsAboutController.setResult(result);
     }
 
@@ -96,7 +96,7 @@ public class Movie_Details_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_Controller—getReviews】请求成功！");
         }
-        ArrayList result = movie_details_service.getReviews_url(subjectID+"");
+        ArrayList result = movie_details_service.getReviews(subjectID+"");
         return UtilsAboutController.setResult(result);
     }
 
@@ -105,7 +105,25 @@ public class Movie_Details_Controller {
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_Controller—getPhotos】请求成功！");
         }
-        ArrayList result = movie_details_service.getPhotos_url(subjectID+"");
+        ArrayList result = movie_details_service.getPhotos(subjectID+"");
+        return UtilsAboutController.setResult(result);
+    }
+
+    @GetMapping(value = "getSubject/casts/{subjectID}")
+    public Result getCasts(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—getCasts】请求成功！");
+        }
+        ArrayList result = movie_details_service.getCasts(subjectID+"");
+        return UtilsAboutController.setResult(result);
+    }
+
+    @GetMapping(value = "getSubject/rat/{subjectID}")
+    public Result getRat(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—getRat】请求成功！");
+        }
+        ArrayList result = movie_details_service.getRat(subjectID+"");
         return UtilsAboutController.setResult(result);
     }
 }

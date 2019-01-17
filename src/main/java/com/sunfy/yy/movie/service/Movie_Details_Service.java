@@ -62,20 +62,34 @@ public interface Movie_Details_Service {
      * @param subjectID 影片ID
      * @return ArrayList
      */
-    public ArrayList getComments_url(String subjectID);
+    public ArrayList getComments(String subjectID);
 
     /**
      * 根据电影ID查询长评
      * @param subjectID 影片ID
      * @return ArrayList
      */
-    public ArrayList getReviews_url(String subjectID);
+    public ArrayList getReviews(String subjectID);
 
     /**
      * 根据电影ID查询剧照
      * @param subjectID 影片ID
      * @return ArrayList
      */
-    public ArrayList getPhotos_url(String subjectID);
+    public ArrayList getPhotos(String subjectID);
+
+    /**
+     * 根据电影ID查询演职员
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getCasts(String subjectID);
+
+    /**
+     * 根据电影ID查询评分
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getRat(String subjectID);
 
 }

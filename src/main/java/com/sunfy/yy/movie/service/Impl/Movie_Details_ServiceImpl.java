@@ -558,12 +558,17 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
      * @param subjectID
      */
     @Override
-    public ArrayList getComments_url(String subjectID){
+    public ArrayList getComments(String subjectID){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_ServiceImpl—getComments_url】请求成功！");
         }
         //定义返回对象
         ArrayList result_list = movie_comments_repository.findBySubjectid(subjectID);
+        for (int i = 0; i < result_list.size(); i++) {
+            Movie_Comments movie_comments = (Movie_Comments) result_list.get(i);
+            ArrayList list_author = movie_author_repository.findByAuthorid(movie_comments.getComments_author_id());
+            movie_comments.setComments_movie_author(list_author);
+        }
         return result_list;
     }
 
@@ -572,12 +577,46 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
      * @param subjectID
      */
     @Override
-    public ArrayList getReviews_url(String subjectID){
+    public ArrayList getReviews(String subjectID){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_ServiceImpl—getReviews_url】请求成功！");
         }
         //定义返回对象
         ArrayList result_list = movie_reviews_repository.findBySubjectid(subjectID);
+        // 获取长评
+        for (int i = 0; i < result_list.size(); i++) {
+            Movie_Reviews movie_reviews = (Movie_Reviews) result_list.get(i);
+            ArrayList list_author = movie_author_repository.findByAuthorid(movie_reviews.getReviews_author_id());
+            movie_reviews.setReviews_movie_author(list_author);
+        }
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的演职员
+     * @param subjectID
+     */
+    @Override
+    public ArrayList getCasts(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getCasts】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_casts_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的评分
+     * @param subjectID
+     */
+    @Override
+    public ArrayList getRat(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getRat】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_rat_repository.findBySubjectid(subjectID);
         return result_list;
     }
 
@@ -585,7 +624,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
      * 访问url请求影视的剧照
      * @param subjectID
      */
-    public ArrayList getPhotos_url(String subjectID){
+    public ArrayList getPhotos(String subjectID){
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_ServiceImpl—getPhotos_url】请求成功！");
         }
