@@ -368,7 +368,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                     String useless_count = Map_reviews.get("useless_count") + "";
                     // 评论人相关信息
                     Map author = (Map) Map_reviews.get("author");
-                    String author_id = rating.get("id") + "";
+                    String author_id = author.get("id") + "";
                     this.setAuthor(author);
 
                     String created_at = Map_reviews.get("created_at") + "";
