@@ -103,6 +103,21 @@
                     <mainClass>com.sunfy.yy.SpringBootStartYYApplication</mainClass><!-- 项目运行main方法的全路径 -->
                 </configuration>
             </plugin>
+
+            <!-- 存在自己手动新增的jar时配置如下设置 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArgs>
+                        <arg>-extdirs</arg>
+                        <arg>${project.basedir}/src/main/resources/static/lib</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

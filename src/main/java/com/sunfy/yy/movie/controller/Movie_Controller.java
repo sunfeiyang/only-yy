@@ -107,7 +107,7 @@ public class Movie_Controller {
      * 正在热映（定时任务）
      * @return
      */
-    @Scheduled(cron = "0 5/2 * * * *")
+//    @Scheduled(cron = "0 5/2 * * * *")
     @Async
     public void setMovie_InTheaters(){
         if(logger.isInfoEnabled() && InTheatersIsPrint){
@@ -155,7 +155,7 @@ public class Movie_Controller {
      * 即将热映（定时任务）
      * @return
      */
-    @Scheduled(cron = "0 10/2 * * * *")
+//    @Scheduled(cron = "0 10/2 * * * *")
 //    @Scheduled(cron = "0 47 * * * *")
     @Async
     public void setMovie_ComingSoon(){
@@ -204,7 +204,7 @@ public class Movie_Controller {
      * 新片榜（定时任务）
      * @return
      */
-    @Scheduled(cron = "0 18 8,17 * * *")
+//    @Scheduled(cron = "0 18 8,17 * * *")
 //    @Scheduled(cron = "0 48 * * * *")
     @Async
     public void setMovie_NewMovies(){
@@ -220,7 +220,7 @@ public class Movie_Controller {
      * 欧美票房榜（定时任务）
      * @return
      */
-    @Scheduled(cron = "0 20 8,17 * * *")
+//    @Scheduled(cron = "0 20 8,17 * * *")
 //    @Scheduled(cron = "0 49 * * * *")
     @Async
     public void setMovie_UsBox(){
@@ -236,7 +236,7 @@ public class Movie_Controller {
      * 一周口碑榜（定时任务）
      * @return
      */
-    @Scheduled(cron = "0 22 8,17 * * *")
+//    @Scheduled(cron = "0 22 8,17 * * *")
 //    @Scheduled(cron = "0 50  * * * *")
     @Async
     public void setMovie_Weekly(){
@@ -252,7 +252,7 @@ public class Movie_Controller {
      * 查询视图写入影片详情（定时任务）
      * @return
      */
-    @Scheduled(cron = "0 25/2 * * * *")
+//    @Scheduled(cron = "0 25/2 * * * *")
     @Async
     public void setMovie_Subject(){
         if(logger.isInfoEnabled()){

@@ -1,13 +1,11 @@
 package com.sunfy.yy.common.controller;
 
+import com.sunfy.yy.common.utils.DownloadImage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -137,5 +135,20 @@ public class SystemFileController {
             }
         }
         return "upload successful";
+    }
+
+    @GetMapping(value = "image")
+    public String image(){
+        if(logger.isInfoEnabled()){
+            logger.info("【SystemFileController—image】请求成功！");
+        }
+        try {
+//            DownloadImage.download("https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2529389608.webp", "1222.jpg","E:\\image\\");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String url = Class.class.getClass().getResource("/").getPath();
+        System.out.println(url);
+        return url;
     }
 }

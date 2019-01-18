@@ -17,6 +17,8 @@ public class DownloadImage {
      * @throws Exception  
      */  
     public static void main(String[] args) throws Exception {
+        String url = Class.class.getClass().getResource("/").getPath();
+        System.out.println(url);
 
         // TODO Auto-generated method stub
 //         download("https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2539661066.jpg", "1_li1325169021.jpg","E:\\image\\");
