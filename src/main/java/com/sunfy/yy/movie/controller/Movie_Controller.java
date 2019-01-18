@@ -107,10 +107,10 @@ public class Movie_Controller {
      * 正在热映（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 2/1 9 * * *")
+    @Scheduled(cron = "0 5/2 * * * *")
     @Async
     public void setMovie_InTheaters(){
-        if(logger.isInfoEnabled()){
+        if(logger.isInfoEnabled() && InTheatersIsPrint){
             logger.info("【Movie_Controller—setMovie_InTheaters】请求成功！");
         }
         Integer count = 50;
@@ -155,11 +155,11 @@ public class Movie_Controller {
      * 即将热映（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 6/1 9 * * *")
+    @Scheduled(cron = "0 10/2 * * * *")
 //    @Scheduled(cron = "0 47 * * * *")
     @Async
     public void setMovie_ComingSoon(){
-        if(logger.isInfoEnabled()){
+        if(logger.isInfoEnabled() && comingSoonIsPrint){
             logger.info("【Movie_Controller—setMovie_ComingSoon】请求成功！");
         }
         Integer count = 50;
@@ -204,7 +204,7 @@ public class Movie_Controller {
      * 新片榜（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 0 9,14 * * *")
+    @Scheduled(cron = "0 18 8,17 * * *")
 //    @Scheduled(cron = "0 48 * * * *")
     @Async
     public void setMovie_NewMovies(){
@@ -220,7 +220,7 @@ public class Movie_Controller {
      * 欧美票房榜（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 0 9,14 * * *")
+    @Scheduled(cron = "0 20 8,17 * * *")
 //    @Scheduled(cron = "0 49 * * * *")
     @Async
     public void setMovie_UsBox(){
@@ -236,7 +236,7 @@ public class Movie_Controller {
      * 一周口碑榜（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 0 9,14 * * *")
+    @Scheduled(cron = "0 22 8,17 * * *")
 //    @Scheduled(cron = "0 50  * * * *")
     @Async
     public void setMovie_Weekly(){
@@ -252,7 +252,7 @@ public class Movie_Controller {
      * 查询视图写入影片详情（定时任务）
      * @return
      */
-//    @Scheduled(cron = "1 25/2 * * * *")
+    @Scheduled(cron = "0 25/2 * * * *")
     @Async
     public void setMovie_Subject(){
         if(logger.isInfoEnabled()){
@@ -282,16 +282,61 @@ public class Movie_Controller {
         }else if(subjectNum < subjectRows.size()){
             String subjectID = subjectRows.get(subjectNum) + "";
             movie_details_service.setSubjectDetails(subjectID);
-            movie_details_service.setPhotos_url(subjectID);
-            movie_details_service.setReviews_url(subjectID);
-            movie_details_service.setComments_url(subjectID);
-            movie_details_service.setTags_url(subjectID);
+//            movie_details_service.setPhotos_url(subjectID);
+//            movie_details_service.setReviews_url(subjectID);
+//            movie_details_service.setComments_url(subjectID);
+//            movie_details_service.setTags_url(subjectID);
             logger.info("【[影视详情]任务执行中。。。】第["+(subjectNum+1)+"]次执行,获取【subject="+subjectID+"】数据完成！");
         }
         // 循环执行时自增
         subjectNum++;
 
     }
+
+//    /**
+//     * 查询视图写入影片详情（定时任务）
+//     * @return
+//     */
+//    @Scheduled(cron = "0 25/2 8,19 * * *")
+//    @Async
+//    public void setMovie_Subject_photos(){
+//        if(logger.isInfoEnabled()){
+//            logger.info("【Movie_Controller—setMovie_Subject_photos】请求成功！");
+//        }
+//
+//        if(subjectNum == 0){
+//            startDate = new Date();
+//            // 使用query自定义查询数据
+//            Query query = em.createNativeQuery("select SUBJECT_ID from view_movie_subjectid group by SUBJECT_ID");
+//            subjectRows = query.getResultList();
+//        }
+//        Date nowDate = new Date();
+//        long days = DateUtil.getDays(startDate,nowDate);
+//        long times = DateUtil.getHours(startDate,nowDate);
+//        // 设置固定时间间隔后重置数据，重新获取数据
+//        if(times > 3){
+//            subjectNum = 0;
+//            subjectIsPrint = true;
+//        }
+//
+////        subjectRows.get(subjectNum);
+//        // 当数据获取达到上限后设置不再执行，且输出任务执行结束后本次不再输出
+//        if(subjectNum >= subjectRows.size() && subjectIsPrint){
+//            logger.info("【[影视详情]任务执行结束】共执行["+(subjectNum+1)+"]次,获取【"+(subjectRows.size()+1)+"】条数据！");
+//            subjectIsPrint = false;
+//        }else if(subjectNum < subjectRows.size()){
+//            String subjectID = subjectRows.get(subjectNum) + "";
+//            movie_details_service.setSubjectDetails(subjectID);
+////            movie_details_service.setPhotos_url(subjectID);
+////            movie_details_service.setReviews_url(subjectID);
+////            movie_details_service.setComments_url(subjectID);
+////            movie_details_service.setTags_url(subjectID);
+//            logger.info("【[影视详情]任务执行中。。。】第["+(subjectNum+1)+"]次执行,获取【subject="+subjectID+"】数据完成！");
+//        }
+//        // 循环执行时自增
+//        subjectNum++;
+//
+//    }
 
 
 
