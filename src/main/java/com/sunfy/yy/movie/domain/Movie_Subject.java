@@ -74,7 +74,7 @@ public class Movie_Subject implements Serializable {
     //海报地址
     //级联查询 name 为本表内的字段 referencedColumnName 为关联表的主键
     @OneToOne
-    @JoinColumn(name = "subject_id",referencedColumnName = "subject_id")
+    @JoinColumn(name = "subject_id",referencedColumnName = "subject_id",insertable = false, updatable = false)
     private Movie_Images subject_images;
 
     //豆瓣链接
