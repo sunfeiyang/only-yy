@@ -1,6 +1,8 @@
 package com.sunfy.yy.movie.service.Impl;
 
 import com.sunfy.yy.common.enums.EnumApi;
+import com.sunfy.yy.common.enums.EnumPath;
+import com.sunfy.yy.common.utils.DownloadImage;
 import com.sunfy.yy.common.utils.HttpRequest;
 import com.sunfy.yy.common.utils.JsonUtils;
 import com.sunfy.yy.movie.domain.*;
@@ -105,15 +107,17 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 String wish_count = map.get("wish_count") + "";
                 String original_title = map.get("original_title")+ "";
                 ArrayList blooper_urls = (ArrayList)map.get("blooper_urls");
-                String collect_count = map.get("collect_count")+ "";
-                Map images = (Map)map.get("images");
-                // 写入海报
-                this.setImages(images,id);
 
-                String douban_site = map.get("douban_site")+ "";
                 String year = map.get("year")+ "";
                 // 写入年份
                 this.setYear(year,id);
+
+                String collect_count = map.get("collect_count")+ "";
+                Map images = (Map)map.get("images");
+                // 写入海报
+                this.setImages(images,id,year);
+
+                String douban_site = map.get("douban_site")+ "";
 
                 ArrayList popular_comments = (ArrayList)map.get("popular_comments");
                 // 写入短评
@@ -966,20 +970,29 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
      * 写入海报
      * @param map 待写入用户数据
      */
-    public void setImages(Map map,String id){
+    public void setImages(Map map,String id,String year){
         if(!map.isEmpty()){
             String small = map.get("small")+ "";
             String large = map.get("large")+ "";
             String medium = map.get("medium")+ "";
             Movie_Images movie_images = new Movie_Images();
             movie_images.setSubjectid(id);
-            movie_images.setImages_small(small);
-            movie_images.setImages_medium(medium);
-            movie_images.setImages_large(large);
             ArrayList result = movie_images_repository.findBySubjectid(id);
             if(result != null && result.size() > 0){
                 logger.info("影片【海报】已存在！");
             }else{
+                // 将图片文件保存到本地
+                String saveImageName_small = System.currentTimeMillis() + ".jpg";
+                DownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + year);
+                movie_images.setImages_small(year+"/"+saveImageName_small);
+                // 将图片文件保存到本地
+                String saveImageName_medium = System.currentTimeMillis() + ".jpg";
+                DownloadImage.download(medium,saveImageName_medium, EnumPath.BASHPATH.getValue() + "image/" + year);
+                movie_images.setImages_medium(year+"/"+saveImageName_medium);
+                // 将图片文件保存到本地
+                String saveImageName_large = System.currentTimeMillis() + ".jpg";
+                DownloadImage.download(large,saveImageName_large, EnumPath.BASHPATH.getValue() + "image/" + year);
+                movie_images.setImages_large(year+"/"+saveImageName_large);
                 movie_images_repository.save(movie_images);
                 logger.info("成功插入影片【海报】");
             }
