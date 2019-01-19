@@ -158,7 +158,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         // 将图片文件保存到本地
         String saveImageName = System.currentTimeMillis() + ".jpg";
         DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
-        movie_in_theaters.setSubject_images(saveImageName);
+        movie_in_theaters.setSubject_images( map.get("year").toString() + "/" + saveImageName);
 
         movie_in_theaters.setSubject_alt(map.get("alt").toString());
         movie_in_theaters.setSubject_total(map.get("subject_total")+ "");
@@ -195,7 +195,10 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_new_movies.setSubject_has_video(map.get("has_video").toString());
         Map imagesMap = (Map) map.get("images");
         String small = (String)imagesMap.get("small");
-        movie_new_movies.setSubject_images(small);
+        // 将图片文件保存到本地
+        String saveImageName = System.currentTimeMillis() + ".jpg";
+        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
+        movie_new_movies.setSubject_images(map.get("year").toString() + "/" + saveImageName);
         movie_new_movies.setSubject_alt(map.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
         return movie_new_movies;
@@ -231,7 +234,10 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_top250.setSubject_has_video(map.get("has_video").toString());
         Map imagesMap = (Map) map.get("images");
         String small = (String)imagesMap.get("small");
-        movie_top250.setSubject_images(small);
+        // 将图片文件保存到本地
+        String saveImageName = System.currentTimeMillis() + ".jpg";
+        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
+        movie_top250.setSubject_images(map.get("year").toString() + "/" + saveImageName);
         movie_top250.setSubject_alt(map.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
         return movie_top250;
@@ -272,7 +278,10 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_us_box.setSubject_has_video(map_subject.get("has_video").toString());
         Map imagesMap = (Map) map_subject.get("images");
         String small = (String)imagesMap.get("small");
-        movie_us_box.setSubject_images(small);
+        // 将图片文件保存到本地
+        String saveImageName = System.currentTimeMillis() + ".jpg";
+        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map_subject.get("year").toString());
+        movie_us_box.setSubject_images(map_subject.get("year").toString() + "/" + saveImageName);
         movie_us_box.setSubject_alt(map_subject.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
         return movie_us_box;
@@ -309,7 +318,10 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_weekly.setSubject_has_video(subject.get("has_video").toString());
         Map imagesMap = (Map) subject.get("images");
         String small = (String)imagesMap.get("small");
-        movie_weekly.setSubject_images(small);
+        // 将图片文件保存到本地
+        String saveImageName = System.currentTimeMillis() + ".jpg";
+        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + subject.get("year").toString());
+        movie_weekly.setSubject_images(subject.get("year").toString() + "/" + saveImageName);
         movie_weekly.setSubject_alt(subject.get("alt").toString());
         movie_weekly.setSubject_rank(map.get("rank").toString());
         movie_weekly.setSubject_delta(map.get("delta").toString());
@@ -347,7 +359,10 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         movie_coming_soon.setSubject_has_video(map.get("has_video").toString());
         Map imagesMap = (Map) map.get("images");
         String small = (String)imagesMap.get("small");
-        movie_coming_soon.setSubject_images(small);
+        // 将图片文件保存到本地
+        String saveImageName = System.currentTimeMillis() + ".jpg";
+        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
+        movie_coming_soon.setSubject_images(map.get("year").toString() + "/" + saveImageName);
         movie_coming_soon.setSubject_alt(map.get("alt").toString());
         movie_coming_soon.setSubject_total(map.get("subject_total").toString());
         return movie_coming_soon;
