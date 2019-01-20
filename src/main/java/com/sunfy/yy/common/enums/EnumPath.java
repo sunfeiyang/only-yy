@@ -5,7 +5,8 @@ package com.sunfy.yy.common.enums;
  */
 public enum EnumPath {
 
-    BASHPATH("E:\\apache\\apache-tomcat\\tomcat-xsy-8.5.4\\webapps\\");
+    BASHPATH("E:\\apache\\apache-tomcat\\tomcat-xsy-8.5.4\\webapps\\"),
+    AIPATH("E:\\apache\\apache-tomcat\\tomcat-xsy-8.5.4\\webapps\\AiFile\\");
 
     private String value;
 

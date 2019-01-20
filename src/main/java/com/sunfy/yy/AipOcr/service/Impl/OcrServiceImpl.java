@@ -3,6 +3,7 @@ package com.sunfy.yy.AipOcr.service.Impl;
 import com.baidu.aip.ocr.AipOcr;
 import com.sunfy.yy.AipOcr.service.OcrService;
 import com.sunfy.yy.common.enums.EnumAi;
+import com.sunfy.yy.common.enums.EnumPath;
 import com.sunfy.yy.common.utils.JsonUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class OcrServiceImpl implements OcrService {
 //        System.setProperty("aip.log4j.conf", "path/to/your/log4j.properties");
 
         // 调用接口
-        String path = "E:/test/"+ImageUrl;
+        String path = EnumPath.AIPATH.getValue() +ImageUrl;
         JSONObject res = client.basicGeneral(path, new HashMap<String, String>());
 //        System.out.println(res.toString(2));
 

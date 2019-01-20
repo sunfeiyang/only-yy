@@ -1,5 +1,6 @@
 package com.sunfy.yy.common.controller;
 
+import com.sunfy.yy.common.enums.EnumPath;
 import com.sunfy.yy.common.utils.DownloadImage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class SystemFileController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         logger.info("上传的后缀名为：" + suffixName);
         // 文件上传后的路径
-        String filePath = "E://test//";
+        String filePath = EnumPath.AIPATH.getValue();
         // 解决中文问题，liunx下中文路径，图片显示问题
         // fileName = UUID.randomUUID() + suffixName;
         File dest = new File(filePath + fileName);
