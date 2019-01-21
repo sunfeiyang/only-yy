@@ -69,7 +69,7 @@ public class Movie_Controller {
     @Scheduled(cron = "1 1/1 19 * * *")
     @Async
     public void setMovie_Top250(){
-        if(logger.isInfoEnabled()){
+        if(logger.isInfoEnabled() && top250IsPrint){
             logger.info("【Movie_Controller—setMovie_Top250】请求成功！");
         }
         Integer count = 50;
@@ -88,7 +88,7 @@ public class Movie_Controller {
 //        System.out.println("相差的小时--"+times);
 //        System.out.println("相差的分钟--"+minute);
         // 设置固定时间间隔后重置数据，重新获取数据
-        if(times > 3){
+        if(times > 24){
             top250Num = 0;
             start = 0;
             top250IsPrint = true;
@@ -128,7 +128,7 @@ public class Movie_Controller {
         long days = DateUtil.getDays(startDate,nowDate);
         long times = DateUtil.getHours(startDate,nowDate);
         // 设置固定时间间隔后重置数据，重新获取数据
-        if(times > 3){
+        if(times > 24){
             inTheatersNum = 0;
             start = 0;
             InTheatersIsPrint = true;
@@ -177,7 +177,7 @@ public class Movie_Controller {
         long days = DateUtil.getDays(startDate,nowDate);
         long times = DateUtil.getHours(startDate,nowDate);
         // 设置固定时间间隔后重置数据，重新获取数据
-        if(times > 3){
+        if(times > 24){
             comingSoonNum = 0;
             start = 0;
             comingSoonIsPrint = true;
@@ -269,7 +269,7 @@ public class Movie_Controller {
         long days = DateUtil.getDays(startDate,nowDate);
         long times = DateUtil.getHours(startDate,nowDate);
         // 设置固定时间间隔后重置数据，重新获取数据
-        if(times > 3){
+        if(times > 24){
             subjectNum = 0;
             subjectIsPrint = true;
         }
