@@ -255,7 +255,7 @@ public class Movie_Controller {
     @Scheduled(cron = "0 * * * * *")
     @Async
     public void setMovie_Subject(){
-        if(logger.isInfoEnabled()){
+        if(logger.isInfoEnabled() && subjectIsPrint){
             logger.info("【Movie_Controller—setMovie_Subject】请求成功！");
         }
 
@@ -283,7 +283,7 @@ public class Movie_Controller {
             String subjectID = subjectRows.get(subjectNum) + "";
             movie_details_service.setSubjectDetails(subjectID);
 //            movie_details_service.setPhotos_url(subjectID);
-//            movie_details_service.setReviews_url(subjectID);
+            movie_details_service.setReviews_url(subjectID);
             movie_details_service.setComments_url(subjectID);
 //            movie_details_service.setTags_url(subjectID);
             logger.info("【[影视详情]任务执行中。。。】第["+(subjectNum+1)+"]次执行,获取【subject="+subjectID+"】数据完成！");
