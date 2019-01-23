@@ -59,6 +59,11 @@ public class Movie_Controller {
     Boolean subjectIsPrint = true;
     List subjectRows = null;
 
+    // 影视剧照标签
+    int subject_PhotoAndTagsNum = 0;
+    Boolean subject_PhotoAndTagsIsPrint = true;
+    List subject_PhotoAndTagsRows = null;
+
     // 任务执行开始时间
     Date startDate = null;
 
@@ -252,7 +257,7 @@ public class Movie_Controller {
      * 查询视图写入影片详情（定时任务）
      * @return
      */
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0/2 * * * *")
     @Async
     public void setMovie_Subject(){
         if(logger.isInfoEnabled() && subjectIsPrint){
@@ -272,6 +277,7 @@ public class Movie_Controller {
         if(times > 24){
             subjectNum = 0;
             subjectIsPrint = true;
+            startDate = new Date();
         }
 
 //        subjectRows.get(subjectNum);
@@ -293,50 +299,48 @@ public class Movie_Controller {
 
     }
 
-//    /**
-//     * 查询视图写入影片详情（定时任务）
-//     * @return
-//     */
-//    @Scheduled(cron = "0 25/2 8,19 * * *")
-//    @Async
-//    public void setMovie_Subject_photos(){
-//        if(logger.isInfoEnabled()){
-//            logger.info("【Movie_Controller—setMovie_Subject_photos】请求成功！");
-//        }
-//
-//        if(subjectNum == 0){
-//            startDate = new Date();
-//            // 使用query自定义查询数据
-//            Query query = em.createNativeQuery("select SUBJECT_ID from view_movie_subjectid group by SUBJECT_ID");
-//            subjectRows = query.getResultList();
-//        }
-//        Date nowDate = new Date();
-//        long days = DateUtil.getDays(startDate,nowDate);
-//        long times = DateUtil.getHours(startDate,nowDate);
-//        // 设置固定时间间隔后重置数据，重新获取数据
-//        if(times > 3){
-//            subjectNum = 0;
-//            subjectIsPrint = true;
-//        }
-//
-////        subjectRows.get(subjectNum);
-//        // 当数据获取达到上限后设置不再执行，且输出任务执行结束后本次不再输出
-//        if(subjectNum >= subjectRows.size() && subjectIsPrint){
-//            logger.info("【[影视详情]任务执行结束】共执行["+(subjectNum+1)+"]次,获取【"+(subjectRows.size()+1)+"】条数据！");
-//            subjectIsPrint = false;
-//        }else if(subjectNum < subjectRows.size()){
-//            String subjectID = subjectRows.get(subjectNum) + "";
-//            movie_details_service.setSubjectDetails(subjectID);
-////            movie_details_service.setPhotos_url(subjectID);
-////            movie_details_service.setReviews_url(subjectID);
-////            movie_details_service.setComments_url(subjectID);
-////            movie_details_service.setTags_url(subjectID);
-//            logger.info("【[影视详情]任务执行中。。。】第["+(subjectNum+1)+"]次执行,获取【subject="+subjectID+"】数据完成！");
-//        }
-//        // 循环执行时自增
-//        subjectNum++;
-//
-//    }
+    /**
+     * 查询视图写入影片标签和剧照（定时任务）
+     * @return
+     */
+    @Scheduled(cron = "0 1/2 * * * *")
+    @Async
+    public void setMovie_PhotoAndTags(){
+        if(logger.isInfoEnabled() && subject_PhotoAndTagsIsPrint){
+            logger.info("【Movie_Controller—setMovie_PhotoAndTags】请求成功！");
+        }
+
+        if(subject_PhotoAndTagsNum == 0){
+            startDate = new Date();
+            // 使用query自定义查询数据
+            Query query = em.createNativeQuery("select SUBJECT_ID from view_movie_subjectid group by SUBJECT_ID");
+            subject_PhotoAndTagsRows = query.getResultList();
+        }
+        Date nowDate = new Date();
+        long days = DateUtil.getDays(startDate,nowDate);
+        long times = DateUtil.getHours(startDate,nowDate);
+        // 设置固定时间间隔后重置数据，重新获取数据
+        if(times > 24){
+            subject_PhotoAndTagsNum = 0;
+            subject_PhotoAndTagsIsPrint = true;
+            startDate = new Date();
+        }
+
+//        subjectRows.get(subjectNum);
+        // 当数据获取达到上限后设置不再执行，且输出任务执行结束后本次不再输出
+        if(subject_PhotoAndTagsNum >= subject_PhotoAndTagsRows.size() && subject_PhotoAndTagsIsPrint){
+            logger.info("【[标签和剧照]任务执行结束】共执行["+(subject_PhotoAndTagsNum+1)+"]次,获取【"+(subject_PhotoAndTagsRows.size()+1)+"】条数据！");
+            subject_PhotoAndTagsIsPrint = false;
+        }else if(subject_PhotoAndTagsNum < subject_PhotoAndTagsRows.size()){
+            String subjectID = subject_PhotoAndTagsRows.get(subject_PhotoAndTagsNum) + "";
+            movie_details_service.setPhotos_url(subjectID);
+            movie_details_service.setTags_url(subjectID);
+            logger.info("【[标签和剧照]任务执行中。。。】第["+(subject_PhotoAndTagsNum+1)+"]次执行,获取【subject="+subjectID+"】数据完成！");
+        }
+        // 循环执行时自增
+        subject_PhotoAndTagsNum++;
+
+    }
 
 
 

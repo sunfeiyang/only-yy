@@ -1,23 +1,33 @@
 package com.sunfy.yy.common.utils;
 
+import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.jpeg.JpegMetadataReader;
+import com.drew.imaging.jpeg.JpegProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 
 import java.io.File;
+import java.io.IOException;
 
-/**
- * 测试用于读取图片的EXIF信息
- *
- * @author Winter Lau
- */
 public class ImageDetails2 {
-    public void test(){
 
-    }
+    public static void main(String[] args) throws JpegProcessingException, IOException {
 
-    public static void main(String[] args) throws Exception {
+//        //包含EXIF信息的图片地址
+//        File jpegFile = new File("E:/空气净化器.jpg");
+//
+//        try{
+//            Metadata metadata = ImageMetadataReader.readMetadata(jpegFile);
+//            for (Directory directory : metadata.getDirectories()) {
+//                for (Tag tag : directory.getTags()) {
+//                    System.out.println(tag);
+//                }
+//            }
+//        }catch (Exception e){
+//
+//        }
+//    }
         File jpegFile = new File("E:/空气净化器.jpg");
         Metadata metadata = JpegMetadataReader.readMetadata(jpegFile);
         for(Directory directory : metadata.getDirectories()){

@@ -4,6 +4,7 @@ import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.common.enums.EnumPath;
 import com.sunfy.yy.common.utils.DownloadImage;
 import com.sunfy.yy.common.utils.HttpRequest;
+import com.sunfy.yy.common.utils.ImageDetails;
 import com.sunfy.yy.common.utils.JsonUtils;
 import com.sunfy.yy.movie.domain.*;
 import com.sunfy.yy.movie.repository.*;
@@ -422,6 +423,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
 
     /**
      * 访问url请求影视的剧照
+     * 【剧照数据的保存文件是在image文件夹下每个对应的subject_id文件夹下，与封面保存在年份文件夹下不同】
      * @param subjectID
      */
     public void setPhotos_url(String subjectID){
@@ -468,27 +470,53 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                     movie_photos.setPhotosid(id);
                     movie_photos.setPhotos_total(total);
                     movie_photos.setPhotos_count(photos_count);
-                    movie_photos.setPhotos_thumb(thumb);
-                    movie_photos.setPhotos_icon(icon);
+
+                    // 将图片文件保存到本地（对应的subject_id文件夹下）
+                    String saveImageName_thumb = System.currentTimeMillis() + ".jpg";
+                    DownloadImage.download(thumb,saveImageName_thumb, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    movie_photos.setPhotos_thumb(subject_id+"/"+saveImageName_thumb);
+
+                    // 将图片文件保存到本地（对应的subject_id文件夹下）
+                    String saveImageName_icon = System.currentTimeMillis() + ".jpg";
+                    DownloadImage.download(icon,saveImageName_icon, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    movie_photos.setPhotos_icon(subject_id+"/"+saveImageName_icon);
+
                     movie_photos.setPhotos_author_id(author_id);
                     movie_photos.setPhotos_created_at(created_at);
                     movie_photos.setPhotos_album_id(album_id);
-                    movie_photos.setPhotos_cover(cover);
+
+                    // 将图片文件保存到本地（对应的subject_id文件夹下）
+                    String saveImageName_cover = System.currentTimeMillis() + ".jpg";
+                    DownloadImage.download(cover,saveImageName_cover, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    movie_photos.setPhotos_cover(subject_id+"/"+saveImageName_cover);
+
                     movie_photos.setPhotos_prev_photo(prev_photo);
                     movie_photos.setPhotos_next_photo(next_photo);
                     movie_photos.setPhotos_album_url(album_url);
                     movie_photos.setPhotos_comments_count(comments_count);
-                    movie_photos.setPhotos_image(image);
+
+                    // 将图片文件保存到本地（对应的subject_id文件夹下）
+                    String saveImageName_image = System.currentTimeMillis() + ".jpg";
+                    DownloadImage.download(image,saveImageName_image, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    movie_photos.setPhotos_image(subject_id+"/"+saveImageName_image);
+
                     movie_photos.setPhotos_recs_count(recs_count);
                     movie_photos.setPhotos_position(position);
                     movie_photos.setPhotos_alt(alt);
                     movie_photos.setPhotos_album_title(album_title);
                     movie_photos.setPhotos_desc(desc);
 
-                    // TODO
                     // 获取图片的方向和尺寸进行保存
-                    movie_photos.setPhotos_direction("");
-                    movie_photos.setPhotos_size("");
+                    Map map_photosDetails = ImageDetails.getImageDetails(EnumPath.BASHPATH.getValue() + "image/" + subject_id+"/"+saveImageName_image);
+                    String ImageWidth = (String) map_photosDetails.get("Image Width");
+                    String ImageHeight = (String) map_photosDetails.get("Image Height");
+                    if(Integer.parseInt(ImageWidth.split(" ")[0]) > Integer.parseInt(ImageHeight.split(" ")[0])){
+                        // 剧照方向横1竖2
+                        movie_photos.setPhotos_direction("1");
+                    }else{
+                        movie_photos.setPhotos_direction("2");
+                    }
+                    movie_photos.setPhotos_size(ImageWidth.split(" ")[0]+" x "+ImageHeight.split(" ")[0]);
 
 
                     ArrayList result = movie_photos_repository.findByPhotosidAndSubjectid(id,subjectID);

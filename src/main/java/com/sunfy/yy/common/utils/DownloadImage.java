@@ -20,7 +20,6 @@ public class DownloadImage {
         String url = Class.class.getClass().getResource("/").getPath();
         System.out.println(url);
 
-        // TODO Auto-generated method stub
 //         download("https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2539661066.jpg", "1_li1325169021.jpg","E:\\image\\");
          download("https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2529389608.webp", "1222.jpg","E:\\image\\");
         System.out.println("图片保存成功！");
