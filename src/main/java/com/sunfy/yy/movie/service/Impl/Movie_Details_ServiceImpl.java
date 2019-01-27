@@ -895,9 +895,22 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 movie_casts.setCasts_name(name);
                 movie_casts.setCasts_name_en(name_en);
                 movie_casts.setCasts_alt(alt);
-                movie_casts.setCasts_avatars_large(large);
-                movie_casts.setCasts_avatars_small(small);
-                movie_casts.setCasts_avatars_medium(medium);
+
+                // 将图片文件保存到本地（对应的subject_id文件夹下）
+                String saveImageName_large = System.currentTimeMillis() + ".jpg";
+                DownloadImage.download(large,saveImageName_large, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                movie_casts.setCasts_avatars_large(subject_id+"/"+saveImageName_large);
+
+                // 将图片文件保存到本地（对应的subject_id文件夹下）
+                String saveImageName_small = System.currentTimeMillis() + ".jpg";
+                DownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                movie_casts.setCasts_avatars_small(subject_id+"/"+saveImageName_small);
+
+                // 将图片文件保存到本地（对应的subject_id文件夹下）
+                String saveImageName_medium = System.currentTimeMillis() + ".jpg";
+                DownloadImage.download(medium,saveImageName_medium, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                movie_casts.setCasts_avatars_medium(subject_id+"/"+saveImageName_medium);
+
                 movie_casts.setCasts_type(type);
                 ArrayList result = movie_casts_repository.findByCastsidAndSubjectid(id,subject_id);
                 if(result != null && result.size() > 0){
