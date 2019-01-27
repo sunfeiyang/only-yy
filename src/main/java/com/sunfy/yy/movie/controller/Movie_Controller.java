@@ -71,7 +71,7 @@ public class Movie_Controller {
      * Top250（定时任务）
      * @return
      */
-//    @Scheduled(cron = "1 * 20 * * *")
+    @Scheduled(cron = "1 * 20 * * *")
     @Async
     public void setMovie_Top250(){
         if(logger.isInfoEnabled() && top250IsPrint){
@@ -112,7 +112,7 @@ public class Movie_Controller {
      * 正在热映（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 10 0-8 * * *")
+    @Scheduled(cron = "0 10 0-8 * * *")
     @Async
     public void setMovie_InTheaters(){
         if(logger.isInfoEnabled() && InTheatersIsPrint){
@@ -160,7 +160,7 @@ public class Movie_Controller {
      * 即将热映（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 15 0-8 * * *")
+    @Scheduled(cron = "0 15 0-8 * * *")
     @Async
     public void setMovie_ComingSoon(){
         if(logger.isInfoEnabled() && comingSoonIsPrint){
@@ -208,7 +208,7 @@ public class Movie_Controller {
      * 新片榜（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 17 0-8 * * *")
+    @Scheduled(cron = "0 17 0-8 * * *")
     @Async
     public void setMovie_NewMovies(){
         if(logger.isInfoEnabled()){
@@ -223,7 +223,7 @@ public class Movie_Controller {
      * 欧美票房榜（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 18 0-8 * * *")
+    @Scheduled(cron = "0 18 0-8 * * *")
     @Async
     public void setMovie_UsBox(){
         if(logger.isInfoEnabled()){
@@ -238,7 +238,7 @@ public class Movie_Controller {
      * 一周口碑榜（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 19 0-8 * * *")
+    @Scheduled(cron = "0 19 0-8 * * *")
     @Async
     public void setMovie_Weekly(){
         if(logger.isInfoEnabled()){
@@ -253,7 +253,7 @@ public class Movie_Controller {
      * 查询视图写入影片详情（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 0/2 * * * *")
+    @Scheduled(cron = "0 0/2 * * * *")
     @Async
     public void setMovie_Subject(){
         if(logger.isInfoEnabled() && subjectIsPrint){
@@ -299,7 +299,7 @@ public class Movie_Controller {
      * 查询视图写入影片标签和剧照（定时任务）
      * @return
      */
-//    @Scheduled(cron = "0 1/2 * * * *")
+    @Scheduled(cron = "0 1/2 * * * *")
     @Async
     public void setMovie_PhotoAndTags(){
         if(logger.isInfoEnabled() && subject_PhotoAndTagsIsPrint){

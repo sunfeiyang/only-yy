@@ -430,7 +430,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
         if(logger.isInfoEnabled()){
             logger.info("【Movie_Details_ServiceImpl—setPhotos_url】请求成功！");
         }
-        String jsonResult = HttpRequest.get(EnumApi.M_SUBJECT.getURL()+"/"+subjectID+"/photos");
+        String jsonResult = HttpRequest.get(EnumApi.M_SUBJECT.getURL()+"/"+subjectID+"/photos?start=0&count=50");
         Map map = null;
         if(jsonResult =="" || jsonResult == null){
             logger.info("【剧照】——【请求数据为空】");
