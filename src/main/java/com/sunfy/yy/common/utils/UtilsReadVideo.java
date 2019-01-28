@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
  * @Description:获取视频宽高大小时间
  * @Date: 2017-9-29 14:02
  */
-public class ReadVideo {
+public class UtilsReadVideo {
     public static void main(String[] args) {
         File source = new File("E:\\VID_20180512_193010.mp4");
         Encoder encoder = new Encoder();

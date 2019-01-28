@@ -4,7 +4,7 @@ import com.baidu.aip.ocr.AipOcr;
 import com.sunfy.yy.AipOcr.service.OcrService;
 import com.sunfy.yy.common.enums.EnumAi;
 import com.sunfy.yy.common.enums.EnumPath;
-import com.sunfy.yy.common.utils.JsonUtils;
+import com.sunfy.yy.common.utils.UtilsJson;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +43,7 @@ public class OcrServiceImpl implements OcrService {
 
         // 对识别结果进行格式化处理
         String ocrStr = res.toString(2);
-        JsonUtils jsonUtils = new JsonUtils();
+        UtilsJson jsonUtils = new UtilsJson();
         ArrayList result = new ArrayList();
         //返回结果全部拼接
         String res1 = "";

@@ -1,7 +1,7 @@
 package com.sunfy.yy;
 
 import com.sunfy.yy.common.utils.HttpRequest;
-import com.sunfy.yy.common.utils.JsonUtils;
+import com.sunfy.yy.common.utils.UtilsJson;
 import com.sunfy.yy.culture.domain.Culture_Famous;
 import com.sunfy.yy.culture.repository.Culture_Famous_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class HttpTest {
         System.out.println("数据请求结果为：");
         System.out.println(httpRequest.get(url));
         String jsonResult = httpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
+        UtilsJson jsonUtils = new UtilsJson();
         Map map = jsonUtils.toMap(jsonResult);
         System.out.println(map.get("total"));
         Integer total = (Integer) map.get("total");

@@ -1,15 +1,12 @@
 package com.sunfy.yy.culture.controller;
 
 import com.sunfy.yy.common.enums.EnumApi;
-import com.sunfy.yy.common.utils.ChineseCreat;
-import com.sunfy.yy.common.utils.DateUtil;
+import com.sunfy.yy.common.utils.UtilsChineseCreat;
 import com.sunfy.yy.culture.service.Culture_Today_History_Service;
 import com.sunfy.yy.culture.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import java.util.Date;
@@ -90,25 +87,25 @@ public class Culture_Controller {
         获取批量数据插入链接
          */
         String url_wordsea_list = EnumApi.WORD_SEA.getURL();
-        url_wordsea_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+        url_wordsea_list += "&keyword="+ UtilsChineseCreat.getRandomChar()+"&page=1&rows=50";
 
         String url_idiom_list = EnumApi.IDIOM.getURL();
-        url_idiom_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+        url_idiom_list += "&keyword="+ UtilsChineseCreat.getRandomChar()+"&page=1&rows=50";
 
         String url_famous_list = EnumApi.FAMOUS.getURL();
-        url_famous_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+        url_famous_list += "&keyword="+ UtilsChineseCreat.getRandomChar()+"&page=1&rows=50";
 
         String url_poem_list = EnumApi.POEM.getURL();
-        url_poem_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+        url_poem_list += "&keyword="+ UtilsChineseCreat.getRandomChar()+"&page=1&rows=50";
 
         String url_allegorical_list = EnumApi.ALLEGORICAL.getURL();
-        url_allegorical_list += "&keyword="+ChineseCreat.getRandomChar()+"&page=1&rows=50";
+        url_allegorical_list += "&keyword="+ UtilsChineseCreat.getRandomChar()+"&page=1&rows=50";
 
         /*
         处理历史上的今天数据
          */
-//        int month = DateUtil.getCurrentDayMM(date);
-//        int day = DateUtil.getCurrentDayDD(date);
+//        int month = UtilsDate.getCurrentDayMM(date);
+//        int day = UtilsDate.getCurrentDayDD(date);
 //        url_today_history += "&yue="+month;
 //        url_today_history += "&ri="+day;
 //        if(sum%2 == 1){
@@ -122,7 +119,7 @@ public class Culture_Controller {
 ////            if(month == 12){
 ////                num = 199;
 ////            }
-//            date = DateUtil.addDays(date,-1);
+//            date = UtilsDate.addDays(date,-1);
 //        }
 //        url_today_history += "&page=1&rows=50";
 //
@@ -131,7 +128,7 @@ public class Culture_Controller {
         String url_dic = EnumApi.DIC.getURL();
         String str1 = "";
         for (int i = 0; i < 100; i++) {
-            str1 += ChineseCreat.getRandomHan();
+            str1 += UtilsChineseCreat.getRandomHan();
         }
         url_dic += "&content="+str1;
         System.out.println("获得的汉字为：【"+str1+"】");

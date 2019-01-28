@@ -3,8 +3,8 @@ package com.sunfy.yy.culture.controller;
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.common.enums.EnumException;
-import com.sunfy.yy.common.utils.DateUtil;
-import com.sunfy.yy.common.utils.ResultUtil;
+import com.sunfy.yy.common.utils.UtilsDate;
+import com.sunfy.yy.common.utils.UtilsResult;
 import com.sunfy.yy.culture.domain.Culture_Today_History;
 import com.sunfy.yy.culture.repository.Culture_Today_History_Repository;
 import com.sunfy.yy.culture.service.Culture_Today_History_Service;
@@ -98,8 +98,8 @@ public class Culture_Today_History_Controller {
         }
         Date date = new Date();
         Map map = new HashMap();
-        int month = DateUtil.getCurrentDayMM(date);
-        int day = DateUtil.getCurrentDayDD(date);
+        int month = UtilsDate.getCurrentDayMM(date);
+        int day = UtilsDate.getCurrentDayDD(date);
         map.put("month",month);
         map.put("day",day);
         map.put("type",type);
@@ -119,13 +119,13 @@ public class Culture_Today_History_Controller {
         //插入数据出现异常
         if(bindingResult.hasErrors()){
             //将错误信息打印出来
-            return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
+            return  UtilsResult.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
         @Valid Culture_Today_History list = culture_today_history_repository.save(culture_today_history);
         if(list != null){
-            return ResultUtil.success(list,EnumException.SUCCESS);
+            return UtilsResult.success(list,EnumException.SUCCESS);
         }
-        return ResultUtil.error(EnumException.ERROR_NULL);
+        return UtilsResult.error(EnumException.ERROR_NULL);
     }
 }

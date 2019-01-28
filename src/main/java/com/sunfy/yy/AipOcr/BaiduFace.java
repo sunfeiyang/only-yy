@@ -2,7 +2,7 @@ package com.sunfy.yy.AipOcr;
 
 import com.baidu.aip.face.AipFace;
 import com.baidu.aip.face.MatchRequest;
-import com.sunfy.yy.common.utils.Base64Test;
+import com.sunfy.yy.common.utils.UtilsGetImageBase64;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class BaiduFace {
 
         // 调用接口
         String pathUrl = "E:/face3.jpg";
-        String path = Base64Test.GetImageStr(pathUrl);
+        String path = UtilsGetImageBase64.GetImageStr(pathUrl);
         String imageType = "BASE64";
 //        JSONObject res = client.detect(path,imageType, new HashMap<String, String>());
 //        System.out.println(res.toString(2));
@@ -50,8 +50,8 @@ public class BaiduFace {
         //人脸对比
         String image1 = "E:/face6.png";
         String image2 = "E:/face2.jpg";
-        String path1 = Base64Test.GetImageStr(image1);
-        String path2 = Base64Test.GetImageStr(image2);
+        String path1 = UtilsGetImageBase64.GetImageStr(image1);
+        String path2 = UtilsGetImageBase64.GetImageStr(image2);
 
         // image1/image2也可以为url或facetoken, 相应的imageType参数需要与之对应。
         MatchRequest req1 = new MatchRequest(path1, "BASE64");

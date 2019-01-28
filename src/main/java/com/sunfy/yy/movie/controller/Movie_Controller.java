@@ -1,7 +1,7 @@
 package com.sunfy.yy.movie.controller;
 
 import com.sunfy.yy.common.enums.EnumRepositoryType;
-import com.sunfy.yy.common.utils.DateUtil;
+import com.sunfy.yy.common.utils.UtilsDate;
 import com.sunfy.yy.movie.domain.Movie_Coming_Soon;
 import com.sunfy.yy.movie.domain.Movie_In_Theaters;
 import com.sunfy.yy.movie.service.Movie_Details_Service;
@@ -86,9 +86,9 @@ public class Movie_Controller {
             startDate = new Date();
         }
         Date nowDate = new Date();
-        long days = DateUtil.getDays(startDate,nowDate);
-        long times = DateUtil.getHours(startDate,nowDate);
-        long minute = DateUtil.getMinute(startDate,nowDate);
+        long days = UtilsDate.getDays(startDate,nowDate);
+        long times = UtilsDate.getHours(startDate,nowDate);
+        long minute = UtilsDate.getMinute(startDate,nowDate);
 //        System.out.println("相差的天数--"+days);
 //        System.out.println("相差的小时--"+times);
 //        System.out.println("相差的分钟--"+minute);
@@ -130,8 +130,8 @@ public class Movie_Controller {
             isDel = false;
         }
         Date nowDate = new Date();
-        long days = DateUtil.getDays(startDate,nowDate);
-        long times = DateUtil.getHours(startDate,nowDate);
+        long days = UtilsDate.getDays(startDate,nowDate);
+        long times = UtilsDate.getHours(startDate,nowDate);
         // 设置固定时间间隔后重置数据，重新获取数据
         if(times > 24){
             inTheatersNum = 0;
@@ -178,8 +178,8 @@ public class Movie_Controller {
             isDel = false;
         }
         Date nowDate = new Date();
-        long days = DateUtil.getDays(startDate,nowDate);
-        long times = DateUtil.getHours(startDate,nowDate);
+        long days = UtilsDate.getDays(startDate,nowDate);
+        long times = UtilsDate.getHours(startDate,nowDate);
         // 设置固定时间间隔后重置数据，重新获取数据
         if(times > 24){
             comingSoonNum = 0;
@@ -267,8 +267,8 @@ public class Movie_Controller {
             subjectRows = query.getResultList();
         }
         Date nowDate = new Date();
-        long days = DateUtil.getDays(startDate,nowDate);
-        long times = DateUtil.getHours(startDate,nowDate);
+        long days = UtilsDate.getDays(startDate,nowDate);
+        long times = UtilsDate.getHours(startDate,nowDate);
         // 设置固定时间间隔后重置数据，重新获取数据
         if(times > 24){
             subjectNum = 0;
@@ -313,8 +313,8 @@ public class Movie_Controller {
             subject_PhotoAndTagsRows = query.getResultList();
         }
         Date nowDate = new Date();
-        long days = DateUtil.getDays(startDate,nowDate);
-        long times = DateUtil.getHours(startDate,nowDate);
+        long days = UtilsDate.getDays(startDate,nowDate);
+        long times = UtilsDate.getHours(startDate,nowDate);
         // 设置固定时间间隔后重置数据，重新获取数据
         if(times > 24){
             subject_PhotoAndTagsNum = 0;

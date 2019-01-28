@@ -13,12 +13,12 @@ import org.springframework.http.converter.json.MappingJacksonValue;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class JsonUtils {
+public class UtilsJson {
 
-	private static Logger logger = LoggerFactory.getLogger(JsonUtils.class);
+	private static Logger logger = LoggerFactory.getLogger(UtilsJson.class);
 	private final static ObjectMapper objectMapper = new ObjectMapper();
 
-	public JsonUtils() {
+	public UtilsJson() {
 
 	}
 

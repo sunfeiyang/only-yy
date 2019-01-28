@@ -10,7 +10,7 @@ import java.net.URLConnection;
 /**
  * 根据图片url保存图片
  */
-public class DownloadImage {  
+public class UtilsDownloadImage {
   
     /** 
      * @param args 

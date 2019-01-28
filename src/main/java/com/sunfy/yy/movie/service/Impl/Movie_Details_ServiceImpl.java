@@ -2,10 +2,7 @@ package com.sunfy.yy.movie.service.Impl;
 
 import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.common.enums.EnumPath;
-import com.sunfy.yy.common.utils.DownloadImage;
-import com.sunfy.yy.common.utils.HttpRequest;
-import com.sunfy.yy.common.utils.ImageDetails;
-import com.sunfy.yy.common.utils.JsonUtils;
+import com.sunfy.yy.common.utils.*;
 import com.sunfy.yy.movie.domain.*;
 import com.sunfy.yy.movie.repository.*;
 import com.sunfy.yy.movie.service.Movie_Details_Service;
@@ -15,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -75,7 +70,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     @Autowired
     private Movie_Casts_Repository movie_casts_repository;
 
-    JsonUtils jsonUtils = new JsonUtils();
+    UtilsJson jsonUtils = new UtilsJson();
 
     @Override
     public ArrayList setSubjectDetails(String subjectID) {
@@ -326,6 +321,10 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                     movie_comments.setComments_rating_value(rating_value);
                     movie_comments.setComments_useful_count(useful_count);
                     movie_comments.setComments_author_id(author_id);
+                    // 修改字符编码
+                    if(content != "" && content != null){
+                        content = UtilsConvertCharSet.toUTF8(content);
+                    }
                     movie_comments.setComments_content(content);
                     movie_comments.setComments_created_at(created_at);
                     movie_comments.setComments_total(total);
@@ -473,12 +472,12 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
 
                     // 将图片文件保存到本地（对应的subject_id文件夹下）
                     String saveImageName_thumb = System.currentTimeMillis() + ".jpg";
-                    DownloadImage.download(thumb,saveImageName_thumb, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    UtilsDownloadImage.download(thumb,saveImageName_thumb, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
                     movie_photos.setPhotos_thumb(subject_id+"/"+saveImageName_thumb);
 
                     // 将图片文件保存到本地（对应的subject_id文件夹下）
                     String saveImageName_icon = System.currentTimeMillis() + ".jpg";
-                    DownloadImage.download(icon,saveImageName_icon, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    UtilsDownloadImage.download(icon,saveImageName_icon, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
                     movie_photos.setPhotos_icon(subject_id+"/"+saveImageName_icon);
 
                     movie_photos.setPhotos_author_id(author_id);
@@ -487,7 +486,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
 
                     // 将图片文件保存到本地（对应的subject_id文件夹下）
                     String saveImageName_cover = System.currentTimeMillis() + ".jpg";
-                    DownloadImage.download(cover,saveImageName_cover, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    UtilsDownloadImage.download(cover,saveImageName_cover, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
                     movie_photos.setPhotos_cover(subject_id+"/"+saveImageName_cover);
 
                     movie_photos.setPhotos_prev_photo(prev_photo);
@@ -497,7 +496,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
 
                     // 将图片文件保存到本地（对应的subject_id文件夹下）
                     String saveImageName_image = System.currentTimeMillis() + ".jpg";
-                    DownloadImage.download(image,saveImageName_image, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    UtilsDownloadImage.download(image,saveImageName_image, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
                     movie_photos.setPhotos_image(subject_id+"/"+saveImageName_image);
 
                     movie_photos.setPhotos_recs_count(recs_count);
@@ -507,7 +506,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                     movie_photos.setPhotos_desc(desc);
 
                     // 获取图片的方向和尺寸进行保存
-                    Map map_photosDetails = ImageDetails.getImageDetails(EnumPath.BASHPATH.getValue() + "image/" + subject_id+"/"+saveImageName_image);
+                    Map map_photosDetails = UtilsImageDetails.getImageDetails(EnumPath.BASHPATH.getValue() + "image/" + subject_id+"/"+saveImageName_image);
                     String ImageWidth = (String) map_photosDetails.get("Image Width");
                     String ImageHeight = (String) map_photosDetails.get("Image Height");
                     if(Integer.parseInt(ImageWidth.split(" ")[0]) > Integer.parseInt(ImageHeight.split(" ")[0])){
@@ -898,17 +897,17 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
 
                 // 将图片文件保存到本地（对应的subject_id文件夹下）
                 String saveImageName_large = System.currentTimeMillis() + ".jpg";
-                DownloadImage.download(large,saveImageName_large, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                UtilsDownloadImage.download(large,saveImageName_large, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
                 movie_casts.setCasts_avatars_large(subject_id+"/"+saveImageName_large);
 
                 // 将图片文件保存到本地（对应的subject_id文件夹下）
                 String saveImageName_small = System.currentTimeMillis() + ".jpg";
-                DownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                UtilsDownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
                 movie_casts.setCasts_avatars_small(subject_id+"/"+saveImageName_small);
 
                 // 将图片文件保存到本地（对应的subject_id文件夹下）
                 String saveImageName_medium = System.currentTimeMillis() + ".jpg";
-                DownloadImage.download(medium,saveImageName_medium, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                UtilsDownloadImage.download(medium,saveImageName_medium, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
                 movie_casts.setCasts_avatars_medium(subject_id+"/"+saveImageName_medium);
 
                 movie_casts.setCasts_type(type);
@@ -994,6 +993,10 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
             movie_author.setAuthorid(id);
             movie_author.setAuthor_alt(alt);
             movie_author.setAuthor_avatar(avatar);
+            // 修改字符编码
+            if(name != "" && name != null){
+                name = UtilsConvertCharSet.toUTF8(name);
+            }
             movie_author.setAuthor_name(name);
             movie_author.setAuthor_signature(signature);
             movie_author.setAuthor_uid(uid);
@@ -1024,15 +1027,15 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
             }else{
                 // 将图片文件保存到本地
                 String saveImageName_small = System.currentTimeMillis() + ".jpg";
-                DownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + year);
+                UtilsDownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + year);
                 movie_images.setImages_small(year+"/"+saveImageName_small);
                 // 将图片文件保存到本地
                 String saveImageName_medium = System.currentTimeMillis() + ".jpg";
-                DownloadImage.download(medium,saveImageName_medium, EnumPath.BASHPATH.getValue() + "image/" + year);
+                UtilsDownloadImage.download(medium,saveImageName_medium, EnumPath.BASHPATH.getValue() + "image/" + year);
                 movie_images.setImages_medium(year+"/"+saveImageName_medium);
                 // 将图片文件保存到本地
                 String saveImageName_large = System.currentTimeMillis() + ".jpg";
-                DownloadImage.download(large,saveImageName_large, EnumPath.BASHPATH.getValue() + "image/" + year);
+                UtilsDownloadImage.download(large,saveImageName_large, EnumPath.BASHPATH.getValue() + "image/" + year);
                 movie_images.setImages_large(year+"/"+saveImageName_large);
                 movie_images_repository.save(movie_images);
                 logger.info("成功插入影片【海报】");

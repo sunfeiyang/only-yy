@@ -6,7 +6,7 @@ import com.sunfy.yy.common.enums.EnumException;
 /**
  * 工具类  处理返回信息
  */
-public class ResultUtil {
+public class UtilsResult {
 
     public static Result success(Object object, EnumException enumCultureException){
         Result result = new Result();

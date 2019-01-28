@@ -3,7 +3,7 @@ package com.sunfy.yy.culture.controller;
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.common.enums.EnumException;
-import com.sunfy.yy.common.utils.ResultUtil;
+import com.sunfy.yy.common.utils.UtilsResult;
 import com.sunfy.yy.common.utils.UtilsAboutController;
 import com.sunfy.yy.culture.domain.Culture_WordSea;
 import com.sunfy.yy.culture.repository.Culture_WordSea_Repository;
@@ -114,13 +114,13 @@ public class Culture_WordSea_Controller {
         //插入数据出现异常
         if(bindingResult.hasErrors()){
             //将错误信息打印出来
-            return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
+            return  UtilsResult.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
         @Valid Culture_WordSea list = culture_wordSea_repository.save(culture_wordSea);
         if(list != null){
-            return ResultUtil.success(list,EnumException.SUCCESS);
+            return UtilsResult.success(list,EnumException.SUCCESS);
         }
-        return ResultUtil.error(EnumException.ERROR_NULL);
+        return UtilsResult.error(EnumException.ERROR_NULL);
     }
 }

@@ -14,11 +14,11 @@ public class UtilsAboutController {
 
     public static Result setResult(List result_list) {
         if (result_list != null && result_list.size() > 0 && "ERROR".equals(result_list.get(0))) {
-            return ResultUtil.success(null, (EnumException) result_list.get(1));
+            return UtilsResult.success(null, (EnumException) result_list.get(1));
         } else if (result_list != null) {
-            return ResultUtil.success(result_list, EnumException.SUCCESS);
+            return UtilsResult.success(result_list, EnumException.SUCCESS);
         }
-        return ResultUtil.error(EnumException.ERROR_NULL);
+        return UtilsResult.error(EnumException.ERROR_NULL);
     }
 
     public static String addArgs(String url, Map map) {

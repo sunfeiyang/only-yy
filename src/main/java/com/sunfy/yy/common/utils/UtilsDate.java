@@ -12,7 +12,7 @@ import java.util.TimeZone;
  *  * ※ 日期的公共类部分
  *  
  */
-public class DateUtil {
+public class UtilsDate {
     /**
      * 将日期转化为指定格式的字符串
      *  

@@ -2,7 +2,7 @@ package com.sunfy.yy.movie.service.Impl;
 
 import com.sunfy.yy.common.enums.EnumRepositoryType;
 import com.sunfy.yy.common.utils.HttpRequest;
-import com.sunfy.yy.common.utils.JsonUtils;
+import com.sunfy.yy.common.utils.UtilsJson;
 import com.sunfy.yy.movie.domain.*;
 import com.sunfy.yy.movie.repository.*;
 import com.sunfy.yy.movie.service.Movie_Service;
@@ -51,7 +51,7 @@ public class Movie_ServiceImpl implements Movie_Service {
         ArrayList result_list = new ArrayList();
         //数据请求结果
         String jsonResult = HttpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
+        UtilsJson jsonUtils = new UtilsJson();
         Map map = null;
         try {
             //当网络异常时，获取数据为null，此时随机从现有数据中随机生成一条返回

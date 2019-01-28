@@ -9,7 +9,7 @@ import java.io.OutputStream;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-public class Base64Test 
+public class UtilsGetImageBase64
 {
     public static void main(String[] args)
     {

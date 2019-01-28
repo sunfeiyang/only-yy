@@ -3,7 +3,7 @@ package com.sunfy.yy.culture.service.Impl;
 import com.sunfy.yy.common.enums.EnumException;
 import com.sunfy.yy.common.exception.ExceptionSystem;
 import com.sunfy.yy.common.utils.HttpRequest;
-import com.sunfy.yy.common.utils.JsonUtils;
+import com.sunfy.yy.common.utils.UtilsJson;
 import com.sunfy.yy.culture.domain.*;
 import com.sunfy.yy.culture.repository.*;
 import com.sunfy.yy.culture.service.Culture_Service;
@@ -68,7 +68,7 @@ public class Culture_ServiceImpl implements Culture_Service {
         //数据请求结果
         String jsonResult = HttpRequest.get(url);
 
-        JsonUtils jsonUtils = new JsonUtils();
+        UtilsJson jsonUtils = new UtilsJson();
         Map map = null;
         try {
             //当网络异常时，获取数据为null，此时随机从现有数据中随机生成一条返回
@@ -105,7 +105,7 @@ public class Culture_ServiceImpl implements Culture_Service {
         ArrayList result_list = new ArrayList();
 
         String jsonResult = HttpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
+        UtilsJson jsonUtils = new UtilsJson();
         Map map = null;
         try {
             if (jsonResult == "" || jsonResult == null) {
@@ -252,7 +252,7 @@ public class Culture_ServiceImpl implements Culture_Service {
         ArrayList result_list = new ArrayList();
         Object obj = null;
         String jsonResult = HttpRequest.get(url);
-        JsonUtils jsonUtils = new JsonUtils();
+        UtilsJson jsonUtils = new UtilsJson();
         Map map = null;
         try {
             if (jsonResult == "" || jsonResult == null) {

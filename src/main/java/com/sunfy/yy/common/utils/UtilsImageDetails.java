@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author sunfy
  */
-public class ImageDetails {
+public class UtilsImageDetails {
 
     /**
      * 获取Image的EXIF信息然后返回

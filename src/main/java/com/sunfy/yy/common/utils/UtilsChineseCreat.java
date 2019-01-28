@@ -37,7 +37,7 @@ import java.util.Random;
 
 (以上资料来源于“维基百科”)
  */
-public class ChineseCreat {
+public class UtilsChineseCreat {
     // 汉字转换成区位码
     public static String bytes2HexString(String s) {
         byte[] b = s.getBytes();

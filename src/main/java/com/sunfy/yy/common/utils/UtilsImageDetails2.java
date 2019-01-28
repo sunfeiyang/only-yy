@@ -10,7 +10,7 @@ import com.drew.metadata.Tag;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageDetails2 {
+public class UtilsImageDetails2 {
 
     public static void main(String[] args) throws JpegProcessingException, IOException {
 

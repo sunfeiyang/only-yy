@@ -3,7 +3,7 @@ package com.sunfy.yy.movie.service.Impl;
 import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.common.enums.EnumPath;
 import com.sunfy.yy.common.enums.EnumRepositoryType;
-import com.sunfy.yy.common.utils.DownloadImage;
+import com.sunfy.yy.common.utils.UtilsDownloadImage;
 import com.sunfy.yy.movie.domain.*;
 import com.sunfy.yy.movie.service.Movie_List_Service;
 import org.slf4j.Logger;
@@ -157,7 +157,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         String small = (String)imagesMap.get("small");
         // 将图片文件保存到本地
         String saveImageName = System.currentTimeMillis() + ".jpg";
-        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
+        UtilsDownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
         movie_in_theaters.setSubject_images( map.get("year").toString() + "/" + saveImageName);
 
         movie_in_theaters.setSubject_alt(map.get("alt").toString());
@@ -197,7 +197,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         String small = (String)imagesMap.get("small");
         // 将图片文件保存到本地
         String saveImageName = System.currentTimeMillis() + ".jpg";
-        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
+        UtilsDownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
         movie_new_movies.setSubject_images(map.get("year").toString() + "/" + saveImageName);
         movie_new_movies.setSubject_alt(map.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
@@ -236,7 +236,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         String small = (String)imagesMap.get("small");
         // 将图片文件保存到本地
         String saveImageName = System.currentTimeMillis() + ".jpg";
-        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
+        UtilsDownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
         movie_top250.setSubject_images(map.get("year").toString() + "/" + saveImageName);
         movie_top250.setSubject_alt(map.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
@@ -280,7 +280,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         String small = (String)imagesMap.get("small");
         // 将图片文件保存到本地
         String saveImageName = System.currentTimeMillis() + ".jpg";
-        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map_subject.get("year").toString());
+        UtilsDownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map_subject.get("year").toString());
         movie_us_box.setSubject_images(map_subject.get("year").toString() + "/" + saveImageName);
         movie_us_box.setSubject_alt(map_subject.get("alt").toString());
 //        movie_in_theaters.setSubject_rank(map.get("subject_total").toString());
@@ -320,7 +320,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         String small = (String)imagesMap.get("small");
         // 将图片文件保存到本地
         String saveImageName = System.currentTimeMillis() + ".jpg";
-        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + subject.get("year").toString());
+        UtilsDownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + subject.get("year").toString());
         movie_weekly.setSubject_images(subject.get("year").toString() + "/" + saveImageName);
         movie_weekly.setSubject_alt(subject.get("alt").toString());
         movie_weekly.setSubject_rank(map.get("rank").toString());
@@ -361,7 +361,7 @@ public class Movie_List_ServiceImpl extends Movie_ServiceImpl implements Movie_L
         String small = (String)imagesMap.get("small");
         // 将图片文件保存到本地
         String saveImageName = System.currentTimeMillis() + ".jpg";
-        DownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
+        UtilsDownloadImage.download(small,saveImageName, EnumPath.BASHPATH.getValue() + "image/" + map.get("year").toString());
         movie_coming_soon.setSubject_images(map.get("year").toString() + "/" + saveImageName);
         movie_coming_soon.setSubject_alt(map.get("alt").toString());
         movie_coming_soon.setSubject_total(map.get("subject_total").toString());

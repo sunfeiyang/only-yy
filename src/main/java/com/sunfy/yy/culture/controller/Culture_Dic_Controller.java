@@ -3,7 +3,7 @@ package com.sunfy.yy.culture.controller;
 import com.sunfy.yy.common.domain.Result;
 import com.sunfy.yy.common.enums.EnumApi;
 import com.sunfy.yy.common.enums.EnumException;
-import com.sunfy.yy.common.utils.ResultUtil;
+import com.sunfy.yy.common.utils.UtilsResult;
 import com.sunfy.yy.culture.domain.Culture_Dic;
 import com.sunfy.yy.culture.repository.Culture_Dic_Repository;
 import com.sunfy.yy.culture.service.Culture_Dic_Service;
@@ -92,13 +92,13 @@ public class Culture_Dic_Controller {
         //插入数据出现异常
         if(bindingResult.hasErrors()){
             //将错误信息打印出来
-            return  ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
+            return  UtilsResult.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         //将数据写入数据库，并返回当前对象
         @Valid Culture_Dic list = culture_dic_repository.save(culture_dic);
         if(list != null){
-            return ResultUtil.success(list,EnumException.SUCCESS);
+            return UtilsResult.success(list,EnumException.SUCCESS);
         }
-        return ResultUtil.error(EnumException.ERROR_NULL);
+        return UtilsResult.error(EnumException.ERROR_NULL);
     }
 }
