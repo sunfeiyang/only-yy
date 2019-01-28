@@ -14,5 +14,5 @@ public interface Movie_Genres_Repository extends JpaRepository<Movie_Genres,Inte
     public ArrayList findBySubjectid(String subjectid);
 
     //根据subject_id进行过滤
-    public ArrayList findBySubjectidAndSubjectid(String subjectid,String genresval);
+    public ArrayList findBySubjectidAndGenresval(String subjectid,String genresval);
 }

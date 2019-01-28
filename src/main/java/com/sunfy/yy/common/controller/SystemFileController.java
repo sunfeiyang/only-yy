@@ -1,7 +1,6 @@
 package com.sunfy.yy.common.controller;
 
 import com.sunfy.yy.common.enums.EnumPath;
-import com.sunfy.yy.common.utils.DownloadImage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

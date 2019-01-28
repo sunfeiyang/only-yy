@@ -321,10 +321,6 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                     movie_comments.setComments_rating_value(rating_value);
                     movie_comments.setComments_useful_count(useful_count);
                     movie_comments.setComments_author_id(author_id);
-                    // 修改字符编码
-                    if(content != "" && content != null){
-                        content = UtilsConvertCharSet.toUTF8(content);
-                    }
                     movie_comments.setComments_content(content);
                     movie_comments.setComments_created_at(created_at);
                     movie_comments.setComments_total(total);
@@ -671,33 +667,33 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
      * @param ratings_count 总的评分数
      */
     public void setRat(Map map,String subjectID,String ratings_count){
-        String rat_max = map.get("max")+ "";
-        String rat_average = map.get("average")+ "";
-        Map rat_details = (Map) map.get("details");
-        String rat_details_1 = rat_details.get("1") + "";
-        String rat_details_2 = rat_details.get("2") + "";
-        String rat_details_3 = rat_details.get("3") + "";
-        String rat_details_4 = rat_details.get("4") + "";
-        String rat_details_5 = rat_details.get("5") + "";
-        String rat_stars = map.get("stars")+ "";
-        String rat_min = map.get("min")+ "";
-
-        Movie_Rat movie_rat = new Movie_Rat();
-        movie_rat.setSubjectid(subjectID);
-        movie_rat.setRat_average(rat_average);
-        movie_rat.setRat_total(ratings_count);
-        movie_rat.setRat_details1(rat_details_1);
-        movie_rat.setRat_details2(rat_details_2);
-        movie_rat.setRat_details3(rat_details_3);
-        movie_rat.setRat_details4(rat_details_4);
-        movie_rat.setRat_details5(rat_details_5);
-        movie_rat.setRat_max(rat_max);
-        movie_rat.setRat_min(rat_min);
-        movie_rat.setRat_stars(rat_stars);
         ArrayList result = movie_rat_repository.findBySubjectid(subjectID);
         if(result != null && result.size() > 0){
             logger.info("影片【评分】已存在！");
         }else{
+            String rat_max = map.get("max")+ "";
+            String rat_average = map.get("average")+ "";
+            Map rat_details = (Map) map.get("details");
+            String rat_details_1 = rat_details.get("1") + "";
+            String rat_details_2 = rat_details.get("2") + "";
+            String rat_details_3 = rat_details.get("3") + "";
+            String rat_details_4 = rat_details.get("4") + "";
+            String rat_details_5 = rat_details.get("5") + "";
+            String rat_stars = map.get("stars")+ "";
+            String rat_min = map.get("min")+ "";
+
+            Movie_Rat movie_rat = new Movie_Rat();
+            movie_rat.setSubjectid(subjectID);
+            movie_rat.setRat_average(rat_average);
+            movie_rat.setRat_total(ratings_count);
+            movie_rat.setRat_details1(rat_details_1);
+            movie_rat.setRat_details2(rat_details_2);
+            movie_rat.setRat_details3(rat_details_3);
+            movie_rat.setRat_details4(rat_details_4);
+            movie_rat.setRat_details5(rat_details_5);
+            movie_rat.setRat_max(rat_max);
+            movie_rat.setRat_min(rat_min);
+            movie_rat.setRat_stars(rat_stars);
             movie_rat_repository.save(movie_rat);
             logger.info("成功插入影片【评分】");
         }
@@ -712,13 +708,13 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     public void setCountries(ArrayList list,String subjectID){
         if(list != null && list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
-                Movie_Countries movie_countries = new Movie_Countries();
-                movie_countries.setSubjectid(subjectID);
-                movie_countries.setCountriesval(list.get(i) + "");
                 ArrayList result = movie_countries_repository.findBySubjectidAndCountriesval(subjectID,list.get(i) + "");
                 if(result != null && result.size() > 0){
                     logger.info("影片【国别】已存在！");
                 }else{
+                    Movie_Countries movie_countries = new Movie_Countries();
+                    movie_countries.setSubjectid(subjectID);
+                    movie_countries.setCountriesval(list.get(i) + "");
                     movie_countries_repository.save(movie_countries);
                     logger.info("成功插入影片【国别】");
                 }
@@ -734,13 +730,13 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     public void setTags(ArrayList list,String subjectID){
         if(list != null && list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
-                Movie_Tags movie_tags = new Movie_Tags();
-                movie_tags.setSubjectid(subjectID);
-                movie_tags.setTagsval(list.get(i) + "");
                 ArrayList result = movie_tags_repository.findBySubjectidAndTagsval(subjectID,list.get(i) + "");
                 if(result != null && result.size() > 0){
                     logger.info("影片【标签】已存在！");
                 }else{
+                    Movie_Tags movie_tags = new Movie_Tags();
+                    movie_tags.setSubjectid(subjectID);
+                    movie_tags.setTagsval(list.get(i) + "");
                     movie_tags_repository.save(movie_tags);
                     logger.info("成功插入影片【标签】");
                 }
@@ -756,13 +752,13 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     public void setGeners(ArrayList list,String subjectID){
         if(list != null && list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
-                Movie_Genres movie_genres = new Movie_Genres();
-                movie_genres.setSubjectid(subjectID);
-                movie_genres.setGenresval(list.get(i) + "");
-                ArrayList result = movie_tags_repository.findBySubjectidAndTagsval(subjectID,list.get(i) + "");
+                ArrayList result = movie_genres_repository.findBySubjectidAndGenresval(subjectID,list.get(i) + "");
                 if(result != null && result.size() > 0){
                     logger.info("影片【类别】已存在！");
                 }else{
+                    Movie_Genres movie_genres = new Movie_Genres();
+                    movie_genres.setSubjectid(subjectID);
+                    movie_genres.setGenresval(list.get(i) + "");
                     movie_genres_repository.save(movie_genres);
                     logger.info("成功插入影片【类别】");
                 }
@@ -778,13 +774,13 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     public void setDurations(ArrayList list,String subjectID){
         if(list != null && list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
-                Movie_Durations movie_durations = new Movie_Durations();
-                movie_durations.setSubjectid(subjectID);
-                movie_durations.setDurationsval(list.get(i) + "");
                 ArrayList result = movie_durations_repository.findBySubjectidAndDurationsval(subjectID,list.get(i) + "");
                 if(result != null && result.size() > 0){
                     logger.info("影片【时长】已存在！");
                 }else{
+                    Movie_Durations movie_durations = new Movie_Durations();
+                    movie_durations.setSubjectid(subjectID);
+                    movie_durations.setDurationsval(list.get(i) + "");
                     movie_durations_repository.save(movie_durations);
                     logger.info("成功插入影片【时长】");
                 }
@@ -800,13 +796,13 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     public void setPubdates(ArrayList list,String subjectID){
         if(list != null && list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
-                Movie_Pubdate movie_pubdate = new Movie_Pubdate();
-                movie_pubdate.setSubjectid(subjectID);
-                movie_pubdate.setPubdatedate(list.get(i) + "");
                 ArrayList result = movie_pubdate_repository.findBySubjectidAndPubdatedate(subjectID,list.get(i) + "");
                 if(result != null && result.size() > 0){
                     logger.info("影片【上映日期】已存在！");
                 }else{
+                    Movie_Pubdate movie_pubdate = new Movie_Pubdate();
+                    movie_pubdate.setSubjectid(subjectID);
+                    movie_pubdate.setPubdatedate(list.get(i) + "");
                     movie_pubdate_repository.save(movie_pubdate);
                     logger.info("成功插入影片【上映日期】");
                 }
@@ -822,13 +818,13 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     public void setLanguages(ArrayList list,String subjectID){
         if(list != null && list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
-                Movie_Languages movie_languages = new Movie_Languages();
-                movie_languages.setSubjectid(subjectID);
-                movie_languages.setLanguagesval(list.get(i) + "");
                 ArrayList result = movie_languages_repository.findBySubjectidAndLanguagesval(subjectID,list.get(i) + "");
                 if(result != null && result.size() > 0){
                     logger.info("影片【语言】已存在！");
                 }else{
+                    Movie_Languages movie_languages = new Movie_Languages();
+                    movie_languages.setSubjectid(subjectID);
+                    movie_languages.setLanguagesval(list.get(i) + "");
                     movie_languages_repository.save(movie_languages);
                     logger.info("成功插入影片【语言】");
                 }
@@ -851,18 +847,18 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 String small = map.get("small") + "";
                 String resource_url = map.get("resource_url") + "";
                 String id = map.get("id") + "";
-                Movie_Prevue movie_prevue = new Movie_Prevue();
-                movie_prevue.setSubjectid(subject_id);
-                movie_prevue.setPrevueid(id);
-                movie_prevue.setPrevue_medium(medium);
-                movie_prevue.setPrevue_small(small);
-                movie_prevue.setPrevue_resource_url(resource_url);
-                movie_prevue.setPrevue_alt(alt);
-                movie_prevue.setPrevue_title(title);
                 ArrayList result = movie_prevue_repository.findByPrevueidAndSubjectid(id,subject_id);
                 if(result != null && result.size() > 0){
                     logger.info("影片【预告片】已存在！");
                 }else{
+                    Movie_Prevue movie_prevue = new Movie_Prevue();
+                    movie_prevue.setSubjectid(subject_id);
+                    movie_prevue.setPrevueid(id);
+                    movie_prevue.setPrevue_medium(medium);
+                    movie_prevue.setPrevue_small(small);
+                    movie_prevue.setPrevue_resource_url(resource_url);
+                    movie_prevue.setPrevue_alt(alt);
+                    movie_prevue.setPrevue_title(title);
                     movie_prevue_repository.save(movie_prevue);
                     logger.info("成功插入影片【预告片】");
                 }
@@ -887,34 +883,34 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 String name_en = map.get("name_en") + "";
                 String name = map.get("name") + "";
                 String alt = map.get("alt") + "";
-                String id = map.get("id") + "";
-                Movie_Casts movie_casts = new Movie_Casts();
-                movie_casts.setSubjectid(subject_id);
-                movie_casts.setCastsid(id);
-                movie_casts.setCasts_name(name);
-                movie_casts.setCasts_name_en(name_en);
-                movie_casts.setCasts_alt(alt);
-
-                // 将图片文件保存到本地（对应的subject_id文件夹下）
-                String saveImageName_large = System.currentTimeMillis() + ".jpg";
-                UtilsDownloadImage.download(large,saveImageName_large, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
-                movie_casts.setCasts_avatars_large(subject_id+"/"+saveImageName_large);
-
-                // 将图片文件保存到本地（对应的subject_id文件夹下）
-                String saveImageName_small = System.currentTimeMillis() + ".jpg";
-                UtilsDownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
-                movie_casts.setCasts_avatars_small(subject_id+"/"+saveImageName_small);
-
-                // 将图片文件保存到本地（对应的subject_id文件夹下）
-                String saveImageName_medium = System.currentTimeMillis() + ".jpg";
-                UtilsDownloadImage.download(medium,saveImageName_medium, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
-                movie_casts.setCasts_avatars_medium(subject_id+"/"+saveImageName_medium);
-
-                movie_casts.setCasts_type(type);
-                ArrayList result = movie_casts_repository.findByCastsidAndSubjectid(id,subject_id);
+                String id = map.get("id") + "";ArrayList result = movie_casts_repository.findByCastsidAndSubjectid(id,subject_id);
                 if(result != null && result.size() > 0){
                     logger.info("影片【演职员】已存在！");
                 }else{
+                    Movie_Casts movie_casts = new Movie_Casts();
+                    movie_casts.setSubjectid(subject_id);
+                    movie_casts.setCastsid(id);
+                    movie_casts.setCasts_name(name);
+                    movie_casts.setCasts_name_en(name_en);
+                    movie_casts.setCasts_alt(alt);
+
+                    // 将图片文件保存到本地（对应的subject_id文件夹下）
+                    String saveImageName_large = System.currentTimeMillis() + ".jpg";
+                    UtilsDownloadImage.download(large,saveImageName_large, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    movie_casts.setCasts_avatars_large(subject_id+"/"+saveImageName_large);
+
+                    // 将图片文件保存到本地（对应的subject_id文件夹下）
+                    String saveImageName_small = System.currentTimeMillis() + ".jpg";
+                    UtilsDownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    movie_casts.setCasts_avatars_small(subject_id+"/"+saveImageName_small);
+
+                    // 将图片文件保存到本地（对应的subject_id文件夹下）
+                    String saveImageName_medium = System.currentTimeMillis() + ".jpg";
+                    UtilsDownloadImage.download(medium,saveImageName_medium, EnumPath.BASHPATH.getValue() + "image/" + subject_id);
+                    movie_casts.setCasts_avatars_medium(subject_id+"/"+saveImageName_medium);
+
+                    movie_casts.setCasts_type(type);
+
                     movie_casts_repository.save(movie_casts);
                     logger.info("成功插入影片【演职员】");
                 }
@@ -937,18 +933,18 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 String sample_link = map.get("sample_link") + "";
                 String video_id = map.get("video_id") + "";
                 String need_pay = map.get("need_pay") + "";
-                Movie_Video movie_video = new Movie_Video();
-                movie_video.setSubjectid(subject_id);
-                movie_video.setVideoid(video_id);
-                movie_video.setVideo_source_literal(literal);
-                movie_video.setVideo_source_pic(pic);
-                movie_video.setVideo_source_name(name);
-                movie_video.setVideo_need_pay(need_pay);
-                movie_video.setVideo_sample_link(sample_link);
                 ArrayList result = movie_video_repository.findByVideoidAndSubjectid(video_id,subject_id);
                 if(result != null && result.size() > 0){
                     logger.info("影片【资源】已存在！");
                 }else{
+                    Movie_Video movie_video = new Movie_Video();
+                    movie_video.setSubjectid(subject_id);
+                    movie_video.setVideoid(video_id);
+                    movie_video.setVideo_source_literal(literal);
+                    movie_video.setVideo_source_pic(pic);
+                    movie_video.setVideo_source_name(name);
+                    movie_video.setVideo_need_pay(need_pay);
+                    movie_video.setVideo_sample_link(sample_link);
                     movie_video_repository.save(movie_video);
                     logger.info("成功插入影片【资源】");
                 }
@@ -963,13 +959,13 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
      */
     public void setYear(String str,String subjectID){
         if(str != null && str != ""){
-            Movie_Year movie_year = new Movie_Year();
-            movie_year.setSubjectid(subjectID);
-            movie_year.setYearval(str);
             ArrayList result = movie_year_repository.findBySubjectidAndYearval(subjectID,str);
             if(result != null && result.size() > 0){
                 logger.info("影片【年份】已存在！");
             }else{
+                Movie_Year movie_year = new Movie_Year();
+                movie_year.setSubjectid(subjectID);
+                movie_year.setYearval(str);
                 movie_year_repository.save(movie_year);
                 logger.info("成功插入影片【年份】");
             }
@@ -989,21 +985,17 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
             String alt = map.get("alt")+ "";
             String id = map.get("id")+ "";
             String name = map.get("name")+ "";
-            Movie_Author movie_author = new Movie_Author();
-            movie_author.setAuthorid(id);
-            movie_author.setAuthor_alt(alt);
-            movie_author.setAuthor_avatar(avatar);
-            // 修改字符编码
-            if(name != "" && name != null){
-                name = UtilsConvertCharSet.toUTF8(name);
-            }
-            movie_author.setAuthor_name(name);
-            movie_author.setAuthor_signature(signature);
-            movie_author.setAuthor_uid(uid);
             ArrayList result = movie_author_repository.findByAuthorid(id);
             if(result != null && result.size() > 0){
                 logger.info("影片【用户】已存在！");
             }else{
+                Movie_Author movie_author = new Movie_Author();
+                movie_author.setAuthorid(id);
+                movie_author.setAuthor_alt(alt);
+                movie_author.setAuthor_avatar(avatar);
+                movie_author.setAuthor_name(name);
+                movie_author.setAuthor_signature(signature);
+                movie_author.setAuthor_uid(uid);
                 movie_author_repository.save(movie_author);
                 logger.info("成功插入影片【用户】");
             }
@@ -1019,12 +1011,12 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
             String small = map.get("small")+ "";
             String large = map.get("large")+ "";
             String medium = map.get("medium")+ "";
-            Movie_Images movie_images = new Movie_Images();
-            movie_images.setSubjectid(id);
             ArrayList result = movie_images_repository.findBySubjectid(id);
             if(result != null && result.size() > 0){
                 logger.info("影片【海报】已存在！");
             }else{
+                Movie_Images movie_images = new Movie_Images();
+                movie_images.setSubjectid(id);
                 // 将图片文件保存到本地
                 String saveImageName_small = System.currentTimeMillis() + ".jpg";
                 UtilsDownloadImage.download(small,saveImageName_small, EnumPath.BASHPATH.getValue() + "image/" + year);
