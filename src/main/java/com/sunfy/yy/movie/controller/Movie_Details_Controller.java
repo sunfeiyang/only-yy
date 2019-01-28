@@ -126,4 +126,22 @@ public class Movie_Details_Controller {
         ArrayList result = movie_details_service.getRat(subjectID+"");
         return UtilsAboutController.setResult(result);
     }
+
+    @GetMapping(value = "getSubject/videos/{subjectID}")
+    public Result getVideos(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—geVideos】请求成功！");
+        }
+        ArrayList result = movie_details_service.getVideos(subjectID+"");
+        return UtilsAboutController.setResult(result);
+    }
+
+    @GetMapping(value = "getSubject/prevue/{subjectID}")
+    public Result getPrevue(@PathVariable("subjectID") String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_Controller—getPrevue】请求成功！");
+        }
+        ArrayList result = movie_details_service.getPrevue(subjectID+"");
+        return UtilsAboutController.setResult(result);
+    }
 }

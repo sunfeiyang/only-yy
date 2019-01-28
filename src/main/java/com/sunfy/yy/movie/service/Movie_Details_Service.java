@@ -92,4 +92,18 @@ public interface Movie_Details_Service {
      */
     public ArrayList getRat(String subjectID);
 
+    /**
+     * 根据电影ID查询视频资源
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getVideos(String subjectID);
+
+    /**
+     * 根据电影ID查询预告片
+     * @param subjectID 影片ID
+     * @return ArrayList
+     */
+    public ArrayList getPrevue(String subjectID);
+
 }

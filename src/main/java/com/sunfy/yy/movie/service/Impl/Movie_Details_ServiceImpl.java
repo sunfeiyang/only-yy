@@ -661,6 +661,32 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     }
 
     /**
+     * 访问url请求影视的播放资源
+     * @param subjectID
+     */
+    public ArrayList getVideos(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getVideos】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_video_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的预告片
+     * @param subjectID
+     */
+    public ArrayList getPrevue(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getPrevue】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_prevue_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
+    /**
      * 插入评分
      * @param map 待写入数据
      * @param subjectID 写入影视ID
