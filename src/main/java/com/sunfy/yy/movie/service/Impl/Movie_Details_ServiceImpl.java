@@ -536,21 +536,21 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
         }
         //定义返回对象
         ArrayList result_list = movie_subject_repository.findBySubjectid(subjectID);
-        // 获取短评
-        ArrayList result_comments = movie_comments_repository.findBySubjectid(subjectID);
-        for (int i = 0; i < result_comments.size(); i++) {
-            Movie_Comments movie_comments = (Movie_Comments) result_comments.get(i);
-            ArrayList list_author = movie_author_repository.findByAuthorid(movie_comments.getComments_author_id());
-            movie_comments.setComments_movie_author(list_author);
-        }
+//        // 获取短评
+//        ArrayList result_comments = movie_comments_repository.findBySubjectid(subjectID);
+//        for (int i = 0; i < result_comments.size(); i++) {
+//            Movie_Comments movie_comments = (Movie_Comments) result_comments.get(i);
+//            ArrayList list_author = movie_author_repository.findByAuthorid(movie_comments.getComments_author_id());
+//            movie_comments.setComments_movie_author(list_author);
+//        }
 
         // 获取长评
-        ArrayList result_reviews = movie_reviews_repository.findBySubjectid(subjectID);
-        for (int i = 0; i < result_reviews.size(); i++) {
-            Movie_Reviews movie_reviews = (Movie_Reviews) result_reviews.get(i);
-            ArrayList list_author = movie_author_repository.findByAuthorid(movie_reviews.getReviews_author_id());
-            movie_reviews.setReviews_movie_author(list_author);
-        }
+//        ArrayList result_reviews = movie_reviews_repository.findBySubjectid(subjectID);
+//        for (int i = 0; i < result_reviews.size(); i++) {
+//            Movie_Reviews movie_reviews = (Movie_Reviews) result_reviews.get(i);
+//            ArrayList list_author = movie_author_repository.findByAuthorid(movie_reviews.getReviews_author_id());
+//            movie_reviews.setReviews_movie_author(list_author);
+//        }
 
         // 获取演职员
         ArrayList result_casts = movie_casts_repository.findBySubjectid(subjectID);
@@ -559,8 +559,8 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
         ArrayList result_rat = movie_rat_repository.findBySubjectid(subjectID);
 
         Movie_Subject result = (Movie_Subject) result_list.get(0);
-        result.setSubject_comments(result_comments);
-        result.setSubject_reviews(result_reviews);
+//        result.setSubject_comments(result_comments);
+//        result.setSubject_reviews(result_reviews);
         result.setSubject_casts(result_casts);
         result.setSubject_rat(result_rat);
         return result_list;
