@@ -154,13 +154,13 @@ public class Movie_Subject implements Serializable {
     public String getActioncount() { return actioncount; 
     */
 //    @Transient
-    private ArrayList subject_rat;
+    private String subject_rat;
 
-    public ArrayList getSubject_rat() {
+    public String getSubject_rat() {
         return subject_rat;
     }
 
-    public void setSubject_rat(ArrayList subject_rat) {
+    public void setSubject_rat(String subject_rat) {
         this.subject_rat = subject_rat;
     }
 

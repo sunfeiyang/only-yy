@@ -91,6 +91,8 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 map = jsonUtils.toMap(jsonResult);
                 String id = map.get("id")+ "";
                 Map rating = (Map) map.get("rating");
+                // 评分数值
+                String rat_average = map.get("average") + "";
                 String ratings_count = map.get("ratings_count")+ "";
                 // 评分详情插入
                 this.setRat(rating,id,ratings_count);
@@ -236,6 +238,7 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 movie_subject.setSubject_current_season(current_season);
                 movie_subject.setSubject_mainland_pubdate(mainland_pubdate);
                 movie_subject.setSubject_douban_site(douban_site);
+                movie_subject.setSubject_rat(rat_average);
 
                 result_list = movie_subject_repository.findBySubjectid(id);
                 if(result_list != null && result_list.size() > 0){
@@ -526,164 +529,6 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 e.printStackTrace();
             }
         }
-    }
-
-
-    @Override
-    public ArrayList getSubjectDetails(String subjectID) {
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—getSubjectDetails】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_subject_repository.findBySubjectid(subjectID);
-//        // 获取短评
-//        ArrayList result_comments = movie_comments_repository.findBySubjectid(subjectID);
-//        for (int i = 0; i < result_comments.size(); i++) {
-//            Movie_Comments movie_comments = (Movie_Comments) result_comments.get(i);
-//            ArrayList list_author = movie_author_repository.findByAuthorid(movie_comments.getComments_author_id());
-//            movie_comments.setComments_movie_author(list_author);
-//        }
-
-        // 获取长评
-//        ArrayList result_reviews = movie_reviews_repository.findBySubjectid(subjectID);
-//        for (int i = 0; i < result_reviews.size(); i++) {
-//            Movie_Reviews movie_reviews = (Movie_Reviews) result_reviews.get(i);
-//            ArrayList list_author = movie_author_repository.findByAuthorid(movie_reviews.getReviews_author_id());
-//            movie_reviews.setReviews_movie_author(list_author);
-//        }
-
-        // 获取演职员
-        ArrayList result_casts = movie_casts_repository.findBySubjectid(subjectID);
-
-        // 获取评分详情
-        ArrayList result_rat = movie_rat_repository.findBySubjectid(subjectID);
-
-        Movie_Subject result = (Movie_Subject) result_list.get(0);
-//        result.setSubject_comments(result_comments);
-//        result.setSubject_reviews(result_reviews);
-        result.setSubject_casts(result_casts);
-        result.setSubject_rat(result_rat);
-        return result_list;
-    }
-
-    /**
-     * 访问url请求影视的标签
-     * @param subjectID
-     */
-    @Override
-    public ArrayList getTags_url(String subjectID){
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—setTags_url】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_tags_repository.findBySubjectid(subjectID);
-        return result_list;
-    }
-
-    /**
-     * 访问url请求影视的短评
-     * @param subjectID
-     */
-    @Override
-    public ArrayList getComments(String subjectID){
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—getComments_url】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_comments_repository.findBySubjectid(subjectID);
-        for (int i = 0; i < result_list.size(); i++) {
-            Movie_Comments movie_comments = (Movie_Comments) result_list.get(i);
-            ArrayList list_author = movie_author_repository.findByAuthorid(movie_comments.getComments_author_id());
-            movie_comments.setComments_movie_author(list_author);
-        }
-        return result_list;
-    }
-
-    /**
-     * 访问url请求影视的长评
-     * @param subjectID
-     */
-    @Override
-    public ArrayList getReviews(String subjectID){
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—getReviews_url】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_reviews_repository.findBySubjectid(subjectID);
-        // 获取长评
-        for (int i = 0; i < result_list.size(); i++) {
-            Movie_Reviews movie_reviews = (Movie_Reviews) result_list.get(i);
-            ArrayList list_author = movie_author_repository.findByAuthorid(movie_reviews.getReviews_author_id());
-            movie_reviews.setReviews_movie_author(list_author);
-        }
-        return result_list;
-    }
-
-    /**
-     * 访问url请求影视的演职员
-     * @param subjectID
-     */
-    @Override
-    public ArrayList getCasts(String subjectID){
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—getCasts】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_casts_repository.findBySubjectid(subjectID);
-        return result_list;
-    }
-
-    /**
-     * 访问url请求影视的评分
-     * @param subjectID
-     */
-    @Override
-    public ArrayList getRat(String subjectID){
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—getRat】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_rat_repository.findBySubjectid(subjectID);
-        return result_list;
-    }
-
-    /**
-     * 访问url请求影视的剧照
-     * @param subjectID
-     */
-    public ArrayList getPhotos(String subjectID){
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—getPhotos_url】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_photos_repository.findBySubjectid(subjectID);
-        return result_list;
-    }
-
-    /**
-     * 访问url请求影视的播放资源
-     * @param subjectID
-     */
-    public ArrayList getVideos(String subjectID){
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—getVideos】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_video_repository.findBySubjectid(subjectID);
-        return result_list;
-    }
-
-    /**
-     * 访问url请求影视的预告片
-     * @param subjectID
-     */
-    public ArrayList getPrevue(String subjectID){
-        if(logger.isInfoEnabled()){
-            logger.info("【Movie_Details_ServiceImpl—getPrevue】请求成功！");
-        }
-        //定义返回对象
-        ArrayList result_list = movie_prevue_repository.findBySubjectid(subjectID);
-        return result_list;
     }
 
     /**
@@ -1060,5 +905,163 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
             }
         }
     }
+
+
+    @Override
+    public ArrayList getSubjectDetails(String subjectID) {
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getSubjectDetails】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_subject_repository.findBySubjectid(subjectID);
+//        // 获取短评
+//        ArrayList result_comments = movie_comments_repository.findBySubjectid(subjectID);
+//        for (int i = 0; i < result_comments.size(); i++) {
+//            Movie_Comments movie_comments = (Movie_Comments) result_comments.get(i);
+//            ArrayList list_author = movie_author_repository.findByAuthorid(movie_comments.getComments_author_id());
+//            movie_comments.setComments_movie_author(list_author);
+//        }
+
+        // 获取长评
+//        ArrayList result_reviews = movie_reviews_repository.findBySubjectid(subjectID);
+//        for (int i = 0; i < result_reviews.size(); i++) {
+//            Movie_Reviews movie_reviews = (Movie_Reviews) result_reviews.get(i);
+//            ArrayList list_author = movie_author_repository.findByAuthorid(movie_reviews.getReviews_author_id());
+//            movie_reviews.setReviews_movie_author(list_author);
+//        }
+
+        // 获取演职员
+        ArrayList result_casts = movie_casts_repository.findBySubjectid(subjectID);
+
+        // 获取评分详情
+        ArrayList result_rat = movie_rat_repository.findBySubjectid(subjectID);
+
+        Movie_Subject result = (Movie_Subject) result_list.get(0);
+//        result.setSubject_comments(result_comments);
+//        result.setSubject_reviews(result_reviews);
+        result.setSubject_casts(result_casts);
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的标签
+     * @param subjectID
+     */
+    @Override
+    public ArrayList getTags_url(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—setTags_url】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_tags_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的短评
+     * @param subjectID
+     */
+    @Override
+    public ArrayList getComments(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getComments_url】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_comments_repository.findBySubjectid(subjectID);
+        for (int i = 0; i < result_list.size(); i++) {
+            Movie_Comments movie_comments = (Movie_Comments) result_list.get(i);
+            ArrayList list_author = movie_author_repository.findByAuthorid(movie_comments.getComments_author_id());
+            movie_comments.setComments_movie_author(list_author);
+        }
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的长评
+     * @param subjectID
+     */
+    @Override
+    public ArrayList getReviews(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getReviews_url】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_reviews_repository.findBySubjectid(subjectID);
+        // 获取长评
+        for (int i = 0; i < result_list.size(); i++) {
+            Movie_Reviews movie_reviews = (Movie_Reviews) result_list.get(i);
+            ArrayList list_author = movie_author_repository.findByAuthorid(movie_reviews.getReviews_author_id());
+            movie_reviews.setReviews_movie_author(list_author);
+        }
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的演职员
+     * @param subjectID
+     */
+    @Override
+    public ArrayList getCasts(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getCasts】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_casts_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的评分
+     * @param subjectID
+     */
+    @Override
+    public ArrayList getRat(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getRat】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_rat_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的剧照
+     * @param subjectID
+     */
+    public ArrayList getPhotos(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getPhotos_url】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_photos_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的播放资源
+     * @param subjectID
+     */
+    public ArrayList getVideos(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getVideos】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_video_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
+    /**
+     * 访问url请求影视的预告片
+     * @param subjectID
+     */
+    public ArrayList getPrevue(String subjectID){
+        if(logger.isInfoEnabled()){
+            logger.info("【Movie_Details_ServiceImpl—getPrevue】请求成功！");
+        }
+        //定义返回对象
+        ArrayList result_list = movie_prevue_repository.findBySubjectid(subjectID);
+        return result_list;
+    }
+
 
 }
