@@ -71,7 +71,7 @@ public class Movie_Controller {
      * Top250（定时任务）
      * @return
      */
-    @Scheduled(cron = "1 * 20 * * *")
+//    @Scheduled(cron = "1 * 20 * * *")
     @Async
     public void setMovie_Top250(){
         if(logger.isInfoEnabled() && top250IsPrint){
