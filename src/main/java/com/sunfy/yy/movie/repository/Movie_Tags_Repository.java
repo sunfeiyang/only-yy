@@ -14,5 +14,5 @@ public interface Movie_Tags_Repository extends JpaRepository<Movie_Tags,Integer>
     public ArrayList findBySubjectid(String subjectid);
 
     //根据subject_id进行过滤
-    public ArrayList findBySubjectidAndTagsval(String subjectid,String tags_val);
+    public Movie_Tags findBySubjectidAndTagsval(String subjectid,String tags_val);
 }

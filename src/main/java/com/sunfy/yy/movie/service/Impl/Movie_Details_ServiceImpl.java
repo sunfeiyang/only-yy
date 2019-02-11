@@ -601,13 +601,17 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
     public void setTags(ArrayList list,String subjectID){
         if(list != null && list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
-                ArrayList result = movie_tags_repository.findBySubjectidAndTagsval(subjectID,list.get(i) + "");
-                if(result != null && result.size() > 0){
+                Movie_Tags movie_tags = new Movie_Tags();
+                movie_tags.setSubjectid(subjectID);
+                movie_tags.setTagsval(list.get(i) + "");
+                Movie_Tags result = movie_tags_repository.findBySubjectidAndTagsval(subjectID,list.get(i) + "");
+                System.out.println("******************************");
+                System.out.println(result);
+                if(result != null){
                     logger.info("影片【标签】已存在！");
+                    result.setTagsval("---"+list.get(i));
+                    logger.info("影片【标签】存在时更新！");
                 }else{
-                    Movie_Tags movie_tags = new Movie_Tags();
-                    movie_tags.setSubjectid(subjectID);
-                    movie_tags.setTagsval(list.get(i) + "");
                     movie_tags_repository.save(movie_tags);
                     logger.info("成功插入影片【标签】");
                 }
