@@ -605,11 +605,11 @@ public class Movie_Details_ServiceImpl extends Movie_ServiceImpl implements Movi
                 movie_tags.setSubjectid(subjectID);
                 movie_tags.setTagsval(list.get(i) + "");
                 Movie_Tags result = movie_tags_repository.findBySubjectidAndTagsval(subjectID,list.get(i) + "");
-                System.out.println("******************************");
-                System.out.println(result);
                 if(result != null){
                     logger.info("影片【标签】已存在！");
                     result.setTagsval("---"+list.get(i));
+                    // TODO
+                    // 根据当前的数据状态决定是否更新已有数据
                     logger.info("影片【标签】存在时更新！");
                 }else{
                     movie_tags_repository.save(movie_tags);
